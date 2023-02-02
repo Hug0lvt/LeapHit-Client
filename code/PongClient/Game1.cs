@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,9 +10,16 @@ namespace PongClient
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _backgroundTexture;
+        private Texture2D _playTexture;
+
+        private Vector2 _screenCenter;
 
         public Game1()
         {
+            _screenCenter = new Vector2(
+                this.Window.ClientBounds.Height / 2,
+                this.Window.ClientBounds.Width / 2);
+
             _graphics = new GraphicsDeviceManager(this);
 
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -35,6 +43,7 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _backgroundTexture = Content.Load<Texture2D>("fond");
+            _playTexture = Content.Load<Texture2D>("Icon/PlayIco");
 
             // TODO: use this.Content to load your game content here
         }
@@ -71,6 +80,8 @@ namespace PongClient
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            Debug.WriteLine(_playTexture.Width / 2);
+            _spriteBatch.Draw(_playTexture, new Vector2((this.Window.ClientBounds.Width - _playTexture.Width / 2) / 2, (this.Window.ClientBounds.Height - _playTexture.Height / 2) / 2), Color.White);
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
