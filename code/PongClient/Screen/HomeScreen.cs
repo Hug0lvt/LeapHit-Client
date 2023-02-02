@@ -2,24 +2,31 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PongClient.States;
+using PongClient.Stats;
 
 namespace PongClient
 {
-    public class Game1 : Game
+    public class HomeScreen : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Texture2D _backgroundTexture;
-        private Texture2D _playTexture;
+        private Texture2D _playIcoTexture;
+        private Texture2D _leapHitTexture;
+        private Texture2D _quitTexture;
+        private Texture2D _optionTexture;
+        private Texture2D _statisticsTexture;
+        private Texture2D _friendsTexture;
+        private Texture2D _friendIcoTexture;
 
-        private Vector2 _screenCenter;
+        private State _currentState;
 
-        public Game1()
+        public int ScreenWidth => GraphicsDevice.Viewport.Width;
+        public int ScreenHeight => GraphicsDevice.Viewport.Height;
+
+        public HomeScreen()
         {
-            _screenCenter = new Vector2(
-                this.Window.ClientBounds.Height / 2,
-                this.Window.ClientBounds.Width / 2);
-
             _graphics = new GraphicsDeviceManager(this);
 
             _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -43,14 +50,16 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _backgroundTexture = Content.Load<Texture2D>("fond");
-            _playTexture = Content.Load<Texture2D>("Icon/PlayIco");
+            _leapHitTexture = Content.Load<Texture2D>("Text/LeapHit");
+            _friendIcoTexture = Content.Load<Texture2D>("Icon/FriendsIco");
 
+            _currentState = new MenuState(this, _graphics.GraphicsDevice, Content, ScreenWidth, ScreenHeight);
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.F11) )
+            /*if (Keyboard.GetState().IsKeyDown(Keys.F11) )
             {
                 if (_graphics.IsFullScreen)
                 {
@@ -65,9 +74,11 @@ namespace PongClient
 
                 _graphics.IsFullScreen = !_graphics.IsFullScreen;
                 _graphics.ApplyChanges();
-            }
+            }*/
 
             if(Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
+
+            _currentState.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -79,10 +90,14 @@ namespace PongClient
             GraphicsDevice.Clear(Color.Beige);
 
             _spriteBatch.Begin();
+
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            Debug.WriteLine(_playTexture.Width / 2);
-            _spriteBatch.Draw(_playTexture, new Vector2((this.Window.ClientBounds.Width - _playTexture.Width / 2) / 2, (this.Window.ClientBounds.Height - _playTexture.Height / 2) / 2), Color.White);
+
+            _spriteBatch.Draw(_leapHitTexture, new Vector2((ScreenWidth / 2) - _leapHitTexture.Width / 2, 100), Color.White);
+            
             _spriteBatch.End();
+
+            _currentState.Draw(gameTime, _spriteBatch);
 
             // TODO: Add your drawing code here
 
