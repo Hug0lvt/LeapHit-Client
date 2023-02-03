@@ -1,16 +1,21 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using PongClient.States;
+using PongClient.Stats;
 
 namespace PongClient
 {
-    public class Game1 : Game
+    public class GamePong : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture2D _backgroundTexture;
+        private Screen _currentScreen;
 
-        public Game1()
+
+        public GamePong()
         {
             _graphics = new GraphicsDeviceManager(this);
 
@@ -34,8 +39,8 @@ namespace PongClient
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _backgroundTexture = Content.Load<Texture2D>("fond");
 
+            _currentScreen = new MenuScreen(this, _graphics.GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -60,6 +65,8 @@ namespace PongClient
 
             if(Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
+            _currentScreen.Update(gameTime);
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -69,13 +76,18 @@ namespace PongClient
         {
             GraphicsDevice.Clear(Color.Beige);
 
-            _spriteBatch.Begin();
-            _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            _spriteBatch.End();
+            _currentScreen.Draw(gameTime, _spriteBatch);
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        public void changeScreen(GameTime gameTime, Screen screen)
+        {
+            _currentScreen.Dispose();
+            _currentScreen = screen;
+            _currentScreen.Draw(gameTime, _spriteBatch);
         }
     }
 }
