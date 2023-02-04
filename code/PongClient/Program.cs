@@ -1,3 +1,3 @@
 ﻿
-using var game = new PongClient.Game1();
+using var game = new PongClient.GamePong();
 game.Run();
