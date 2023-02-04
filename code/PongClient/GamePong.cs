@@ -12,7 +12,7 @@ namespace PongClient
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Screen _currentScreen;
+        private States.Screen _currentScreen;
 
 
         public GamePong()
@@ -83,7 +83,7 @@ namespace PongClient
             base.Draw(gameTime);
         }
 
-        public void changeScreen(GameTime gameTime, Screen screen)
+        public void changeScreen(GameTime gameTime, States.Screen screen)
         {
             _currentScreen.Dispose();
             _currentScreen = screen;

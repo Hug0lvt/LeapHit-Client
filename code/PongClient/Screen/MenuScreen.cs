@@ -7,10 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Metadata;
+using PongClient.Screen;
 
 namespace PongClient.Stats
 {
-    public class MenuScreen : Screen
+    public class MenuScreen : States.Screen
     {
         private List<Component> _components;
 
@@ -91,6 +92,7 @@ namespace PongClient.Stats
         private void OptionButton_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("Option");
+            _game.changeScreen(new GameTime(), new OptionScreen(_game, _graphicsDevice, _content));
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
