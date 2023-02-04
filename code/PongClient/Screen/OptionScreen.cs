@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using PongClient.Controls;
+using System.Diagnostics;
+using PongClient.Stats;
 
 namespace PongClient.Screen
 {
@@ -36,6 +38,14 @@ namespace PongClient.Screen
 
             widthCenter = graphicsDevice.Viewport.Width / 2;
             heightCenter = graphicsDevice.Viewport.Height / 2;
+
+            var buttonReturn = new Button(_returnIcoTexture, new Vector2(20, 40-_returnIcoTexture.Height/2));
+            buttonReturn.Click += ReturnButton_Clicked;
+
+            _components = new List<Component>()
+            {
+                buttonReturn,
+            };
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -48,12 +58,22 @@ namespace PongClient.Screen
             spriteBatch.Draw(_rondBackTexture, new Vector2(0, 40-_rondBackTexture.Height/2), Color.White);
             spriteBatch.Draw(_rondFrontTexture, new Vector2(-10, 40 - _rondFrontTexture.Height / 2), Color.White);
 
+            foreach (var component in _components)
+                component.Draw(gameTime, spriteBatch);
+
             spriteBatch.End();
+        }
+
+        private void ReturnButton_Clicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Return");
+            _game.changeScreen(new GameTime(), new MenuScreen(_game, _graphicsDevice, _content));
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            foreach (var component in _components)
+                component.Update(gameTime);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace PongClient.Stats
         private Texture2D _optionTexture;
         private Texture2D _statisticsTexture;
         private Texture2D _friendIcoTexture;
+        private Texture2D _whiteRectanglTexture;
 
         public int widthCenter;
         public int heightCenter;
@@ -36,6 +37,7 @@ namespace PongClient.Stats
             _backgroundTexture = _content.Load<Texture2D>("fond");
             _leapHitTexture = _content.Load<Texture2D>("Text/LeapHit");
             _friendIcoTexture = _content.Load<Texture2D>("Icon/FriendsIco");
+            _whiteRectanglTexture = _content.Load<Texture2D>("Form/whiteRectangle");
 
             widthCenter = graphicsDevice.Viewport.Width / 2;
             heightCenter = graphicsDevice.Viewport.Height / 2;
@@ -45,18 +47,24 @@ namespace PongClient.Stats
             newGameButton.Click += NewGameButton_Click;
 
 
-            var optionButton = new Button(_optionTexture, new Vector2(widthCenter - _optionTexture.Width / 2,
-                                                                                heightCenter + 30));
+            var optionButton = new ButtonHovered(_optionTexture, _whiteRectanglTexture, new Vector2(widthCenter - _optionTexture.Width / 2,
+                                                                                                                                     heightCenter + 30), 
+                                                                                                            new Vector2(widthCenter - _whiteRectanglTexture.Width / 2,
+                                                                                                                                     heightCenter + 20 ));
             optionButton.Click += OptionButton_Click;
 
 
-            var statisticsButton = new Button(_statisticsTexture, new Vector2(widthCenter - _statisticsTexture.Width / 2,
-                                                                                    heightCenter + _optionTexture.Height + 30));
+            var statisticsButton = new ButtonHovered(_statisticsTexture, _whiteRectanglTexture, new Vector2(widthCenter - _statisticsTexture.Width / 2,
+                                                                                                                                              heightCenter + _optionTexture.Height + 30),
+                                                                                                                        new Vector2(widthCenter - _whiteRectanglTexture.Width / 2,
+                                                                                                                                                 heightCenter + _optionTexture.Height + 20));
             statisticsButton.Click += StatisticsButton_Click;
 
 
-            var quitGameButton = new Button(_quitTexture, new Vector2(widthCenter - _quitTexture.Width / 2,
-                                                                              heightCenter + _optionTexture.Height + _statisticsTexture.Height + 30));
+            var quitGameButton = new ButtonHovered(_quitTexture, _whiteRectanglTexture, new Vector2(widthCenter - _quitTexture.Width / 2,
+                                                                                                                                   heightCenter + _optionTexture.Height + _statisticsTexture.Height + 30), 
+                                                                                                                new Vector2(widthCenter - _whiteRectanglTexture.Width / 2,
+                                                                                                                                    heightCenter + _optionTexture.Height + _statisticsTexture.Height + 20));
             quitGameButton.Click += QuitGameButton_Click;
 
 
