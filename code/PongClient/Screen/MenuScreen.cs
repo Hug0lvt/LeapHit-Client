@@ -106,7 +106,7 @@ namespace PongClient.Stats
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("New Game");
-            _game.changeScreen(new GameTime(), this);
+            _game.changeScreen(new GameTime(), new Party(_game, _graphicsDevice, _content));
         }
 
         private void StatisticsButton_Click(object sender, EventArgs e)
