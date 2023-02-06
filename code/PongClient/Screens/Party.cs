@@ -2,16 +2,15 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using PongClient.Controls;
-using PongClient.States;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Metadata;
-using PongClient.Screen;
+using PongClient.Screens;
 
-namespace PongClient.Stats
+namespace PongClient.Screens
 {
-    public class Party : States.Screen
+    public class Party : Screen
     {
         private Texture2D _backgroundTexture;
         private Texture2D _rectangleHautTexture;

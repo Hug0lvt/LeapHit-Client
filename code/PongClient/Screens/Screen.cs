@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace PongClient.States
+namespace PongClient.Screens
 {
     public abstract class Screen : IDisposable
     {
@@ -24,7 +24,5 @@ namespace PongClient.States
             _graphicsDevice = graphicsDevice;
             _content = content;
         }
-
-        
     }
 }

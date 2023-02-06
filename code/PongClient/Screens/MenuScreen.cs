@@ -2,16 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using PongClient.Controls;
-using PongClient.States;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Metadata;
-using PongClient.Screen;
 
-namespace PongClient.Stats
+namespace PongClient.Screens
 {
-    public class MenuScreen : States.Screen
+    public class MenuScreen : Screen
     {
         private List<Component> _components;
 

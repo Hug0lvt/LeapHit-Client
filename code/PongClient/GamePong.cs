@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using PongClient.Screen;
 
 namespace PongClient
 {
@@ -38,7 +39,7 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentScreen = new MenuScreen(this, _graphics.GraphicsDevice, Content);
+            _currentScreen = new Screen.MenuScreen(this, _graphics.GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,7 +82,7 @@ namespace PongClient
             base.Draw(gameTime);
         }
 
-        public void changeScreen(GameTime gameTime, States.Screen screen)
+        public void changeScreen(GameTime gameTime, Screen screen)
         {
             _currentScreen.Dispose();
             _currentScreen = screen;

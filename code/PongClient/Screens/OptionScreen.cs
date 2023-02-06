@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using PongClient.Controls;
 using System.Diagnostics;
-using PongClient.Stats;
 
-namespace PongClient.Screen
+namespace PongClient.Screens
 {
-    public class OptionScreen : States.Screen
+    public class OptionScreen : Screen
     {
         private List<Component> _components;
 
