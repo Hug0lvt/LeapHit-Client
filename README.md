@@ -9,12 +9,17 @@ classDiagram
 
 
     }
+    Game <-- "2" Player : players
+
     class GameStats{
     }
+    GameStats --> "1" Game : statGame 
 
     class Profile{
         
     }
+    Profile --> "1" PlayerStats : statGame
+    Profile --> "*" Skin :skins
 
     class Skin{
         -/Image Asset 
@@ -24,6 +29,10 @@ classDiagram
     class Player{
         -/string Pseudo
     }
+    Player ..> Profile
+    Player --> "1" BallSkin : SelectedPaddle
+    Player --> "1" IMouvement : strategyMouvement
+    Player --> "1" Paddle : paddle
 
     class PlayerStats{
         
@@ -49,6 +58,8 @@ classDiagram
         -/angle : Rad
         -/velocity : int
     }
+    Ball --> "1" BallSkin : skin
+    Ball --> "1" CapacityBall : capacity
 
     class CapacityBall{
         +changeSize()
@@ -60,12 +71,10 @@ classDiagram
         -/velocity : Vector
     }
 
-    Game <-- "2" Player : players
-    GameStats --> "1" Game : statGame 
-    Player ..> Profile
-    Profile --> "1" PlayerStats : statGame
-    Profile --> "*" Skin :skins
-    Player --> "1" IMouvement : strategyMouvement
+    
+    
+    
+    
     Bot --|> IMouvement
     IControlMouvement --|> IMouvement
     LeapMotion --|> IControlMouvement
@@ -74,9 +83,7 @@ classDiagram
     Game ..> WebSocket
     PaddleSkin --|> Skin
     BallSkin --|> Skin
-    Player --> "1" BallSkin : SelectedPaddle
+    
     Bot --> "1" Ball : ball
-    Ball --> "1" BallSkin : skin
-    Ball --> "1" CapacityBall : capacity
-    Player --> "1" Paddle : paddle
+    
 ```
