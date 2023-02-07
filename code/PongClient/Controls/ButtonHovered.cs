@@ -11,20 +11,14 @@ namespace PongClient.Controls
 {
     public class ButtonHovered : Button
     {
-        private MouseState _currentMouse;
         private bool _isHovering;
-        private MouseState _previousMouse;
-        private Texture2D _texture;
         private Texture2D _whiteRectangleTexture;
-        public event EventHandler Click;
-        public Vector2 _position;
         public Vector2 _position2;
+        public event EventHandler Click;
 
         public ButtonHovered(Texture2D texture, Texture2D whiteRectangleTexture, Vector2 position, Vector2 whitePosition)
             : base(texture, position)
         {
-            _texture = texture;
-            _position = position;
             _position2 = whitePosition;
             _whiteRectangleTexture = whiteRectangleTexture;
         }

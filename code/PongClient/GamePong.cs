@@ -1,9 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using PongClient.Screen;
+using PongClient.Screens;
 
 namespace PongClient
 {
@@ -11,7 +9,7 @@ namespace PongClient
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private States.Screen _currentScreen;
+        private Screen _currentScreen;
 
 
         public GamePong()
@@ -39,7 +37,7 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentScreen = new Screen.MenuScreen(this, _graphics.GraphicsDevice, Content);
+            _currentScreen = new MenuScreen(this, _graphics.GraphicsDevice, Content);
             // TODO: use this.Content to load your game content here
         }
 
