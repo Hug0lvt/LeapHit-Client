@@ -10,34 +10,26 @@ using PongClient.Screens;
 
 namespace PongClient.Screens
 {
-    public class Party : Screen
+    public class PartyScreen : Screen
     {
-        private Texture2D _backgroundTexture;
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        public int widthCenter;
-        public int heightCenter;
-
-        public Party(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public PartyScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
-            _backgroundTexture = _content.Load<Texture2D>("fond");
-            _rectangleBasTexture = _content.Load<Texture2D>("Form/RectangleBas");
-            _rectangleHautTexture = _content.Load<Texture2D>("Form/RectangleHaut");
-            
-
-            widthCenter = graphicsDevice.Viewport.Width / 2;
-            heightCenter = graphicsDevice.Viewport.Height / 2;
+            _rectangleBasTexture = content.Load<Texture2D>("Form/RectangleBas");
+            _rectangleHautTexture = content.Load<Texture2D>("Form/RectangleHaut");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+
             spriteBatch.Begin();
 
             spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             spriteBatch.Draw(_rectangleHautTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, heightCenter*2-_rectangleBasTexture.Height), Color.White);
+            spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, _heightCenter * 2 - _rectangleBasTexture.Height), Color.White);
 
             spriteBatch.End();
         }
