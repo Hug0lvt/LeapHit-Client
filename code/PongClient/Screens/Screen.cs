@@ -3,13 +3,18 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace PongClient.States
+namespace PongClient.Screens
 {
     public abstract class Screen : IDisposable
     {
         protected ContentManager _content;
         protected GraphicsDevice _graphicsDevice;
         protected GamePong _game;
+
+        protected Texture2D _backgroundTexture;
+
+        protected int _widthCenter;
+        protected int _heightCenter;
 
         public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime);
@@ -23,8 +28,11 @@ namespace PongClient.States
             _game = game;
             _graphicsDevice = graphicsDevice;
             _content = content;
-        }
 
-        
+            _backgroundTexture = content.Load<Texture2D>("fond");
+
+            _widthCenter = graphicsDevice.Viewport.Width / 2;
+            _heightCenter = graphicsDevice.Viewport.Height / 2;
+        }
     }
 }
