@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\loris\\.nuget\\packages\\": {}
+    "C:\\Users\\Loris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\loris\\Documents\\IUT\\ProjetIUT\\LeapHit\\LeapHitClient\\code\\Modele\\Modele.csproj",
+      "projectUniqueName": "C:\\Users\\Loris\\Documents\\Ecoles\\IUT\\Projet\\LeapHit\\LeapHitClient\\code\\Modele\\Modele.csproj",
       "projectName": "Modele",
-      "projectPath": "C:\\Users\\loris\\Documents\\IUT\\ProjetIUT\\LeapHit\\LeapHitClient\\code\\Modele\\Modele.csproj",
-      "packagesPath": "C:\\Users\\loris\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\loris\\Documents\\IUT\\ProjetIUT\\LeapHit\\LeapHitClient\\code\\Modele\\obj\\",
+      "projectPath": "C:\\Users\\Loris\\Documents\\Ecoles\\IUT\\Projet\\LeapHit\\LeapHitClient\\code\\Modele\\Modele.csproj",
+      "packagesPath": "C:\\Users\\Loris\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Loris\\Documents\\Ecoles\\IUT\\Projet\\LeapHit\\LeapHitClient\\code\\Modele\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\loris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Loris\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
