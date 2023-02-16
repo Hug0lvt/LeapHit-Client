@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PongClient", "PongClient\Po
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modele", "Modele\Modele.csproj", "{472312CD-1C84-47DA-8FF8-B63225E1FD83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base_de_Donnees", "Base_de_Donnees\Base_de_Donnees.csproj", "{EE93C3B9-8561-402C-BD07-7A43D51C5FDD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{472312CD-1C84-47DA-8FF8-B63225E1FD83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{472312CD-1C84-47DA-8FF8-B63225E1FD83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{472312CD-1C84-47DA-8FF8-B63225E1FD83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE93C3B9-8561-402C-BD07-7A43D51C5FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE93C3B9-8561-402C-BD07-7A43D51C5FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE93C3B9-8561-402C-BD07-7A43D51C5FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE93C3B9-8561-402C-BD07-7A43D51C5FDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
