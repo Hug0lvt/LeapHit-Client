@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Base_de_Donnees.DbContext
+namespace Base_de_Donnees.Entity
 {
-    internal class GameDbContext
+    internal class Message
     {
     }
 }

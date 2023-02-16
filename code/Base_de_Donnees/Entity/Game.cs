@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Base_de_Donnees.Entity
 {
-    internal class Class1
+    internal class Game
     {
     }
 }
