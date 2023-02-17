@@ -1,0 +1,83 @@
+﻿using System.Diagnostics;
+using System.IO;
+using System.IO.Pipes;
+using System.Reflection;
+using System.Threading;
+
+namespace Pong.GameObjects
+{
+    public class Paddle : GameObject
+    {
+        public string fileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ,"..\\..\\..\\..\\main.py");
+        public string python = @"C:\Users\ramik\PycharmProjects\pythonProject\venv\Scripts\python.exe";
+        public Process psi ;
+        public float Value;
+        private NamedPipeClientStream pipeClient;
+
+        public void setValue(float value)
+        {
+
+            Value = value;
+            //Console.WriteLine(psi.Id.ToString()+ Value);
+        }
+       
+        public void update()
+        {
+            Debug.WriteLine(fileName);
+            pipeClient = new NamedPipeClientStream(".", "CSServer", PipeDirection.In);
+            using (pipeClient)
+               
+            {
+                {
+                    // Connect to the pipe or wait until the pipe is available.
+                    //Console.Write("Attempting to connect to pipe...");
+                    pipeClient.Connect();
+                   
+                    //Console.WriteLine("Connected to pipe.");
+                    //Console.WriteLine("There are currently {0} pipe server instances open.",
+                       //pipeClient.NumberOfServerInstances);
+                    using (StreamReader sr = new StreamReader(pipeClient))
+                    {
+                        // Display the read text to the console
+                        string temp;
+                        while ((temp = sr.ReadLine()) != null)
+                        {
+                            if (temp == "VideoClosed")
+                            {
+                                Debug.WriteLine("i notopent");
+                                sr.Close();
+                                this.close();
+                            }
+                            Position.Y=float.Parse(temp);
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        public void start()
+        {
+            psi = new Process();
+            var startInfo = new ProcessStartInfo(python, fileName)
+            {
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = false,
+                RedirectStandardError = true
+            };
+
+
+            psi = Process.Start(startInfo);
+            Thread t = new Thread(() => update());
+            t.Start();
+        }
+
+        public void close()
+        {
+            pipeClient?.Close();
+            psi?.Kill();
+        }
+    }
+}

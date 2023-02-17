@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\ramik\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ramik\\Desktop\\leapHitpYTHIN\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+    ]
+  }
+}
