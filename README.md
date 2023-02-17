@@ -5,8 +5,8 @@
 ## Ajout/modification nouveau fonctionnalité :sparkles:
 ## Ajout/modification de documentation :memo:
 ## Ajout/modification de designe :lipstick:
-## Refactor de code :recycle:
 ## Correction de bug :bug:
+## Refactor de code :recycle:
 ## Suppression de code ou fichier :fire:
 ## Améilloration de structure :art:
 ## Améilloration de performance :zap:
