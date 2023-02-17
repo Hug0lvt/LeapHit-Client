@@ -12,10 +12,7 @@ classDiagram
     
 
     class IControlMouvement{
-        +getUp()
-        +getDown()
-        +getLeft()
-        +getRight()
+        +getCoordonate()
     }
     <<interface>> IControlMouvement
     IControlMouvement --|> IMouvement
@@ -26,18 +23,26 @@ classDiagram
     LeapMotion --|> IControlMouvement
 
     class Camera{
-
+        -/fileNamePath : string
+        -/python : string
+        -/process : Procss
+        -/coordonate : float
+        +start()
+        +close()
+        +update()
     }
     Camera --|> IControlMouvement
 
     class Mouse{
-
+        +getCoordonate()
     }
     Mouse --|> IControlMouvement
     
 
     class PlayerStats{
-        
+        -/touchBallCount : int
+        -/timePlayed : DateTime
+
     }
 
     class Profile{
@@ -55,18 +60,29 @@ classDiagram
     
     
     class WebSocket{
+        +send()
+        +recive()
+    }
 
+    class Score{
+        -/winner : Pair<Profile, int>
+        -/loser : Pair<Profile, int>
     }
 
     class GameStats{
-    }
-    GameStats --> "1" Game : statGame   
+        -/timePlayed : DateTime
+        
+    } 
+    GameStats --> "1" Score : score
 
     class Game{
+        -/stopWatch
 
     }
+    Game --> "1" GameStats : statGame
     Game --> "2" Player : players
     Game ..> WebSocket
+    
 
     
     
@@ -76,18 +92,20 @@ classDiagram
     Bot --> "1" Ball : ball
     Bot --|> IMouvement 
 
-    
+    class BasicPlayer{
 
+    }
+    BasicPlayer --> "1" IMouvement : strategyMouvement
+    BasicPlayer --|> Player
+    
 
     class Player{
         -/string Pseudo
     }
-    Player --> "1" IMouvement : strategyMouvement
     Player --> "1" Paddle : paddle
     Player ..> Profile
     Player --> "1" BallSkin : SelectedBall
     Player --> "1" PaddleSkin : SelectedPaddle
-    
     
     
 
