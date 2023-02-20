@@ -15,7 +15,7 @@ namespace PongClient.Screens
     {
         private Texture2D _optionTexture;
 
-        public OptionScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
+        public OptionScreen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content) 
             : base(game, graphicsDevice, content)
         {
             _optionTexture = content.Load<Texture2D>("Text/Option");

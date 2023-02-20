@@ -8,7 +8,7 @@ namespace PongClient.Screens
     public abstract class Screen : IDisposable
     {
         protected ContentManager _content;
-        protected GraphicsDevice _graphicsDevice;
+        protected GraphicsDeviceManager _graphicsDevice;
         protected GamePong _game;
 
         protected Texture2D _backgroundTexture;
@@ -23,7 +23,7 @@ namespace PongClient.Screens
         {
         }
 
-        public Screen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public Screen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content)
         {
             _game = game;
             _graphicsDevice = graphicsDevice;
@@ -31,8 +31,13 @@ namespace PongClient.Screens
 
             _backgroundTexture = content.Load<Texture2D>("fond");
 
-            _widthCenter = graphicsDevice.Viewport.Width / 2;
-            _heightCenter = graphicsDevice.Viewport.Height / 2;
+            _widthCenter = graphicsDevice.PreferredBackBufferWidth / 2;
+            _heightCenter = graphicsDevice.PreferredBackBufferHeight / 2;
+        }
+
+        public static Rectangle UpdateSize(Texture2D texture, Vector2 screenSizeOld, Vector2 screenSizeNew)
+        {
+            
         }
     }
 }

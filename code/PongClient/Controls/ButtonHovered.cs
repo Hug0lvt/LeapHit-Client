@@ -51,5 +51,14 @@ namespace PongClient.Controls
                 }
             }
         }
+
+        public override void UpdatePosition(int widthOld, int heightOld, int widthNew, int heightNew)
+        {
+            base.UpdatePosition(widthOld, heightOld, widthNew, heightNew);
+
+            float newPos2X = _position2.X * widthNew / widthOld;
+            float newPos2Y = _position2.Y * heightNew / heightOld;
+            _position2 = new Vector2(newPos2X, newPos2Y);
+        }
     }
 }

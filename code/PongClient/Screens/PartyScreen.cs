@@ -15,7 +15,7 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        public PartyScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public PartyScreen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
             _rectangleBasTexture = content.Load<Texture2D>("Form/RectangleBas");
@@ -36,6 +36,8 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
+            _widthCenter = _graphicsDevice.PreferredBackBufferWidth / 2;
+            _heightCenter = _graphicsDevice.PreferredBackBufferHeight / 2;
         }
     }
 }

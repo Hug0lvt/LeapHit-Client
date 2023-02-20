@@ -13,7 +13,7 @@ namespace PongClient.Screens
     {
         private Texture2D _statisticsTexture;
 
-        public StatisticsScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
+        public StatisticsScreen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content) 
             : base(game, graphicsDevice, content)
         {
             _statisticsTexture = content.Load<Texture2D>("Text/Statistics");

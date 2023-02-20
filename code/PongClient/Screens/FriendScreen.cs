@@ -13,7 +13,7 @@ namespace PongClient.Screens
     {
         private Texture2D _friendsTexture;
 
-        public FriendScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
+        public FriendScreen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content) 
             : base(game, graphicsDevice, content)
         {
             _friendsTexture = content.Load<Texture2D>("Text/Friends");

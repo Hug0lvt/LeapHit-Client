@@ -37,18 +37,20 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentScreen = new MenuScreen(this, _graphics.GraphicsDevice, Content);
+            _currentScreen = new MenuScreen(this, _graphics, Content);
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
+            this.Window.AllowUserResizing = true;
+
             if (Keyboard.GetState().IsKeyDown(Keys.F11) )
             {
                 if (_graphics.IsFullScreen)
                 {
-                    _graphics.PreferredBackBufferWidth = 1080;
-                    _graphics.PreferredBackBufferHeight = 720;
+                    _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2;
+                    _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2;
                 }
                 else
                 {

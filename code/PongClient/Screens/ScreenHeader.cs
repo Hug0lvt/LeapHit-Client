@@ -21,7 +21,7 @@ namespace PongClient.Screens
         private Button buttonReturn;
         private int heightBar = 80;
 
-        public ScreenHeader(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public ScreenHeader(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content)
             : base(game, graphicsDevice, content)
         {
             _returnBarTexture = content.Load<Texture2D>("Form/returnBar");
@@ -54,6 +54,8 @@ namespace PongClient.Screens
         public override void Update(GameTime gameTime)
         {
             buttonReturn.Update(gameTime);
+            _widthCenter = _graphicsDevice.PreferredBackBufferWidth / 2;
+            _heightCenter = _graphicsDevice.PreferredBackBufferHeight / 2;
         }
     }
 }

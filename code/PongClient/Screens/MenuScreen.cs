@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using PongClient.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PongClient.Screens
 {
@@ -13,7 +14,7 @@ namespace PongClient.Screens
 
         private readonly Texture2D _leapHitTexture;
 
-        public MenuScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public MenuScreen(GamePong game, GraphicsDeviceManager graphicsDevice, ContentManager content)
           : base(game, graphicsDevice, content)
         {
             var playIcoTexture = _content.Load<Texture2D>("Icon/PlayIco");
@@ -69,7 +70,7 @@ namespace PongClient.Screens
         {
             spriteBatch.Begin();
 
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, _widthCenter*2, _heightCenter*2), Color.White);
+            spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             spriteBatch.Draw(_leapHitTexture, new Vector2(_widthCenter - _leapHitTexture.Width / 2, 100), Color.White);
 
             foreach (var component in _components)
@@ -100,8 +101,16 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
+            int ancienW = _widthCenter;
+            int ancienH = _heightCenter;
+            _widthCenter = _graphicsDevice.PreferredBackBufferWidth / 2;
+            _heightCenter = _graphicsDevice.PreferredBackBufferHeight / 2;
             foreach (var component in _components)
+            {
+                component.UpdatePosition(ancienW, ancienH, _widthCenter, _heightCenter);
                 component.Update(gameTime);
+            }
+                
         }
 
         private void QuitGameButton_Click(object sender, EventArgs e)

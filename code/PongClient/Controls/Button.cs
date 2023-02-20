@@ -11,9 +11,7 @@ namespace PongClient.Controls
     {
         public MouseState _currentMouse;
         public MouseState _previousMouse;
-        public Texture2D _texture;
         public event EventHandler Click;
-        public Vector2 _position;
 
         public Button(Texture2D texture, Vector2 position)
         {
@@ -40,6 +38,13 @@ namespace PongClient.Controls
                     Click?.Invoke(this, new EventArgs());
                 }
             }
+        }
+
+        public override void UpdatePosition(int widthOld, int heightOld, int widthNew, int heightNew)
+        {
+            float newPosX = _position.X * widthNew / widthOld;
+            float newPosY = _position.Y * heightNew / heightOld;
+            _position = new Vector2(newPosX, newPosY);
         }
     }
 }
