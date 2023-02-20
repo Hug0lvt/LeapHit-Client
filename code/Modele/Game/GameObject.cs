@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Game
 {
     public class GameObject
     {

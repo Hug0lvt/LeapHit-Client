@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Object
 {
-    public class Skin
+    public class PaddleSkin : Skin
     {
-        private string asset;
-        private string name;
     }
 }

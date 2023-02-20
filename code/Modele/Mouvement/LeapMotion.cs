@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Mouvement
 {
-    public class Bot : IMouvement
+    internal class LeapMotion : IControlMouvement
     {
-        private Ball ball;
 
-        public float getMouvement()
+        public float GetCoordonate()
         {
             throw new NotImplementedException();
         }

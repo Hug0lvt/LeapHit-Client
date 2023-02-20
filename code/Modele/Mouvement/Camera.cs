@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.IControlMouvement
+namespace Modele.Mouvement
 {
     public class Camera  : IControlMouvement
     {
@@ -78,7 +78,7 @@ namespace Modele.IControlMouvement
             process?.Kill();
         }
 
-        public float getCoordonate()
+        public float GetCoordonate()
         {
             return coordonate;
         }

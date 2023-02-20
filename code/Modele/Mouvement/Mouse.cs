@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 //using MonoGame.Extended; est ce que je me met en dependance de monogame
 
-namespace Modele.IControlMouvement
+namespace Modele.Mouvement
 {
     public class Mouse : IControlMouvement
     {
 
-        public float getCoordonate()
+        public float GetCoordonate()
         {
             //return MouseExtended.GetState().Position.Y;
         }

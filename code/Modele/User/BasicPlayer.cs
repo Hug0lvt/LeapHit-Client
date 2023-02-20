@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.User
 {
-    public class PaddleSkin : Skin
+    public class BasicPlayer : Player
     {
+        private IMouvement strategyMouvement;
     }
 }

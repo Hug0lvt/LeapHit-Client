@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.User
 {
-    public class BallSkin : Skin
+    class PlayerStats
     {
+        private int touchBallCount;
+        private DateTime timePlayed;
     }
 }

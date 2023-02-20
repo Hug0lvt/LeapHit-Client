@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Modele.Object;
 
-namespace Modele.IControlMouvement
+namespace Modele.User
 {
-    internal class LeapMotion : IControlMouvement
+    public class Bot : IMouvement
     {
-        public float getCoordonate()
+        private Ball ball;
+
+        public float getMouvement()
         {
             throw new NotImplementedException();
         }

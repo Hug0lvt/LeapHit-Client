@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Mouvement
 {
-    public class BasicPlayer : Player
+    public interface IControlMouvement
     {
-        private IMouvement strategyMouvement;
+        public float GetCoordonate()
     }
 }

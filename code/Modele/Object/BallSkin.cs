@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Object
 {
-    public class Profile
+    public class BallSkin : Skin
     {
-    private PlayerStats statGame;
-    private List<Skin> skins;
-}
+    }
 }

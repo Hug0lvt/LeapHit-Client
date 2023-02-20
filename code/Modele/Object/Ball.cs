@@ -4,8 +4,9 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Modele.Game;
 
-namespace Modele
+namespace Modele.Object
 {
     public class Ball : GameObject
     {

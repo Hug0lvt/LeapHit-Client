@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace Modele.Object
 {
     //ici la velocity correspond à la vitesse de la balle
     public class CapacityBall
@@ -20,12 +20,12 @@ namespace Modele
 
         public void ChangeSize(float newSize)
         {
-            this.size = newSize;
+            size = newSize;
         }
 
         public void ChangeVelocity(float newVelocity)
         {
-            this.velocity = newVelocity;
+            velocity = newVelocity;
         }
     }
 }
