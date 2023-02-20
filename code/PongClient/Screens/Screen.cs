@@ -35,9 +35,6 @@ namespace PongClient.Screens
             _heightCenter = graphicsDevice.PreferredBackBufferHeight / 2;
         }
 
-        public static Rectangle UpdateSize(Texture2D texture, Vector2 screenSizeOld, Vector2 screenSizeNew)
-        {
-            
-        }
+     
     }
 }
