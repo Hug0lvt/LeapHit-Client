@@ -8,16 +8,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-//using MonoGame.Extended; est ce que je me met en dependance de monogame
 
-namespace Modele.Mouvement
+namespace Modele.MovementPackage
 {
-    public class Mouse : IControlMouvement
+    public class Mouse : IMovement
     {
 
-        public float GetCoordonate()
+        public float GetMovement()
         {
-            //return MouseExtended.GetState().Position.Y;
+            return Microsoft.Xna.Framework.Input.Mouse.GetState().Y;
         }
     }
 

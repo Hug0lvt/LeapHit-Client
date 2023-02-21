@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.User
+namespace Modele.PlayerPackage
 {
-    class PlayerStats
+    class UserStat
     {
         private int touchBallCount;
-        private DateTime timePlayed;
+        private int timePlayed;
     }
 }

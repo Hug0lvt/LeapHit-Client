@@ -1,17 +1,17 @@
-﻿using Modele.User;
+﻿using Modele.PlayerPackage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Game
+namespace Modele.GamePackage
 {
     class Game
     {
-        private DateTime stopWatch;
+        private bool pause;
         private List<Player> players;
-        private GameStats statGame;
+        private GameStat gameStat;
         private WebSocket webSocket;
     }
 }

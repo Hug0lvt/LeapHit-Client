@@ -1,27 +1,21 @@
-﻿using System;
+﻿using Modele.SkinPackage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using Modele.Game;
 
-namespace Modele.Object
+namespace Modele.EntityPackage
 {
-    public class Ball : GameObject
+    public class Ball : GameEntity
     {
         private float angle;
-        private CapacityBall capacity;
-        private BallSkin skin;
 
-        public Ball(float posX, float posY, Vector2 velocity, float angle, CapacityBall capacity, BallSkin skin)
+        public Ball(float x, float y, Vector2 velocity, Skin skin, float angle)
+            : base(x, y, velocity, skin)
         {
-            this.posX = posX;
-            this.posY = posY;
-            this.velocity = velocity;
             this.angle = angle;
-            this.capacity = capacity;
-            this.skin = skin;
         }
 
         // TODO: add methods for updating ball position and angle based on velocity and collisions with other objects

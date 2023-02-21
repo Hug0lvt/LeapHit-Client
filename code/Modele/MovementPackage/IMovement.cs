@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Mouvement
+namespace Modele.MovementPackage
 {
-    public interface IControlMouvement
+    public interface IMovement
     {
-        public float GetCoordonate();
+        public float GetMovement();
     }
 }

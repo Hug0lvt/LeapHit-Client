@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Object
+namespace Modele.GamePackage
 {
-    public class Skin
+    public class GameStat
     {
-        private string asset;
-        private string name;
+        private int time;
+        private Score score;
     }
 }

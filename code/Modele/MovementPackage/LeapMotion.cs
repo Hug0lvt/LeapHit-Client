@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Mouvement
+namespace Modele.MovementPackage
 {
-    internal class LeapMotion : IControlMouvement
+    internal class LeapMotion : IMovement
     {
 
-        public float GetCoordonate()
+        public float GetMovement()
         {
             throw new NotImplementedException();
         }

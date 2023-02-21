@@ -54,11 +54,6 @@ namespace PongClient
                 _graphics.ApplyChanges();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                _screenManager.LoadScreen(new MenuScreen(this));
-            }
-
             base.Update(gameTime);
         }
     }

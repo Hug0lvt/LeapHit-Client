@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Mouvement
+namespace Modele.MovementPackage
 {
-    public class Camera  : IControlMouvement
+    public class Camera  : IMovement
     {
         public string fileNamePath { get; private set; }
         public string python { get; private set; }
@@ -78,7 +78,7 @@ namespace Modele.Mouvement
             process?.Kill();
         }
 
-        public float GetCoordonate()
+        public float GetMovement()
         {
             return coordonate;
         }

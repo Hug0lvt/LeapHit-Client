@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Modele.Object;
 
-namespace Modele.User
+namespace Modele.MovementPackage
 {
-    public class Bot : IMouvement
+    public class Aleatoire : IMovement
     {
-        private Ball ball;
-
-        public float getMouvement()
+        public float GetMovement()
         {
             throw new NotImplementedException();
         }
