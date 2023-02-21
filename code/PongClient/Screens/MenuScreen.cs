@@ -5,6 +5,7 @@ using PongClient.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using PongClient.ModeleMonoGame;
 
 namespace PongClient.Screens
 {
@@ -70,8 +71,16 @@ namespace PongClient.Screens
         {
             spriteBatch.Begin();
 
+         
+      
+            Vector2 newSizeTexture = CalculAdaptative.UpdateSizeFromTexture(_leapHitTexture, new Vector2(960, 540), new Vector2(480, 270));
             spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(_leapHitTexture, new Vector2(_widthCenter - _leapHitTexture.Width / 2, 100), Color.White);
+
+            Rectangle rectangle = new Rectangle(new Vector2(_widthCenter - _leapHitTexture.Width / 2, 100).ToPoint(), 
+                new Point((int)newSizeTexture.X, (int)newSizeTexture.Y));
+
+            spriteBatch.Draw(_leapHitTexture, rectangle, Color.White);
+            //spriteBatch.Draw(_leapHitTexture, new Vector2(_widthCenter - _leapHitTexture.Width / 2, 100), Color.White);
 
             foreach (var component in _components)
                 component.Draw(gameTime, spriteBatch);

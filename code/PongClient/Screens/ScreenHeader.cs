@@ -37,8 +37,10 @@ namespace PongClient.Screens
         {
             spriteBatch.Begin();
 
+            
             spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
             spriteBatch.Draw(_returnBarTexture, new Vector2(0, 0), Color.White);
+
             spriteBatch.Draw(_rondBackTexture, new Vector2(0, heightBar / 2 - _rondBackTexture.Height / 2), Color.White);
             spriteBatch.Draw(_rondFrontTexture, new Vector2(-10, heightBar / 2 - _rondFrontTexture.Height / 2), Color.White);
             buttonReturn.Draw(gameTime, spriteBatch);
