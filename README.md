@@ -1,26 +1,102 @@
 ```mermaid
 classDiagram
-
     
+    User --> "*" Skin : skins
 
-    class IMouvement{
-        +getMouvement()
+    class GameEntity{
+        -/x : double
+        -/y : double
+        -/velocity : Vector2
+        
+        +/ChangeSize()
+        +/ChangeVelocity()
+        +/ChangeSkin()
     }
-    <<interface>> IMouvement
+    <<abstract>> GameEntity
+    GameEntity --> "1" Skin : skin
 
-    
-    
-
-    class IControlMouvement{
-        +getCoordonate()
+    class Ball{
+        -/angle : double
+        +/Move()
     }
-    <<interface>> IControlMouvement
-    IControlMouvement --|> IMouvement
+    GameEntity <|-- Ball
+    
+    class Paddle{
+        +/Move()
+    }
+    GameEntity <|-- Paddle
+
+    class Player{
+    }
+    <<abstract>> Player
+    Player --> "1" GameEntity : paddle
+    Player --> "1" GameEntity : ball
+    Player --> "1" IMovement : movementStrategy
+
+    class UserStat{
+        -/touchBallCount : int
+        -/timePlayed : int
+    }
+    UserStat "1" <--  User : globalStat
+
+    class Skin{
+        -/asset : string
+        -/name : string
+    }
+    <<abstract>> Skin
+
+    class PaddleSkin{
+    }
+    Skin <|-- PaddleSkin
+    
+    class BallSkin{
+    }
+    Skin <|-- BallSkin
+
+    class User{
+        -/pseudo : string
+    }
+    User --|> Player
+
+    class Bot{
+    }
+    Bot --|> Player
+
+    class Score{
+        -/winner : Pair
+        -/loser : Pair
+    }
+
+    class GameStat{
+        -/time : int
+    }    
+    GameStat "1" <-- Game : gameStat
+    GameStat --> "1" Score : score
+
+    class WebSocket{
+    }
+    WebSocket <.. Game
+
+
+    class Game{
+        -/pause : bool
+    }
+    Game --> "2" Player : players
+    
+    class IMovement{
+        +getMovement()
+    }
+    <<interface>> IMovement
+    
+    IMovement <|-- LeapMotion
+    IMovement <|-- Camera
+    IMovement <|-- Mouse
+    IMovement <|-- Aleatoire
+
 
     class LeapMotion{
-
+        +getMovement()
     }
-    LeapMotion --|> IControlMouvement
 
     class Camera{
         -/fileNamePath : string
@@ -30,127 +106,13 @@ classDiagram
         +start()
         +close()
         +update()
+        +getMovement()
     }
-    Camera --|> IControlMouvement
 
     class Mouse{
-        +getCoordonate()
-    }
-    Mouse --|> IControlMouvement
-    
-
-    class PlayerStats{
-        -/touchBallCount : int
-        -/timePlayed : DateTime
-
+        +getMovement()
     }
 
-    class Profile{
-        
+    class Aleatoire{
+        +getMovement()
     }
-    Profile --> "1" PlayerStats : statGame
-    Profile --> "*" Skin :skins
-    
-    
-
-    class Paddle{
-        -/posY : float
-        -/velocity : Vector
-    }
-    
-    
-    class WebSocket{
-        +send()
-        +recive()
-    }
-
-    class Score{
-        -/winner : Pair<Profile, int>
-        -/loser : Pair<Profile, int>
-    }
-
-    class GameStats{
-        -/timePlayed : DateTime
-        
-    } 
-    GameStats --> "1" Score : score
-
-    class Game{
-        -/stopWatch
-
-    }
-    Game --> "1" GameStats : statGame
-    Game --> "2" Player : players
-    Game ..> WebSocket
-    
-
-    
-    
-    class Bot{
-
-    }
-    Bot --> "1" Ball : ball
-    Bot --|> IMouvement 
-
-    class BasicPlayer{
-
-    }
-    BasicPlayer --> "1" IMouvement : strategyMouvement
-    BasicPlayer --|> Player
-    
-
-    class Player{
-        -/string Pseudo
-    }
-    Player --> "1" Paddle : paddle
-    Player ..> Profile
-    Player --> "1" BallSkin : SelectedBall
-    Player --> "1" PaddleSkin : SelectedPaddle
-    
-    
-
-    class Skin{
-        -/Image Asset 
-        -/string name
-    }
-
-    class PaddleSkin{
-
-    }
-    PaddleSkin --|> Skin
-
-    class CapacityBall{
-        +changeSize()
-        +changeVelocity()
-    }
-    
-    class BallSkin{
-
-    }
-    BallSkin --|> Skin
-
-    
-
-    class Ball{
-        -/posX : float
-        -/posY : float
-        -/angle : Rad
-        -/velocity : int
-    }
-    Ball --> "1" CapacityBall : capacity
-    Ball --> "1" BallSkin : skin
-    
-
-    
-
-    
-
-    
-    
-    
-    
-
-```
-
-
-
