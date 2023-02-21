@@ -15,10 +15,10 @@ namespace PongClient.Screens
     {
         private Texture2D _optionTexture;
 
-        public OptionScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
-            : base(game, graphicsDevice, content)
+        public OptionScreen(GamePong game) 
+            : base(game)
         {
-            _optionTexture = content.Load<Texture2D>("Text/Option");
+            _optionTexture = _content.Load<Texture2D>("Text/Option");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

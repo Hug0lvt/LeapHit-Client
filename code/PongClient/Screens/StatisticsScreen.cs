@@ -13,10 +13,10 @@ namespace PongClient.Screens
     {
         private Texture2D _statisticsTexture;
 
-        public StatisticsScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
-            : base(game, graphicsDevice, content)
+        public StatisticsScreen(GamePong game) 
+            : base(game)
         {
-            _statisticsTexture = content.Load<Texture2D>("Text/Statistics");
+            _statisticsTexture = _content.Load<Texture2D>("Text/Statistics");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

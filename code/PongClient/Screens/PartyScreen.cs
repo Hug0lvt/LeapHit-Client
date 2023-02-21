@@ -15,11 +15,11 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        public PartyScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
-          : base(game, graphicsDevice, content)
+        public PartyScreen(GamePong game)
+          : base(game)
         {
-            _rectangleBasTexture = content.Load<Texture2D>("Form/RectangleBas");
-            _rectangleHautTexture = content.Load<Texture2D>("Form/RectangleHaut");
+            _rectangleBasTexture = _content.Load<Texture2D>("Form/RectangleBas");
+            _rectangleHautTexture = _content.Load<Texture2D>("Form/RectangleHaut");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

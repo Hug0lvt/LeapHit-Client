@@ -23,16 +23,16 @@ namespace PongClient.Screens
         {
         }
 
-        public Screen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
+        public Screen(GamePong game)
         {
             _game = game;
-            _graphicsDevice = graphicsDevice;
-            _content = content;
+            _graphicsDevice = game.GraphicsDevice;
+            _content = game.Content;
 
-            _backgroundTexture = content.Load<Texture2D>("fond");
+            _backgroundTexture = _content.Load<Texture2D>("fond");
 
-            _widthCenter = graphicsDevice.Viewport.Width / 2;
-            _heightCenter = graphicsDevice.Viewport.Height / 2;
+            _widthCenter = _graphicsDevice.Viewport.Width / 2;
+            _heightCenter = _graphicsDevice.Viewport.Height / 2;
         }
     }
 }
