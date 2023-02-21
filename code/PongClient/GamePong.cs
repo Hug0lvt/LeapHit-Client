@@ -37,7 +37,7 @@ namespace PongClient
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentScreen = new MenuScreen(this, _graphics.GraphicsDevice, Content);
+            _currentScreen = new MenuScreen(this);
             // TODO: use this.Content to load your game content here
         }
 

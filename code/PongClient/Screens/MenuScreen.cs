@@ -13,8 +13,8 @@ namespace PongClient.Screens
 
         private readonly Texture2D _leapHitTexture;
 
-        public MenuScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
-          : base(game, graphicsDevice, content)
+        public MenuScreen(GamePong game)
+          : base(game)
         {
             var playIcoTexture = _content.Load<Texture2D>("Icon/PlayIco");
             var quitTexture = _content.Load<Texture2D>("Text/Quit");
@@ -80,22 +80,22 @@ namespace PongClient.Screens
 
         private void OptionButton_Click(object sender, EventArgs e)
         {
-            _game.changeScreen(new GameTime(), new OptionScreen(_game, _graphicsDevice, _content));
+            _game.changeScreen(new GameTime(), new OptionScreen(_game));
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            _game.changeScreen(new GameTime(), new PartyScreen(_game, _graphicsDevice, _content));
+            _game.changeScreen(new GameTime(), new PartyScreen(_game));
         }
 
         private void StatisticsButton_Click(object sender, EventArgs e)
         {
-            _game.changeScreen(new GameTime(), new StatisticsScreen(_game, _graphicsDevice, _content));
+            _game.changeScreen(new GameTime(), new StatisticsScreen(_game));
         }
 
         private void FriendButton_Click(object sender, EventArgs e)
         {
-            _game.changeScreen(new GameTime(), new FriendScreen(_game, _graphicsDevice, _content));
+            _game.changeScreen(new GameTime(), new FriendScreen(_game));
         }
 
         public override void Update(GameTime gameTime)

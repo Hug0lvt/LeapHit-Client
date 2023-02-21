@@ -21,13 +21,13 @@ namespace PongClient.Screens
         private Button buttonReturn;
         private int heightBar = 80;
 
-        public ScreenHeader(GamePong game, GraphicsDevice graphicsDevice, ContentManager content)
-            : base(game, graphicsDevice, content)
+        public ScreenHeader(GamePong game)
+            : base(game)
         {
-            _returnBarTexture = content.Load<Texture2D>("Form/returnBar");
-            _rondBackTexture = content.Load<Texture2D>("Form/rondBack");
-            _rondFrontTexture = content.Load<Texture2D>("Form/rondFront");
-            _returnIcoTexture = content.Load<Texture2D>("Icon/returnIco");
+            _returnBarTexture = _content.Load<Texture2D>("Form/returnBar");
+            _rondBackTexture = _content.Load<Texture2D>("Form/rondBack");
+            _rondFrontTexture = _content.Load<Texture2D>("Form/rondFront");
+            _returnIcoTexture = _content.Load<Texture2D>("Icon/returnIco");
 
             buttonReturn = new Button(_returnIcoTexture, new Vector2(20, heightBar/2 - _returnIcoTexture.Height / 2));
             buttonReturn.Click += ReturnButton_Clicked;
@@ -48,7 +48,7 @@ namespace PongClient.Screens
 
         private void ReturnButton_Clicked(object sender, EventArgs e)
         {
-            _game.changeScreen(new GameTime(), new MenuScreen(_game, _graphicsDevice, _content));
+            _game.changeScreen(new GameTime(), new MenuScreen(_game));
         }
 
         public override void Update(GameTime gameTime)

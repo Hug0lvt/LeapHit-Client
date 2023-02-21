@@ -13,10 +13,10 @@ namespace PongClient.Screens
     {
         private Texture2D _friendsTexture;
 
-        public FriendScreen(GamePong game, GraphicsDevice graphicsDevice, ContentManager content) 
-            : base(game, graphicsDevice, content)
+        public FriendScreen(GamePong game) 
+            : base(game)
         {
-            _friendsTexture = content.Load<Texture2D>("Text/Friends");
+            _friendsTexture = _content.Load<Texture2D>("Text/Friends");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
