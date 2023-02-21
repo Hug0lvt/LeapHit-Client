@@ -52,21 +52,21 @@ namespace PongClient.ModeleMonoGame
             for (int i = 2; true; i++)
             {
 
-               int actualSize = (int)divisionOrMultiple.Calcul(oldSize, i);
-               float diffrence = Math.Abs(actualSize - newSizeNonAdaptive);
+                int actualSize = (int)divisionOrMultiple.Calcul(oldSize, i);
+                float diffrence = Math.Abs(actualSize - newSizeNonAdaptive);
                 Debug.WriteLine($"diffOld {diffrence}");
                 if (diffrence <= diffrenceOld)
-               {
+                {
                     Debug.WriteLine($"difrence {i}");
                     diffrence = diffrenceOld;
                     bestOldSize = actualSize;
-               }
+                }
 
-               else
+                else
                 {
                     Debug.WriteLine($"break {i}");
                     break;
-               }
+                }
 
             }
 
