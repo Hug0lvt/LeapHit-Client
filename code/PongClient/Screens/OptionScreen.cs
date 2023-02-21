@@ -14,22 +14,30 @@ namespace PongClient.Screens
     public class OptionScreen : ScreenHeader
     {
         private Texture2D _optionTexture;
+        private SpriteBatch _spriteBatch;
 
-        public OptionScreen(GamePong game) 
+        public OptionScreen(GamePong game)
             : base(game)
         {
-            _optionTexture = _content.Load<Texture2D>("Text/Option");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void LoadContent()
         {
-            base.Draw(gameTime, spriteBatch);
+            base.LoadContent();
 
-            spriteBatch.Begin();
+            _optionTexture = Content.Load<Texture2D>("Text/Option");
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
 
-            spriteBatch.Draw(_optionTexture, new Vector2(_widthCenter * 2 - _optionTexture.Width, 40 - _optionTexture.Height / 2), Color.White);
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
 
-            spriteBatch.End();
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(_optionTexture, new Vector2(_widthCenter * 2 - _optionTexture.Width, 40 - _optionTexture.Height / 2), Color.White);
+
+            _spriteBatch.End();
         }
     }
 }

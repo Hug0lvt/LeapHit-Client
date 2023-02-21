@@ -10,28 +10,36 @@ using PongClient.Screens;
 
 namespace PongClient.Screens
 {
-    public class PartyScreen : Screen
+    public class PartyScreen : PongScreen
     {
+        private SpriteBatch _spriteBatch;
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
         public PartyScreen(GamePong game)
           : base(game)
         {
-            _rectangleBasTexture = _content.Load<Texture2D>("Form/RectangleBas");
-            _rectangleHautTexture = _content.Load<Texture2D>("Form/RectangleHaut");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void LoadContent()
+        {
+            base.LoadContent();
+
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _rectangleBasTexture = Content.Load<Texture2D>("Form/RectangleBas");
+            _rectangleHautTexture = Content.Load<Texture2D>("Form/RectangleHaut");
+        }
+
+        public override void Draw(GameTime gameTime)
         {
 
-            spriteBatch.Begin();
+            _spriteBatch.Begin();
 
-            spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(_rectangleHautTexture, new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, _heightCenter * 2 - _rectangleBasTexture.Height), Color.White);
+            _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_rectangleHautTexture, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, _heightCenter * 2 - _rectangleBasTexture.Height), Color.White);
 
-            spriteBatch.End();
+            _spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime)
