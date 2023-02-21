@@ -23,9 +23,12 @@ namespace PongClient.Screens
             _leapHitTexture = _content.Load<Texture2D>("Text/LeapHit");
             var friendIcoTexture = _content.Load<Texture2D>("Icon/FriendsIco");
             var whiteRectangleTexture = _content.Load<Texture2D>("Form/whiteRectangle");
+            var whitePlay = _content.Load<Texture2D>("Form/PlayWhite");
 
-            var newGameButton = new Button(playIcoTexture, new Vector2(_widthCenter - playIcoTexture.Width / 2,
-                                                                                _heightCenter - playIcoTexture.Height - 60));
+            var newGameButton = new ButtonHovered(playIcoTexture, whitePlay, new Vector2(_widthCenter - playIcoTexture.Width / 2,
+                                                                                _heightCenter - playIcoTexture.Height - 60), 
+                                                                            new Vector2(_widthCenter - whitePlay.Width / 2,
+                                                                                _heightCenter - whitePlay.Height - 60));
             newGameButton.Click += NewGameButton_Click;
 
 

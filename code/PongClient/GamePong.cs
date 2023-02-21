@@ -62,7 +62,7 @@ namespace PongClient
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                changeScreen(gameTime, new MenuScreen(this, GraphicsDevice, Content));
+                changeScreen(gameTime, new MenuScreen(this));
             }
 
             _currentScreen.Update(gameTime);

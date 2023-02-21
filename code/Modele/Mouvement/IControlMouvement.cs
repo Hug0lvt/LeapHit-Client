@@ -8,6 +8,6 @@ namespace Modele.Mouvement
 {
     public interface IControlMouvement
     {
-        public float GetCoordonate()
+        public float GetCoordonate();
     }
 }
