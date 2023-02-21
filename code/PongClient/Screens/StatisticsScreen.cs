@@ -12,22 +12,30 @@ namespace PongClient.Screens
     public class StatisticsScreen : ScreenHeader
     {
         private Texture2D _statisticsTexture;
+        private SpriteBatch _spriteBatch;
 
-        public StatisticsScreen(GamePong game) 
+        public StatisticsScreen(GamePong game)
             : base(game)
         {
-            _statisticsTexture = _content.Load<Texture2D>("Text/Statistics");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void LoadContent()
         {
-            base.Draw(gameTime, spriteBatch);
+            base.LoadContent();
 
-            spriteBatch.Begin();
+            _statisticsTexture = Content.Load<Texture2D>("Text/Statistics");
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
 
-            spriteBatch.Draw(_statisticsTexture, new Vector2(_widthCenter * 2 - _statisticsTexture.Width, 40 - _statisticsTexture.Height / 2), Color.White);
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
 
-            spriteBatch.End();
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(_statisticsTexture, new Vector2(_widthCenter * 2 - _statisticsTexture.Width, 40 - _statisticsTexture.Height / 2), Color.White);
+
+            _spriteBatch.End();
         }
     }
 }

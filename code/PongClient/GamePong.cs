@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using PongClient.Screens;
 
 namespace PongClient
@@ -8,37 +11,28 @@ namespace PongClient
     public class GamePong : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private Screen _currentScreen;
-
+        private readonly ScreenManager _screenManager;
 
         public GamePong()
         {
-            _graphics = new GraphicsDeviceManager(this);
-
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-
-            _graphics.IsFullScreen = true;
-            _graphics.ApplyChanges();
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+                PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
+                IsFullScreen = true,
+            };
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-        }
 
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
+            _screenManager = Components.Add<ScreenManager>();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
 
-            _currentScreen = new MenuScreen(this);
-            // TODO: use this.Content to load your game content here
+            _screenManager.LoadScreen(new MenuScreen(this));
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,32 +56,10 @@ namespace PongClient
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                changeScreen(gameTime, new MenuScreen(this));
+                _screenManager.LoadScreen(new MenuScreen(this));
             }
 
-            _currentScreen.Update(gameTime);
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.Beige);
-
-            _currentScreen.Draw(gameTime, _spriteBatch);
-
-            // TODO: Add your drawing code here
-
-            base.Draw(gameTime);
-        }
-
-        public void changeScreen(GameTime gameTime, Screen screen)
-        {
-            _currentScreen.Dispose();
-            _currentScreen = screen;
-            _currentScreen.Draw(gameTime, _spriteBatch);
         }
     }
 }

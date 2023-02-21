@@ -12,22 +12,30 @@ namespace PongClient.Screens
     public class FriendScreen : ScreenHeader
     {
         private Texture2D _friendsTexture;
+        private SpriteBatch _spriteBatch;
 
         public FriendScreen(GamePong game) 
             : base(game)
         {
-            _friendsTexture = _content.Load<Texture2D>("Text/Friends");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void LoadContent()
         {
-            base.Draw(gameTime, spriteBatch);
+            base.LoadContent();
 
-            spriteBatch.Begin();
+            _friendsTexture = Content.Load<Texture2D>("Text/Friends");
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+        }
 
-            spriteBatch.Draw(_friendsTexture, new Vector2(_widthCenter * 2 - _friendsTexture.Width, 40 - _friendsTexture.Height / 2), Color.White);
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
 
-            spriteBatch.End();
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(_friendsTexture, new Vector2(_widthCenter * 2 - _friendsTexture.Width, 40 - _friendsTexture.Height / 2), Color.White);
+
+            _spriteBatch.End();
         }
     }
 }
