@@ -11,8 +11,8 @@ namespace Modele.EntityPackage
     public class Paddle : GameEntity
     {
 
-        public Paddle(float x, float y, Vector2 velocity, Skin skin)
-            : base(x, y, velocity, skin)
+        public Paddle(float x, float y, Skin skin)
+            : base(x, y, skin)
         {
         }
 

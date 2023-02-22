@@ -12,14 +12,12 @@ namespace Modele.EntityPackage
     {
         protected float x;
         protected float y;
-        protected Vector2 velocity;
         protected Skin skin;
 
-        protected GameEntity(float x, float y, Vector2 velocity, Skin skin)
+        protected GameEntity(float x, float y, Skin skin)
         {
             this.x = x;
             this.y = y;
-            this.velocity = velocity;
             this.skin = skin;
         }
 

@@ -6,7 +6,6 @@ classDiagram
     class GameEntity{
         -/x : double
         -/y : double
-        -/velocity : Vector2
         
         +/ChangeSize()
         +/ChangeVelocity()
@@ -15,16 +14,16 @@ classDiagram
     <<abstract>> GameEntity
     GameEntity --> "1" Skin : skin
 
-    class Ball{
-        -/angle : double
-        +/Move()
-    }
-    GameEntity <|-- Ball
-    
     class Paddle{
         +/Move()
     }
     GameEntity <|-- Paddle
+
+    class Ball{
+        -/velocity : Vector2
+        +/Move()
+    }
+    GameEntity <|-- Ball
 
     class Player{
     }
@@ -116,3 +115,6 @@ classDiagram
     class Aleatoire{
         +getMovement()
     }
+    Aleatoire --> "1" GameEntity : paddle
+    Aleatoire --> "1" GameEntity : ball
+    
