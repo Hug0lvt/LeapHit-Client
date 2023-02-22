@@ -115,6 +115,13 @@ classDiagram
     class Aleatoire{
         +getMovement()
     }
+    <<abstract>> Aleatoire
     Aleatoire --> "1" GameEntity : paddle
     Aleatoire --> "1" GameEntity : ball
     
+
+    
+    class Facile{
+        +getMovement()
+    }
+    Aleatoire <|-- Facile

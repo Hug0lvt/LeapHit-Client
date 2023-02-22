@@ -52,7 +52,7 @@ namespace PongClient.Screens
 
 
             localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
-            externalPlayer = new Bot(paddleExternalPlayer, ball, 5);
+            externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
         }
 
         public override void Draw(GameTime gameTime)
@@ -73,12 +73,15 @@ namespace PongClient.Screens
         public void DrawPaddle(Player player)
         {
             var texturePaddle = Content.Load<Texture2D>(player.Paddle.Skin);
+            player.Paddle.Zone = new System.Drawing.Rectangle((int)player.Paddle.X, (int)player.Paddle.Y, texturePaddle.Width, texturePaddle.Height);
             _spriteBatch.Draw(texturePaddle, new Vector2(player.Paddle.X, player.Paddle.Y - texturePaddle.Height / 2), Color.White);
         }
 
         public void DrawBall(Ball ball)
         {
-            _spriteBatch.Draw(Content.Load<Texture2D>(ball.Skin), new Vector2(ball.X, ball.Y), Color.White);
+            var textureBall = Content.Load<Texture2D>(ball.Skin);
+            ball.Zone = new System.Drawing.Rectangle((int)ball.X, (int)ball.Y, textureBall.Width, textureBall.Height);
+            _spriteBatch.Draw(textureBall, new Vector2(ball.X, ball.Y), Color.White);
         }
 
         public override void Update(GameTime gameTime)
@@ -91,18 +94,19 @@ namespace PongClient.Screens
 
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement());
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement());
+
+            var externalMovement = (Aleatoire)externalPlayer.StrategieMovement;
+            externalMovement.ElapsedSeconds = gameTime.GetElapsedSeconds();
             localPlayer.Ball.Move(gameTime.GetElapsedSeconds());
         }
 
-        //private void ConstrainPaddle(Paddle paddle)
-        //{
-        //    var texturePaddle = Content.Load<Texture2D>(player.Paddle.Skin);
+        private void ConstrainPaddle(Paddle paddle)
+        {
+            if (paddle.Zone.Top < 0)
+                paddle.X = paddle.Zone.Width / 2f;
 
-        //    if (paddle.BoundingRectangle.Left < 0)
-        //        paddle.Position.X = paddle.BoundingRectangle.Width / 2f;
-
-        //    if (paddle.BoundingRectangle.Bottom > ScreenHeight)
-        //        paddle.Position.Y = ScreenHeight - paddle.BoundingRectangle.Height / 2f;
-        //}
+            if (paddle.Zone.Bottom > ScreenHeight)
+                paddle.Y = ScreenHeight - paddle.Zone.Height / 2f;
+        }
     }
 }

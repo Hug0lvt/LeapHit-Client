@@ -9,7 +9,7 @@ using Modele.SkinPackage;
 
 namespace Modele.PlayerPackage
 {
-    public class Player
+    public abstract class Player
     {
         private GameEntity paddle;
         public Paddle Paddle => (Paddle)paddle;

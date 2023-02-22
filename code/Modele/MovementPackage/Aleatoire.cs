@@ -8,42 +8,25 @@ using System.Threading.Tasks;
 
 namespace Modele.MovementPackage
 {
-    public class Aleatoire : IMovement
+    public abstract class Aleatoire : IMovement
     {
-        private Ball ball;
-        private GameEntity paddle;
-        private float paddleSpeed;
+        protected Ball ball;
+        protected GameEntity paddle;
+        protected float elapsedSeconds;
 
-        public Aleatoire(GameEntity ball, GameEntity paddle, float difficulty)
+        public float ElapsedSeconds { set { this.elapsedSeconds = value; } }
+
+        public Aleatoire(GameEntity ball, GameEntity paddle)
         {
             this.ball = (Ball)ball;
             this.paddle = paddle;
-            this.paddleSpeed = difficulty;
         }
+
+        public abstract float GetAleatoireMovement();
 
         public float GetMovement()
         {
-            var newPosition = 0f;
-
-            //ball moving down
-            if (ball.Velocity.Y > 0)
-            {
-                if (ball.Y > paddle.Y)
-                    newPosition = paddle.Y + paddleSpeed;
-                else
-                    newPosition = paddle.Y - paddleSpeed;
-            }
-
-            //ball moving up
-            if (ball.Velocity.Y < 0)
-            {
-                if (ball.Y < paddle.Y)
-                    newPosition = paddle.Y + paddleSpeed;
-                else
-                    newPosition = paddle.Y - paddleSpeed;
-            }
-
-            return newPosition;
+            return GetAleatoireMovement();
         }
     }
 }

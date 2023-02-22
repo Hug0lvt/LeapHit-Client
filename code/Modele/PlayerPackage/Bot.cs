@@ -10,10 +10,16 @@ namespace Modele.PlayerPackage
 {
     public class Bot : Player
     {
-        public Bot(GameEntity paddle, GameEntity ball, float difficulty) : 
+        public Bot(GameEntity paddle, GameEntity ball, int difficulty) : 
             base(paddle, ball)
         {
-            strategyMouvement = new Aleatoire(ball, paddle, difficulty);
+            switch (difficulty)
+            {
+                default:
+                    strategyMouvement = new Facile(ball, paddle);
+                    break;
+            }
+            
         }
     }
 }
