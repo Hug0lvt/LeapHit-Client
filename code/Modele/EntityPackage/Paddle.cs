@@ -1,4 +1,5 @@
 ﻿using Modele.SkinPackage;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,8 @@ namespace Modele.EntityPackage
     public class Paddle : GameEntity
     {
 
-        public Paddle(float x, float y, Skin skin)
-            : base(x, y, skin)
+        public Paddle(float x, float y, Skin skin, Sprite sprite)
+            : base(x, y, skin, sprite)
         {
         }
 

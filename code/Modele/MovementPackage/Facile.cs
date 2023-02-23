@@ -18,7 +18,7 @@ namespace Modele.MovementPackage
         public override float GetAleatoireMovement()
         {
             var newPosition = 0f;
-            const float difficulty = 0.50f;
+            const float difficulty = 1.0f;
             var paddleSpeed = Math.Abs(ball.Velocity.Y) * difficulty;
 
             if (paddleSpeed < 0)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using MonoGame.Extended.Input;
 
 
 namespace Modele.MovementPackage
@@ -16,7 +17,7 @@ namespace Modele.MovementPackage
 
         public float GetMovement()
         {
-            return Microsoft.Xna.Framework.Input.Mouse.GetState().Y;
+            return MouseExtended.GetState().Position.Y;
         }
     }
 

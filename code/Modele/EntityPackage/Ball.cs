@@ -1,10 +1,12 @@
 ﻿using Modele.SkinPackage;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Modele.EntityPackage
 {
@@ -12,13 +14,13 @@ namespace Modele.EntityPackage
     {
         protected Vector2 velocity;
 
-        public Ball(float x, float y, Skin skin)
-            : base(x, y, skin)
+        public Ball(float x, float y, Skin skin, Sprite sprite)
+            : base(x, y, skin, sprite)
         {
             this.velocity = new Vector2(200, 250);
         }
 
-        public Vector2 Velocity { get { return velocity; } }
+        public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
         public void Move(float delta)
         {

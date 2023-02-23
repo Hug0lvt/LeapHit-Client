@@ -1,4 +1,5 @@
 ﻿using Modele.SkinPackage;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,18 +15,21 @@ namespace Modele.EntityPackage
         protected float x;
         protected float y;
         protected Skin skin;
-        protected Rectangle zone;
+        protected Sprite sprite;
+        protected MonoGame.Extended.RectangleF zone => sprite.GetBoundingRectangle(new Vector2(x, y), 0, Vector2.One);
 
-        protected GameEntity(float x, float y, Skin skin)
+        protected GameEntity(float x, float y, Skin skin, Sprite sprite)
         {
             this.x = x;
             this.y = y;
             this.skin = skin;
+            this.sprite = sprite;
         }
 
         public float X { get { return x; } set { this.x = value; } }
         public float Y { get { return y; } set { this.y = value; } }
         public string Skin { get { return skin.Asset; } }
-        public Rectangle Zone { get { return this.zone; } set { this.zone = value; } }
+        public MonoGame.Extended.RectangleF Zone { get { return this.zone; } }
+        public Sprite Sprite { get { return this.sprite; } }
     }
 }

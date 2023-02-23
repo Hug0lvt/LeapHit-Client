@@ -14,8 +14,10 @@ using Modele.PlayerPackage;
 using Modele.SkinPackage;
 using Modele.MovementPackage;
 using System.Numerics;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
 using MonoGame.Extended;
+using MonoGame.Extended.Sprites;
+using MonoGame.Extended.TextureAtlases;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace PongClient.Screens
 {
@@ -25,6 +27,7 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
+        private FastRandom _random = new FastRandom();
         private User localPlayer;
         private Player externalPlayer;
 
@@ -45,10 +48,10 @@ namespace PongClient.Screens
             var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");
             var ballSkin = new BallSkin("Form/ball", "simpleBall");
 
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin);
+            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
 
-            var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin);
-            var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin);
+            var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
+            var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
 
             localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
@@ -71,17 +74,13 @@ namespace PongClient.Screens
         }
 
         public void DrawPaddle(Player player)
-        {
-            var texturePaddle = Content.Load<Texture2D>(player.Paddle.Skin);
-            player.Paddle.Zone = new System.Drawing.Rectangle((int)player.Paddle.X, (int)player.Paddle.Y, texturePaddle.Width, texturePaddle.Height);
-            _spriteBatch.Draw(texturePaddle, new Vector2(player.Paddle.X, player.Paddle.Y - texturePaddle.Height / 2), Color.White);
+        { 
+            _spriteBatch.Draw(player.Paddle.Sprite, new Vector2(player.Paddle.X, player.Paddle.Y), 0, Vector2.One);
         }
 
         public void DrawBall(Ball ball)
         {
-            var textureBall = Content.Load<Texture2D>(ball.Skin);
-            ball.Zone = new System.Drawing.Rectangle((int)ball.X, (int)ball.Y, textureBall.Width, textureBall.Height);
-            _spriteBatch.Draw(textureBall, new Vector2(ball.X, ball.Y), Color.White);
+            _spriteBatch.Draw(ball.Sprite, new Vector2(ball.X, ball.Y), 0, Vector2.One);
         }
 
         public override void Update(GameTime gameTime)
@@ -95,18 +94,56 @@ namespace PongClient.Screens
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement());
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement());
 
+            ConstrainPaddle(localPlayer);
+            ConstrainPaddle(externalPlayer);
+
             var externalMovement = (Aleatoire)externalPlayer.StrategieMovement;
             externalMovement.ElapsedSeconds = gameTime.GetElapsedSeconds();
+            
+            ConstrainBall(localPlayer.Ball);
             localPlayer.Ball.Move(gameTime.GetElapsedSeconds());
+            
         }
 
-        private void ConstrainPaddle(Paddle paddle)
+        private void ConstrainPaddle(Player player)
         {
-            if (paddle.Zone.Top < 0)
-                paddle.X = paddle.Zone.Width / 2f;
+            if (player.Paddle.Zone.Top < 0)
+                player.Paddle.Y = player.Paddle.Zone.Height / 2f;
 
-            if (paddle.Zone.Bottom > ScreenHeight)
-                paddle.Y = ScreenHeight - paddle.Zone.Height / 2f;
+            if (player.Paddle.Zone.Bottom > _heightCenter*2)
+                player.Paddle.Y = _heightCenter*2 - player.Paddle.Zone.Height / 2f;
+        }
+
+        private void ConstrainBall(Ball ball)
+        {
+            var halfHeight = ball.Zone.Height / 2;
+            var halfWidth = ball.Zone.Width / 2;
+
+            if (ball.Y - halfHeight < 0)
+            {
+                ball.Y = halfHeight;
+                ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
+            }
+
+            if (ball.Y + halfHeight > _heightCenter * 2)
+            {
+                ball.Y = _heightCenter * 2 - halfHeight;
+                ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
+            }
+
+            if (ball.X > _widthCenter * 2 + halfWidth && ball.Velocity.X > 0)
+            {
+                ball.X = _widthCenter * 2 / 2f;
+                ball.Y = _heightCenter * 2 / 2f;
+                ball.Velocity = new Vector2(_random.Next(2, 5) * -100, _random.NextAngle() * 100);
+            }
+
+            if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            {
+                ball.X = _widthCenter * 2 / 2f;
+                ball.Y = _heightCenter * 2 / 2f;
+                ball.Velocity = new Vector2(_random.Next(2, 5) * 100, _random.NextAngle() * 100);
+            }
         }
     }
 }
