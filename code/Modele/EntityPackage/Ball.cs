@@ -1,4 +1,5 @@
 ﻿using Modele.SkinPackage;
+using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace Modele.EntityPackage
 {
     public class Ball : GameEntity
     {
-        protected Vector2 velocity;
+        private Vector2 velocity;
+        private FastRandom _random = new FastRandom();
 
         public Ball(float x, float y, Skin skin, Sprite sprite)
             : base(x, y, skin, sprite)
@@ -22,11 +24,39 @@ namespace Modele.EntityPackage
 
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
 
-        public void Move(float delta)
+        public override void Move(float delta, int screenHeight, int screenWidth)
         {
             x += Velocity.X * delta;
             y += Velocity.Y * delta;
+
+            var halfHeight = Zone.Height / 2;
+            var halfWidth = Zone.Width / 2;
+
+            if (y - halfHeight < 0)
+            {
+                y = halfHeight;
+                velocity = new Vector2(velocity.X, -velocity.Y);
+            }
+
+            if (y + halfHeight > screenHeight)
+            {
+                y = screenHeight - halfHeight;
+                velocity = new Vector2(velocity.X, -velocity.Y);
+            }
+
+            if (x > screenWidth + halfWidth && velocity.X > 0)
+            {
+                x = screenWidth / 2f;
+                y = screenHeight / 2f;
+                velocity = new Vector2(_random.Next(2, 5) * -100, _random.NextAngle() * 100);
+            }
+
+            if (x < -halfWidth && velocity.X < 0)
+            {
+                x = screenWidth / 2f;
+                y = screenHeight / 2f;
+                velocity = new Vector2(_random.Next(2, 5) * 100, _random.NextAngle() * 100);
+            }
         }
     }
 }
-//Vector2 est une classe de la bibliothèque standard de C# qui représente un vecteur en deux dimensions, c'est-à-dire un couple de valeurs numériques qui indiquent une direction et une magnitude (longueur). Les composantes de Vector2 sont typiquement des nombres à virgule flottante, représentant les valeurs x et y du vecteur.

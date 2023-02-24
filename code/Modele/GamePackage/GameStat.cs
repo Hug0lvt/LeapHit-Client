@@ -10,5 +10,8 @@ namespace Modele.GamePackage
     {
         private int time;
         private Score score;
+
+        public int Time { get { return time; } set { time = value; } }
+        public Score Score { get { return score; } set { score = value; } }
     }
 }

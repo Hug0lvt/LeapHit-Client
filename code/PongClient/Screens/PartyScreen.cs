@@ -18,6 +18,8 @@ using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.TextureAtlases;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Modele.GamePackage;
+using System.Timers;
 
 namespace PongClient.Screens
 {
@@ -27,9 +29,8 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        private FastRandom _random = new FastRandom();
-        private User localPlayer;
-        private Player externalPlayer;
+        private Modele.GamePackage.Game _pongGame;
+        private Timer _timer = new Timer();
 
         public PartyScreen(GamePong game)
           : base(game)
@@ -54,8 +55,13 @@ namespace PongClient.Screens
             var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
 
-            localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
-            externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
+            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
+            var externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
+
+            var gameStat = new GameStat();
+            _pongGame = new Modele.GamePackage.Game(localPlayer, externalPlayer, gameStat);
+
+
         }
 
         public override void Draw(GameTime gameTime)
@@ -63,12 +69,14 @@ namespace PongClient.Screens
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
+
+            DrawBall(_pongGame.LocalPlayer.Ball);
+
             _spriteBatch.Draw(_rectangleHautTexture, new Vector2(0, 0), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, _heightCenter * 2 - _rectangleBasTexture.Height), Color.White);
 
-            DrawPaddle(localPlayer);
-            DrawPaddle(externalPlayer);
-            DrawBall(localPlayer.Ball);
+            DrawPaddle(_pongGame.LocalPlayer);
+            DrawPaddle(_pongGame.ExternalPlayer);
 
             _spriteBatch.End();
         }
@@ -83,6 +91,16 @@ namespace PongClient.Screens
             _spriteBatch.Draw(ball.Sprite, new Vector2(ball.X, ball.Y), 0, Vector2.One);
         }
 
+        public void DrawScore(GameTime gameTime)
+        {
+
+        }
+
+        public void DrawTime(GameTime gameTime)
+        {
+
+        }
+
         public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -91,59 +109,8 @@ namespace PongClient.Screens
                 ScreenManager.LoadScreen(new MenuScreen(_game));
             }
 
-            localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement());
-            externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement());
-
-            ConstrainPaddle(localPlayer);
-            ConstrainPaddle(externalPlayer);
-
-            var externalMovement = (Aleatoire)externalPlayer.StrategieMovement;
-            externalMovement.ElapsedSeconds = gameTime.GetElapsedSeconds();
-            
-            ConstrainBall(localPlayer.Ball);
-            localPlayer.Ball.Move(gameTime.GetElapsedSeconds());
-            
-        }
-
-        private void ConstrainPaddle(Player player)
-        {
-            if (player.Paddle.Zone.Top < 0)
-                player.Paddle.Y = player.Paddle.Zone.Height / 2f;
-
-            if (player.Paddle.Zone.Bottom > _heightCenter*2)
-                player.Paddle.Y = _heightCenter*2 - player.Paddle.Zone.Height / 2f;
-        }
-
-        private void ConstrainBall(Ball ball)
-        {
-            var halfHeight = ball.Zone.Height / 2;
-            var halfWidth = ball.Zone.Width / 2;
-
-            if (ball.Y - halfHeight < 0)
-            {
-                ball.Y = halfHeight;
-                ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
-            }
-
-            if (ball.Y + halfHeight > _heightCenter * 2)
-            {
-                ball.Y = _heightCenter * 2 - halfHeight;
-                ball.Velocity = new Vector2(ball.Velocity.X, -ball.Velocity.Y);
-            }
-
-            if (ball.X > _widthCenter * 2 + halfWidth && ball.Velocity.X > 0)
-            {
-                ball.X = _widthCenter * 2 / 2f;
-                ball.Y = _heightCenter * 2 / 2f;
-                ball.Velocity = new Vector2(_random.Next(2, 5) * -100, _random.NextAngle() * 100);
-            }
-
-            if (ball.X < -halfWidth && ball.Velocity.X < 0)
-            {
-                ball.X = _widthCenter * 2 / 2f;
-                ball.Y = _heightCenter * 2 / 2f;
-                ball.Velocity = new Vector2(_random.Next(2, 5) * 100, _random.NextAngle() * 100);
-            }
+            _pongGame.Play(_widthCenter * 2, _heightCenter * 2, gameTime.GetElapsedSeconds());
+            Debug.WriteLine(_pongGame.GameStat.Score.GetScore());
         }
     }
 }

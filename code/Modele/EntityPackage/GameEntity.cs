@@ -26,10 +26,12 @@ namespace Modele.EntityPackage
             this.sprite = sprite;
         }
 
-        public float X { get { return x; } set { this.x = value; } }
-        public float Y { get { return y; } set { this.y = value; } }
+        public float X { get { return x; } set { x = value; } }
+        public float Y { get { return y; } set { y = value; } }
         public string Skin { get { return skin.Asset; } }
         public MonoGame.Extended.RectangleF Zone { get { return this.zone; } }
         public Sprite Sprite { get { return this.sprite; } }
+
+        public abstract void Move(float delta, int screenHeight, int screenWidth);
     }
 }
