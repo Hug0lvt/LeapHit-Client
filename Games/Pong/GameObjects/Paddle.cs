@@ -8,8 +8,8 @@ namespace Pong.GameObjects
 {
     public class Paddle : GameObject
     {
-        public string fileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ,"..\\..\\..\\..\\main.py");
-        public string python = @"C:\Users\ramik\PycharmProjects\pythonProject\venv\Scripts\python.exe";
+        public string fileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ,"..\\..\\..\\..\\main.exe");
+        public string python = @"C:\Users\ramik\Desktop\leapHitpYTHIN\LeapHitClient\Games\build\exe.win-amd64-3.9\main.exe";
         public Process psi ;
         public float Value;
         private NamedPipeClientStream pipeClient;
@@ -48,6 +48,11 @@ namespace Pong.GameObjects
                                 sr.Close();
                                 this.close();
                             }
+                            if (temp == "ready")
+                            {
+                                Debug.WriteLine("lessgo");
+                                continue;
+                            }
                             Position.Y=float.Parse(temp);
                         }
                     }
@@ -60,12 +65,12 @@ namespace Pong.GameObjects
         public void start()
         {
             psi = new Process();
-            var startInfo = new ProcessStartInfo(python, fileName)
+            var startInfo = new ProcessStartInfo(python)
             {
-                RedirectStandardOutput = true,
+                RedirectStandardOutput = false,
                 UseShellExecute = false,
                 CreateNoWindow = false,
-                RedirectStandardError = true
+                RedirectStandardError = false
             };
 
 

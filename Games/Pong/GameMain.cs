@@ -32,7 +32,6 @@ namespace Pong
         protected override void LoadContent()
         {
             base.LoadContent();
-
             _screenManager.LoadScreen(new TitleScreen(this), new FadeTransition(GraphicsDevice, Color.Black, 0.5f));
         }
     }

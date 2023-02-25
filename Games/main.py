@@ -59,9 +59,10 @@ def main():
         t.write("VideoClosed")
 
     tracker = handTracker()
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 400)
-
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    
+    t.write("ready")
     while True:
         success, image = cap.read()
         image = tracker.handsFinder(image)
@@ -71,10 +72,7 @@ def main():
                 cord=0
             else :
                 cord =lmList[9][2]
-            cordFinal=(cord  *1080)/image.shape[0]
-            # sys.stderr.write(str(cordFinal)+"\n")
-            # sys.stdout.write(str(cordFinal) + "\n")
-          #  print(cordFinal)
+            cordFinal=cord
             t.write(str(cordFinal))
 
 if __name__ == "__main__":
