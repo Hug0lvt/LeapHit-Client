@@ -9,5 +9,6 @@ namespace Modele.MovementPackage
     public interface IMovement
     {
         public float GetMovement();
+        public void startMovement();
     }
 }

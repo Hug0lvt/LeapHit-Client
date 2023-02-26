@@ -13,5 +13,10 @@ namespace Modele.MovementPackage
         {
             throw new NotImplementedException();
         }
+
+        public void startMovement()
+        {
+            return;
+        }
     }
 }

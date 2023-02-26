@@ -31,7 +31,6 @@ namespace PongClient
         protected override void LoadContent()
         {
             base.LoadContent();
-
             _screenManager.LoadScreen(new MenuScreen(this));
         }
 
