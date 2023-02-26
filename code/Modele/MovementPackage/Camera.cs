@@ -68,7 +68,7 @@ namespace Modele.MovementPackage
 
         public void startMovement()
         {
-            Debug.WriteLine("lessgo");
+            Debug.WriteLine("les go");
             process = new Process();
             var startInfo = new ProcessStartInfo(exeFile)
             {
