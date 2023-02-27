@@ -11,7 +11,7 @@ namespace Modele.MovementPackage
 {
     public class Camera  : IMovement
     {
-        public string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\build\\exe.win-amd64-3.9\\main.exe");
+        public string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\dist\\main\\main.exe");
         public Process process;
         public float coordonate;
         private NamedPipeClientStream pipeClient;
@@ -30,9 +30,7 @@ namespace Modele.MovementPackage
 
             {
                 {
-                    pipeClient.Connect();
-
-                    
+                    pipeClient.Connect();           
                     using (StreamReader sr = new StreamReader(pipeClient))
                     {
                         // Display the read text to the console

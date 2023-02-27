@@ -54,7 +54,7 @@ namespace PongClient.Screens
             var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
             var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
-            IMovement movement = new Modele.MovementPackage.Mouse();
+            IMovement movement = new Modele.MovementPackage.Camera();
             movement.startMovement();
 
             var localPlayer = new User(paddleLocalPlayer, ball, movement, "loris");
