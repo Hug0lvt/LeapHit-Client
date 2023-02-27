@@ -1,0 +1,12 @@
+{
+  "allow_images": true,
+  "allow_pause_resume": true,
+  "auto_exposure_enabled": true,
+  "broadcast_server_ip": "127.0.0.1",
+  "broadcast_server_port": "1024",
+  "cameras": {},
+  "diagnostic_client_scaling": false,
+  "paused": false,
+  "use_noise_correction": false,
+  "use_squishy_hands": true
+}
