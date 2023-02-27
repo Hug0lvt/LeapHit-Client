@@ -15,10 +15,6 @@ namespace Modele.MovementPackage
     {
         protected Ball ball;
         protected GameEntity paddle;
-        protected float elapsedSeconds;
-        protected Vector2 velocity;
-
-        public float ElapsedSeconds { set { this.elapsedSeconds = value; } }
 
         public Aleatoire(GameEntity ball, GameEntity paddle)
         {
@@ -27,6 +23,7 @@ namespace Modele.MovementPackage
         }
 
         public abstract float GetAleatoireMovement();
+        public abstract void Init();
 
         public float GetMovement()
         {

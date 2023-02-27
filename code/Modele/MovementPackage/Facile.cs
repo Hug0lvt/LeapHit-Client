@@ -15,41 +15,36 @@ namespace Modele.MovementPackage
         public Facile(GameEntity ball, GameEntity paddle) 
             : base(ball, paddle)
         {
-            velocity = new Vector2(200, 10);
+            Init();
+        }
+
+        public override void Init()
+        {
+            ball.Difficulty = 1;
         }
 
         public override float GetAleatoireMovement()
         {
-            var newPosition = 0f;
-            const float difficulty = 0.9f;
+            // Ajouter une latence pour que le bot ne suive pas la balle de manière trop précise
+            float ballY = ball.Y + ball.Velocity.Y * 50;
+            float newPosition = 0;
+            var speed = 1;
 
-            //if (paddleSpeed < 0)
-            //    paddleSpeed = -paddleSpeed;
+            // Suivre la position de la balle
+            if (paddle.Y < ballY)
+            {
+                newPosition = paddle.Y += speed;
+            }
+            else if (paddle.Y > ballY)
+            {
+                newPosition = paddle.Y -= speed;
+            }
 
-            ////ball moving down
-            //if (ball.Velocity.Y > 0)
-            //{
-            //    if (ball.Y > paddle.Y)
-            //        newPosition = paddle.Y + paddleSpeed * elapsedSeconds;
-            //    else
-            //        newPosition = paddle.Y - paddleSpeed * elapsedSeconds;
-            //}
-
-            ////ball moving up
-            //if (ball.Velocity.Y < 0)
-            //{
-            if (ball.Y > paddle.Y)
-                newPosition = paddle.Y + (ball.Y - paddle.Y );
-            else
-                newPosition = paddle.Y + (paddle.Y -  ball.Y );
-
-
-            //newPosition = paddle.Y + ball.Y * velocity.Y;
-
-            //x += Velocity.X * delta * difficulty;
-            //y += Velocity.Y * delta * difficulty;
-
-            //newPosition = ball.Y;
+            // Ajouter une petite aléatoire pour rendre le bot moins prévisible
+            if (new Random().Next(0, 100) < 5)
+            {
+                newPosition += new Random().Next(-1, 2) * speed;
+            }
 
             return newPosition;
         }

@@ -37,12 +37,6 @@ namespace Modele.GamePackage
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
-            if (externalPlayer.StrategieMovement.GetType().IsSubclassOf(typeof(Aleatoire)))
-            {
-                var externalMovement = (Aleatoire)externalPlayer.StrategieMovement;
-                externalMovement.ElapsedSeconds = elapsedSecond;
-            }
-
             SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
 
             localPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
