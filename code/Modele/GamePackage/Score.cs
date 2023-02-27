@@ -36,8 +36,8 @@ namespace Modele.GamePackage
 
         public void IncrementScore(Player player)
         {
-            if (player.Equals(player1.Item1)) player1 = new Tuple<Player, double>(player1.Item1, player1.Item2+0.25);
-            else player2 = new Tuple<Player, double>(player2.Item1, player2.Item2+0.25);
+            if (player.Equals(player1.Item1)) player1 = new Tuple<Player, double>(player1.Item1, player1.Item2+1);
+            else player2 = new Tuple<Player, double>(player2.Item1, player2.Item2+1);
         }
     }
 }

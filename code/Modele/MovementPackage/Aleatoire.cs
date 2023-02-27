@@ -1,10 +1,13 @@
 ﻿using Modele.EntityPackage;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Modele.MovementPackage
 {
@@ -13,6 +16,7 @@ namespace Modele.MovementPackage
         protected Ball ball;
         protected GameEntity paddle;
         protected float elapsedSeconds;
+        protected Vector2 velocity;
 
         public float ElapsedSeconds { set { this.elapsedSeconds = value; } }
 

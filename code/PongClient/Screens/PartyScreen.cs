@@ -20,6 +20,7 @@ using MonoGame.Extended.TextureAtlases;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Modele.GamePackage;
 using System.Timers;
+using MonoGame.Extended.BitmapFonts;
 
 namespace PongClient.Screens
 {
@@ -49,7 +50,7 @@ namespace PongClient.Screens
             var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");
             var ballSkin = new BallSkin("Form/ball", "simpleBall");
 
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
+            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)), 2);
 
             var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
             var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
@@ -72,8 +73,10 @@ namespace PongClient.Screens
 
             DrawBall(_pongGame.LocalPlayer.Ball);
 
-            _spriteBatch.Draw(_rectangleHautTexture, new Vector2(0, 0), Color.White);
-            _spriteBatch.Draw(_rectangleBasTexture, new Vector2(0, _heightCenter * 2 - _rectangleBasTexture.Height), Color.White);
+            _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
+            _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
+
+            DrawScore();
 
             DrawPaddle(_pongGame.LocalPlayer);
             DrawPaddle(_pongGame.ExternalPlayer);
@@ -91,9 +94,12 @@ namespace PongClient.Screens
             _spriteBatch.Draw(ball.Sprite, new Vector2(ball.X, ball.Y), 0, Vector2.One);
         }
 
-        public void DrawScore(GameTime gameTime)
+        public void DrawScore()
         {
-
+            var font = Content.Load<SpriteFont>("Font/font-20");
+            var text = _pongGame.GameStat.Score.GetScore().Item1 + " : " + _pongGame.GameStat.Score.GetScore().Item2;
+            //_spriteBatch.DrawString(font, text, new Vector2(_widthCenter - font.MeasureString(text).Length()/2, 0), Color.Black);
+            _spriteBatch.DrawString(font, text, new Vector2(_widthCenter - font.MeasureString(text).Length(), 0), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
         }
 
         public void DrawTime(GameTime gameTime)
@@ -110,7 +116,6 @@ namespace PongClient.Screens
             }
 
             _pongGame.Play(_widthCenter * 2, _heightCenter * 2, gameTime.GetElapsedSeconds());
-            Debug.WriteLine(_pongGame.GameStat.Score.GetScore());
         }
     }
 }
