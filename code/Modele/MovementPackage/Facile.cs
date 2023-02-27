@@ -1,6 +1,8 @@
-﻿using Modele.EntityPackage;
+﻿using Microsoft.Xna.Framework;
+using Modele.EntityPackage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -13,33 +15,35 @@ namespace Modele.MovementPackage
         public Facile(GameEntity ball, GameEntity paddle) 
             : base(ball, paddle)
         {
+            Init();
+        }
+
+        public override void Init()
+        {
+            ball.Difficulty = 1;
         }
 
         public override float GetAleatoireMovement()
         {
-            var newPosition = 0f;
-            const float difficulty = 1.0f;
-            var paddleSpeed = Math.Abs(ball.Velocity.Y) * difficulty;
+            // Ajouter une latence pour que le bot ne suive pas la balle de manière trop précise
+            float ballY = ball.Y + ball.Velocity.Y * 50;
+            float newPosition = 0;
+            var speed = 1;
 
-            if (paddleSpeed < 0)
-                paddleSpeed = -paddleSpeed;
-
-            //ball moving down
-            if (ball.Velocity.Y > 0)
+            // Suivre la position de la balle
+            if (paddle.Y < ballY)
             {
-                if (ball.Y > paddle.Y)
-                    newPosition = paddle.Y + paddleSpeed * elapsedSeconds;
-                else
-                    newPosition = paddle.Y - paddleSpeed * elapsedSeconds;
+                newPosition = paddle.Y += speed;
+            }
+            else if (paddle.Y > ballY)
+            {
+                newPosition = paddle.Y -= speed;
             }
 
-            //ball moving up
-            if (ball.Velocity.Y < 0)
+            // Ajouter une petite aléatoire pour rendre le bot moins prévisible
+            if (new Random().Next(0, 100) < 5)
             {
-                if (ball.Y < paddle.Y)
-                    newPosition = paddle.Y + paddleSpeed * elapsedSeconds;
-                else
-                    newPosition = paddle.Y - paddleSpeed * elapsedSeconds;
+                newPosition += new Random().Next(-1, 2) * speed;
             }
 
             return newPosition;

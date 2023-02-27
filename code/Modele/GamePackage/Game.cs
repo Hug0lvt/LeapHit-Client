@@ -37,31 +37,30 @@ namespace Modele.GamePackage
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
-            if (externalPlayer.StrategieMovement.GetType().IsSubclassOf(typeof(Aleatoire)))
-            {
-                var externalMovement = (Aleatoire)externalPlayer.StrategieMovement;
-                externalMovement.ElapsedSeconds = elapsedSecond;
-            }
-
-
-            SetScore(localPlayer.Ball, screenWidth);
-
-            localPlayer.Ball.Move(elapsedSecond, screenHeight, screenWidth);
+            SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
 
             localPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
             externalPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
 
         }
 
-        private void SetScore(Ball ball, int screenWidth)
+        private void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
         {
+            ball.Move(elapsedSecond, screenHeight, screenWidth);
+
             var halfWidth = ball.Zone.Width / 2;
 
             if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
+            {
                 gameStat.Score.IncrementScore(localPlayer);
+                ball.Reset(screenHeight, screenWidth, true);
+            }
 
             if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            {
                 gameStat.Score.IncrementScore(externalPlayer);
+                ball.Reset(screenHeight, screenWidth, false);
+            }
         }
     }
 }
