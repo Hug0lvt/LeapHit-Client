@@ -1,23 +1,28 @@
-﻿using System;
+﻿using PongClient.Drivers.Leap;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CLI_LeapMotionGemini
 {
-    public static class StarterSvc
+    public class LeapController //mettre singleton ???? + : IMouvement
     {
 
-        public static void LaunchSvcLeapMotion()
+        LeapMotion device;
+
+        private void LaunchSvcLeapMotion()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             
-            //startInfo.FileName= Path.Combine(AppDomain.CurrentDomain.BaseDirectory)
             startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false;
-            startInfo.FileName = @"C:\Dev\LeapHitTeam\MesTests\CLI_LeapMotionGemini\CLI_LeapMotionGemini\Driver\svcleap\LeapSvc.exe";
+            //Verif Path
+            startInfo.FileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LeapSvc.exe");
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             
             try
@@ -29,11 +34,11 @@ namespace CLI_LeapMotionGemini
                     if(process != null)
                     {
                         process.WaitForExitAsync();
-                        Console.WriteLine("Service ON !");
+                        Debug.WriteLine("Service ON !");
                     }
                     else
                     {
-                        Console.WriteLine("Le Service n'a pas pu démarré !");
+                        Debug.WriteLine("Le Service n'a pas pu démarré !");
                     }
                     
                 }
@@ -41,18 +46,37 @@ namespace CLI_LeapMotionGemini
             }
             catch
             {
-                Console.WriteLine("Une erreur c'est produite a la création du service !");
+                Debug.WriteLine("Une erreur c'est produite a la création du service !");
             }
         }
 
-        public static  void StopSvcLeapMotion()
+        private void StopSvcLeapMotion()
         {
             foreach (var process in Process.GetProcessesByName("LeapSvc"))
             {
                 process.Kill();
-                Console.WriteLine("Kill");
+                Debug.WriteLine("Kill");
             }
             
         }
+
+        public void Start()
+        {
+            LaunchSvcLeapMotion();
+            device= new LeapMotion();
+        }
+
+        public void Stop()
+        {
+            device.OnClosing();
+            StopSvcLeapMotion();
+        }
+
+        public float getCoordinateY()
+        {
+            return device.Coord;
+        }
+
+
     }
 }
