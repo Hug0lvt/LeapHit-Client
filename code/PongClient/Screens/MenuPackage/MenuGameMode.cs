@@ -36,20 +36,16 @@ namespace PongClient.Screens.MenuPackage
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var onlineTexture = Content.Load<Texture2D>("Text/Online");
-            var localTexture = Content.Load<Texture2D>("Text/Local");
+            var onlineTexture = new Sprite(Content.Load<Texture2D>("Text/Online"));
+            var localTexture = new Sprite(Content.Load<Texture2D>("Text/Local"));
 
-            var onlineButton = new ButtonHovered(onlineTexture, _whiteRectangleTexture, new Vector2(_widthCenter - onlineTexture.Width / 2,
-                                                                                                    _heightCenter - 100),
-                                                                                        new Vector2(_widthCenter - _whiteRectangleTexture.Width / 2,
-                                                                                                    _heightCenter - 110));
+            var onlineButton = new ButtonHovered(onlineTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                    _heightCenter - 100));
             onlineButton.Click += OnlineButton_Click;
 
 
-            var localButton = new ButtonHovered(localTexture, _whiteRectangleTexture, new Vector2(_widthCenter - localTexture.Width / 2,
-                                                                                                  _heightCenter - 100 + onlineTexture.Height + 50),
-                                                                                      new Vector2(_widthCenter - _whiteRectangleTexture.Width / 2,
-                                                                                                  _heightCenter - 110 + onlineTexture.Height + 50));
+            var localButton = new ButtonHovered(localTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                  onlineButton._position.Y + 150));
             localButton.Click += LocalButton_Click;
 
             _components = new List<Component>()

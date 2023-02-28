@@ -10,13 +10,15 @@ using PongClient.Controls;
 using System.Diagnostics;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Timers;
+using MonoGame.Extended.Sprites;
 
 namespace PongClient.Screens.HeaderPackage
 {
     public class OptionScreen : ScreenHeader
     {
-        private Texture2D _optionTexture;
-        private Texture2D _gameModeTexture;
+        private Sprite _optionTexture;
+        private Sprite _gameModeTexture;
+        private Sprite _botLevel;
         private SpriteBatch _spriteBatch;
         private List<Component> _components;
 
@@ -29,32 +31,47 @@ namespace PongClient.Screens.HeaderPackage
         {
             base.LoadContent();
 
-            _optionTexture = Content.Load<Texture2D>("Text/Options");
-            _gameModeTexture = Content.Load<Texture2D>("Text/Game Mode");
+            _optionTexture = new Sprite(Content.Load<Texture2D>("Text/Options"));
+            _gameModeTexture = new Sprite(Content.Load<Texture2D>("Text/Game Mode"));
+            _botLevel = new Sprite(Content.Load<Texture2D>("Text/Bot Level"));
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var mouseTexture = Content.Load<Texture2D>("Text/Mouse");
-            var leapTexture = Content.Load<Texture2D>("Text/Leap");
-            var cameraTexture = Content.Load<Texture2D>("Text/Camera");
-            var withRectangle = Content.Load<Texture2D>("Form/whiteRectangle");
+            var withRectangle = new Sprite(Content.Load<Texture2D>("Form/littleWhiteRectangle"));
 
-            var mouseButton = new ButtonHovered(mouseTexture, withRectangle, new Vector2(_widthCenter / 2 - mouseTexture.Width / 2,
-                                                                                         _heightCenter - 100 + _gameModeTexture.Height), 
-                                                                             new Vector2(0, 0));
+            var mouseTexture = new Sprite(Content.Load<Texture2D>("Text/Mouse"));
+            var leapTexture = new Sprite(Content.Load<Texture2D>("Text/Leap"));
+            var cameraTexture = new Sprite(Content.Load<Texture2D>("Text/Camera"));
 
-            var leapButton = new ButtonHovered(leapTexture, withRectangle, new Vector2(_widthCenter / 2 - leapTexture.Width / 2,
-                                                                                       mouseButton._position.Y + 70),
-                                                                           new Vector2(0, 0));
+            var mouseButton = new ButtonHovered(mouseTexture, withRectangle, new Vector2(_widthCenter / 2,
+                                                                                         _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
 
-            var cameraButton = new ButtonHovered(cameraTexture, withRectangle, new Vector2(_widthCenter / 2 - cameraTexture.Width / 2,
-                                                                                           leapButton._position.Y + 70),
-                                                                               new Vector2(0, 0));
+            var leapButton = new ButtonHovered(leapTexture, withRectangle, new Vector2(_widthCenter / 2,
+                                                                                       mouseButton._position.Y + 90));
+
+            var cameraButton = new ButtonHovered(cameraTexture, withRectangle, new Vector2(_widthCenter / 2,
+                                                                                           leapButton._position.Y + 90));
+
+            var easyTexture = new Sprite(Content.Load<Texture2D>("Text/Easy"));
+            var averageTexture = new Sprite(Content.Load<Texture2D>("Text/Average"));
+            var hardTexture = new Sprite(Content.Load<Texture2D>("Text/Hard"));
+
+            var easyButton = new ButtonHovered(easyTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
+                                                                                         _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
+
+            var averageButton = new ButtonHovered(averageTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
+                                                                                       easyButton._position.Y + 90));
+
+            var hardButton = new ButtonHovered(hardTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
+                                                                                           averageButton._position.Y + 90));
 
             _components = new List<Component>()
             {
                 mouseButton, 
                 leapButton, 
-                cameraButton 
+                cameraButton,
+                easyButton,
+                averageButton,
+                hardButton,
             };
         }
 
@@ -64,9 +81,9 @@ namespace PongClient.Screens.HeaderPackage
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(_optionTexture, new Vector2(_widthCenter * 2 - _optionTexture.Width, 40 - _optionTexture.Height / 2), Color.White);
-            _spriteBatch.Draw(_gameModeTexture, new Vector2(_widthCenter / 2 - _gameModeTexture.Width / 2,
-                                                             _heightCenter - 100), Color.White);
+            _spriteBatch.Draw(_optionTexture, new Vector2(_widthCenter * 2 - _optionTexture.TextureRegion.Width / 2, 40), 0, Vector2.One);
+            _spriteBatch.Draw(_gameModeTexture, new Vector2(_widthCenter / 2, _heightCenter - 100), 0, Vector2.One);
+            _spriteBatch.Draw(_botLevel, new Vector2(_widthCenter * 2 - _widthCenter / 2, _heightCenter - 100), 0, Vector2.One);
 
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);

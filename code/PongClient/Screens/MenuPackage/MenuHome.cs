@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MonoGame.Extended.Sprites;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -26,44 +27,36 @@ namespace PongClient.Screens.MenuPackage
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var playIcoTexture = Content.Load<Texture2D>("Icon/PlayIco");
-            var quitTexture = Content.Load<Texture2D>("Text/Quit");
-            var optionTexture = Content.Load<Texture2D>("Text/Options");
-            var statisticsTexture = Content.Load<Texture2D>("Text/Statistics");
-            var friendIcoTexture = Content.Load<Texture2D>("Icon/FriendsIco");
+            var playIcoTexture = new Sprite(Content.Load<Texture2D>("Icon/PlayIco"));
+            var quitTexture = new Sprite(Content.Load<Texture2D>("Text/Quit"));
+            var optionTexture = new Sprite(Content.Load<Texture2D>("Text/Options"));
+            var statisticsTexture = new Sprite(Content.Load<Texture2D>("Text/Statistics"));
+            var friendIcoTexture = new Sprite(Content.Load<Texture2D>("Icon/FriendsIco"));
             
-            var whitePlay = Content.Load<Texture2D>("Form/PlayWhite");
+            var whitePlay = new Sprite(Content.Load<Texture2D>("Form/PlayWhite"));
 
-            var newGameButton = new ButtonHovered(playIcoTexture, whitePlay, new Vector2(_widthCenter - playIcoTexture.Width / 2,
-                                                                                 _heightCenter - playIcoTexture.Height - 60),
-                                                                             new Vector2(_widthCenter - whitePlay.Width / 2,
-                                                                                 _heightCenter - whitePlay.Height - 60));
+            var newGameButton = new ButtonHovered(playIcoTexture, whitePlay, new Vector2(_widthCenter,
+                                                                                 _heightCenter - 200));
             newGameButton.Click += NewGameButton_Click;
 
 
-            var optionButton = new ButtonHovered(optionTexture, _whiteRectangleTexture, new Vector2(_widthCenter - optionTexture.Width / 2,
-                                                                                                    _heightCenter + 30),
-                                                                                        new Vector2(_widthCenter - _whiteRectangleTexture.Width / 2,
-                                                                                                    _heightCenter + 20));
+            var optionButton = new ButtonHovered(optionTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                    _heightCenter + 30));
             optionButton.Click += OptionButton_Click;
 
 
-            var statisticsButton = new ButtonHovered(statisticsTexture, _whiteRectangleTexture, new Vector2(_widthCenter - statisticsTexture.Width / 2,
-                                                                                                            _heightCenter + optionTexture.Height + 30),
-                                                                                                new Vector2(_widthCenter - _whiteRectangleTexture.Width / 2,
-                                                                                                            _heightCenter + optionTexture.Height + 20));
+            var statisticsButton = new ButtonHovered(statisticsTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                            optionButton._position.Y + 100));
             statisticsButton.Click += StatisticsButton_Click;
 
 
-            var quitGameButton = new ButtonHovered(quitTexture, _whiteRectangleTexture, new Vector2(_widthCenter - quitTexture.Width / 2,
-                                                                                                    _heightCenter + optionTexture.Height + statisticsTexture.Height + 30),
-                                                                                        new Vector2(_widthCenter - _whiteRectangleTexture.Width / 2,
-                                                                                                    _heightCenter + optionTexture.Height + statisticsTexture.Height + 20));
+            var quitGameButton = new ButtonHovered(quitTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                    statisticsButton._position.Y + 100));
             quitGameButton.Click += QuitGameButton_Click;
 
 
-            var friendsButton = new Button(friendIcoTexture, new Vector2(20,
-                                                                         _heightCenter * 2 - friendIcoTexture.Height));
+            var friendsButton = new Button(friendIcoTexture, new Vector2(friendIcoTexture.TextureRegion.Width / 2,
+                                                                         _heightCenter * 2 - friendIcoTexture.TextureRegion.Height / 2));
             friendsButton.Click += FriendButton_Click;
 
 
