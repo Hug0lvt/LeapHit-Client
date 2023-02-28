@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
 using PongClient.Controls;
+using PongClient.Screens.MenuPackage;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PongClient.Screens
+namespace PongClient.Screens.HeaderPackage
 {
     public class ScreenHeader : PongScreen
     {
@@ -57,7 +58,7 @@ namespace PongClient.Screens
 
         private void ReturnButton_Clicked(object sender, EventArgs e)
         {
-            ScreenManager.LoadScreen(new MenuScreen(_game));
+            ScreenManager.LoadScreen(new MenuHome(_game));
         }
 
         public override void Update(GameTime gameTime)

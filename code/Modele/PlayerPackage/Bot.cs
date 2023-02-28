@@ -1,4 +1,5 @@
-﻿using Modele.EntityPackage;
+﻿using Microsoft.Xna.Framework;
+using Modele.EntityPackage;
 using Modele.MovementPackage;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,11 @@ namespace Modele.PlayerPackage
 {
     public class Bot : Player
     {
-        public Bot(GameEntity paddle, GameEntity ball, int difficulty) : 
-            base(paddle, ball)
+        public Bot(GameEntity paddle, GameEntity ball, int difficulty)
         {
+            this.paddle = paddle;
+            this.ball = ball;
+
             switch (difficulty)
             {
                 default:

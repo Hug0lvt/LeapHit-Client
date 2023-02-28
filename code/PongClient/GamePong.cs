@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Modele.PlayerPackage;
+using Modele.SkinPackage;
 using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using PongClient.Screens;
+using PongClient.Screens.MenuPackage;
 
 namespace PongClient
 {
@@ -12,6 +15,9 @@ namespace PongClient
     {
         private GraphicsDeviceManager _graphics;
         private readonly ScreenManager _screenManager;
+
+        private User user;
+        public User User { get { return user; } }
 
         public GamePong()
         {
@@ -32,7 +38,9 @@ namespace PongClient
         {
             base.LoadContent();
 
-            _screenManager.LoadScreen(new MenuScreen(this));
+            _screenManager.LoadScreen(new MenuHome(this));
+
+            user = new User("loris");
         }
 
         protected override void Update(GameTime gameTime)

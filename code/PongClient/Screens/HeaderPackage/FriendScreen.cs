@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PongClient.Screens
+namespace PongClient.Screens.HeaderPackage
 {
     public class FriendScreen : ScreenHeader
     {
         private Texture2D _friendsTexture;
         private SpriteBatch _spriteBatch;
 
-        public FriendScreen(GamePong game) 
+        public FriendScreen(GamePong game)
             : base(game)
         {
         }

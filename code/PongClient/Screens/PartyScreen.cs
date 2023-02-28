@@ -21,6 +21,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Modele.GamePackage;
 using System.Timers;
 using MonoGame.Extended.BitmapFonts;
+using PongClient.Screens.MenuPackage;
 
 namespace PongClient.Screens
 {
@@ -33,10 +34,11 @@ namespace PongClient.Screens
         private Modele.GamePackage.Game _pongGame;
         private Timer _timer = new Timer();
 
-        public PartyScreen(GamePong game)
+        public PartyScreen(GamePong game, Modele.GamePackage.Game pongGame)
           : base(game)
         {
             game.IsMouseVisible = false;
+            _pongGame = pongGame;
         }
 
         public override void LoadContent()
@@ -46,23 +48,6 @@ namespace PongClient.Screens
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _rectangleBasTexture = Content.Load<Texture2D>("Form/RectangleBas");
             _rectangleHautTexture = Content.Load<Texture2D>("Form/RectangleHaut");
-
-            var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");
-            var ballSkin = new BallSkin("Form/ball", "simpleBall");
-
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)), 3);
-
-            var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
-            var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
-
-
-            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
-            var externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
-
-            var gameStat = new GameStat();
-            _pongGame = new Modele.GamePackage.Game(localPlayer, externalPlayer, gameStat);
-
-
         }
 
         public override void Draw(GameTime gameTime)
@@ -112,7 +97,7 @@ namespace PongClient.Screens
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 _game.IsMouseVisible = true;
-                ScreenManager.LoadScreen(new MenuScreen(_game));
+                ScreenManager.LoadScreen(new MenuHome(_game));
             }
 
             _pongGame.Play(_widthCenter * 2, _heightCenter * 2, gameTime.GetElapsedSeconds());
