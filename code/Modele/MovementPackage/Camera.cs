@@ -44,7 +44,7 @@ namespace Modele.MovementPackage
                             {
                                 Debug.WriteLine("i notopent");
                                 sr.Close();
-                                this.close();
+                                this.Stop();
                             }
                             //Position.Y=float.Parse(temp);
                         }
@@ -55,7 +55,7 @@ namespace Modele.MovementPackage
             }
         }
 
-        public void start()
+        public void Start()
         {
             process = new Process();
             var startInfo = new ProcessStartInfo(python, fileNamePath)
@@ -72,7 +72,7 @@ namespace Modele.MovementPackage
             t.Start();
         }
 
-        public void close()
+        public void Stop()
         {
             pipeClient?.Close();
             process?.Kill();

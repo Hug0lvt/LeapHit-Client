@@ -1,5 +1,4 @@
 ﻿using Modele.MovementPackage;
-using PongClient.Drivers.Leap;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CLI_LeapMotionGemini
+namespace Modele.Drivers.Leap
 {
     public class LeapController : IMovement
     {

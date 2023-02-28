@@ -11,6 +11,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Drivers\**" />
+    <EmbeddedResource Remove="Drivers\**" />
+    <None Remove="Drivers\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\Form\paddle.png" />
     <None Remove="Content\kenney-rocket-square.bmfc" />
     <None Remove="Content\kenney-rocket-square.fnt" />
@@ -30,9 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modele\Modele.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Drivers\Leap\dll\" />
   </ItemGroup>
   
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">

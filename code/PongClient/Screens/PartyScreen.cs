@@ -55,8 +55,11 @@ namespace PongClient.Screens
             var paddleLocalPlayer = new Paddle(50, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
             var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
+            
 
-            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
+            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.Drivers.Leap.LeapController(), "loris");
+            localPlayer.StrategieMovement.Start();
+
             var externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
 
             var gameStat = new GameStat();
@@ -111,6 +114,7 @@ namespace PongClient.Screens
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
+                _pongGame.LocalPlayer.StrategieMovement.Stop();
                 _game.IsMouseVisible = true;
                 ScreenManager.LoadScreen(new MenuScreen(_game));
             }
