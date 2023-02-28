@@ -16,4 +16,14 @@
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Reference Include="LeapCSharp.NET4.0">
+			<HintPath>Drivers\Leap\dll\LeapCSharp.NET4.0.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /yr &quot;Drivers\Leap\dll&quot; &quot;$(TargetDir)&quot;" />
+		<Exec Command="xcopy /yr &quot;Drivers\Leap\svcleap&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
+
 </Project>

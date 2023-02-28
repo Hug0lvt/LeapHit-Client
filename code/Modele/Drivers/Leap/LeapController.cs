@@ -1,4 +1,5 @@
-﻿using PongClient.Drivers.Leap;
+﻿using Modele.MovementPackage;
+using PongClient.Drivers.Leap;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CLI_LeapMotionGemini
 {
-    public class LeapController //mettre singleton ???? + : IMouvement
+    public class LeapController : IMovement
     {
 
         LeapMotion device;
@@ -72,11 +73,9 @@ namespace CLI_LeapMotionGemini
             StopSvcLeapMotion();
         }
 
-        public float getCoordinateY()
+        public float GetMovement()
         {
             return device.Coord;
         }
-
-
     }
 }
