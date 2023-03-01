@@ -72,7 +72,7 @@ namespace PongClient.Screens.MenuPackage
             var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");            
             var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, _game.User.SelectedPaddle, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
-            var externalPlayer = new Bot(paddleExternalPlayer, _localPlayer.Ball, 1);
+            var externalPlayer = new Bot(paddleExternalPlayer, _localPlayer.Ball, _game.BotLevel);
             
             var gameStat = new GameStat();
 

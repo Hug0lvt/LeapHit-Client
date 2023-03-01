@@ -21,6 +21,7 @@ namespace PongClient
 
         public IMovement SelectedMovement { get; set; }
         public User User { get; }
+        public int BotLevel { get; set; }
 
         public Dictionary<string, IMovement> GameMode { get; }
 
@@ -52,6 +53,8 @@ namespace PongClient
             GameMode.Add("mouse", new Modele.MovementPackage.Mouse());
             GameMode.Add("leap", new LeapMotion());
             GameMode.Add("camera", new Camera());
+
+            BotLevel = 1;
         }
 
         protected override void Update(GameTime gameTime)
@@ -72,8 +75,6 @@ namespace PongClient
                 _graphics.IsFullScreen = !_graphics.IsFullScreen;
                 _graphics.ApplyChanges();
             }
-
-            Debug.WriteLine(SelectedMovement.ToString());
 
             base.Update(gameTime);
         }

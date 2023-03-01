@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Modele.EntityPackage;
 using Modele.MovementPackage;
 using System;
@@ -22,7 +23,22 @@ namespace Modele.PlayerPackage
                     strategyMouvement = new Facile(ball, paddle);
                     break;
             }
-            
+
+            switch (difficulty)
+            {
+                case 1:
+                    strategyMouvement = new Facile(ball, paddle);
+                    break;
+                case 2:
+                    strategyMouvement = new Facile(ball, paddle);
+                    break;
+                case 3:
+                    strategyMouvement = new Facile(ball, paddle);
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }

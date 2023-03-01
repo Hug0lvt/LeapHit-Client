@@ -87,6 +87,29 @@ namespace PongClient.Screens.HeaderPackage
             ScreenManager.LoadScreen(new MenuHome(_game));
         }
 
+        public void ChangeBotLevel(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
+
+            switch(mode)
+            {
+                case "easy":
+                    _game.BotLevel = 1;
+                    break;
+                case "average":
+                    _game.BotLevel = 2;
+                    break;
+                case "hard":
+                    _game.BotLevel = 3;
+                    break;
+                default: 
+                    break;
+            }
+
+            ScreenManager.LoadScreen(new MenuHome(_game));
+        }
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);
