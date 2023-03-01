@@ -81,10 +81,9 @@ namespace PongClient.Screens
 
         public void DrawScore()
         {
-            var font = Content.Load<SpriteFont>("Font/font-20");
             var text = _pongGame.GameStat.Score.GetScore().Item1 + " : " + _pongGame.GameStat.Score.GetScore().Item2;
             //_spriteBatch.DrawString(font, text, new Vector2(_widthCenter - font.MeasureString(text).Length()/2, 0), Color.Black);
-            _spriteBatch.DrawString(font, text, new Vector2(_widthCenter - font.MeasureString(text).Length(), 0), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length(), 0), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
         }
 
         public void DrawTime(GameTime gameTime)

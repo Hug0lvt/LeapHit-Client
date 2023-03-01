@@ -14,6 +14,7 @@ using Modele.PlayerPackage;
 using Modele.SkinPackage;
 using MonoGame.Extended.Sprites;
 using System.Diagnostics;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -70,7 +71,7 @@ namespace PongClient.Screens.MenuPackage
         private void LocalButton_Click(object sender, EventArgs e)
         {
             var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");            
-            var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, _game.User.SelectedPaddle, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
+            var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
             var externalPlayer = new Bot(paddleExternalPlayer, _localPlayer.Ball, _game.BotLevel);
             
@@ -89,10 +90,9 @@ namespace PongClient.Screens.MenuPackage
 
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);
-
+            _spriteBatch.DrawString(_game.Font, _game.SelectedMovement.ToString(), new Vector2(_widthCenter - _game.Font.MeasureString(_game.SelectedMovement.ToString()).Length(), _heightCenter*2), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
             _spriteBatch.End();
         }
-
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

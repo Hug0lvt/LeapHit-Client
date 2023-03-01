@@ -48,8 +48,6 @@ namespace Modele.GamePackage
         {
             ball.Move(elapsedSecond, screenHeight, screenWidth);
 
-            Debug.WriteLine(ball.Velocity);
-
             var halfWidth = ball.Zone.Width / 2;
 
             if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
