@@ -18,7 +18,7 @@ namespace PongClient
     {
         private readonly GraphicsDeviceManager _graphics;
         private readonly ScreenManager _screenManager;
-        public SpriteFont Font { get; }
+        public SpriteFont Font { get; set; }
 
         public IMovement SelectedMovement { get; set; }
         public User User { get; }
@@ -43,7 +43,6 @@ namespace PongClient
 
             _screenManager = Components.Add<ScreenManager>();
             GameMode = new Dictionary<string, IMovement>();
-            Font = Content.Load<SpriteFont>("Font/font-20");
         }
 
         protected override void LoadContent()
@@ -57,7 +56,7 @@ namespace PongClient
             GameMode.Add("camera", new Camera());
 
             BotLevel = 1;
-
+            Font = Content.Load<SpriteFont>("Font/font-20");
         }
 
         protected override void Update(GameTime gameTime)
