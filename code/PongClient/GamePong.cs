@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Modele.MovementPackage;
 using Modele.PlayerPackage;
 using Modele.SkinPackage;
 using MonoGame.Extended;
@@ -8,16 +9,20 @@ using MonoGame.Extended.Screens;
 using MonoGame.Extended.Screens.Transitions;
 using PongClient.Screens;
 using PongClient.Screens.MenuPackage;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PongClient
 {
     public class GamePong : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private readonly ScreenManager _screenManager;
 
-        private User user;
-        public User User { get { return user; } }
+        public IMovement SelectedMovement { get; set; }
+        public User User { get; }
+
+        public Dictionary<string, IMovement> GameMode { get; }
 
         public GamePong()
         {
@@ -31,7 +36,11 @@ namespace PongClient
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
+            User = new User("loris");
+            SelectedMovement = new Modele.MovementPackage.Mouse();
+
             _screenManager = Components.Add<ScreenManager>();
+            GameMode = new Dictionary<string, IMovement>();
         }
 
         protected override void LoadContent()
@@ -40,7 +49,9 @@ namespace PongClient
 
             _screenManager.LoadScreen(new MenuHome(this));
 
-            user = new User("loris");
+            GameMode.Add("mouse", new Modele.MovementPackage.Mouse());
+            GameMode.Add("leap", new LeapMotion());
+            GameMode.Add("camera", new Camera());
         }
 
         protected override void Update(GameTime gameTime)
@@ -61,6 +72,8 @@ namespace PongClient
                 _graphics.IsFullScreen = !_graphics.IsFullScreen;
                 _graphics.ApplyChanges();
             }
+
+            Debug.WriteLine(SelectedMovement.ToString());
 
             base.Update(gameTime);
         }

@@ -59,7 +59,7 @@ namespace PongClient.Screens.MenuPackage
 
         private void LoadUserPlayer()
         {
-            _localPlayer = new UserPlayer(_game.User, 50, _game, new Modele.MovementPackage.Mouse());
+            _localPlayer = new UserPlayer(_game.User, 50, _game, _game.SelectedMovement);
         }
 
         private void OnlineButton_Click(object sender, EventArgs e)

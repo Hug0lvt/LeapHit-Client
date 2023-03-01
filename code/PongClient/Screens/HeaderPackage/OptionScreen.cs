@@ -11,6 +11,7 @@ using System.Diagnostics;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Timers;
 using MonoGame.Extended.Sprites;
+using PongClient.Screens.MenuPackage;
 
 namespace PongClient.Screens.HeaderPackage
 {
@@ -44,12 +45,15 @@ namespace PongClient.Screens.HeaderPackage
 
             var mouseButton = new ButtonHovered(mouseTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                          _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
+            mouseButton.Click += ChangeGameMode;
 
             var leapButton = new ButtonHovered(leapTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                        mouseButton._position.Y + 90));
+            leapButton.Click += ChangeGameMode;
 
             var cameraButton = new ButtonHovered(cameraTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                            leapButton._position.Y + 90));
+            cameraButton.Click += ChangeGameMode;
 
             var easyTexture = new Sprite(Content.Load<Texture2D>("Text/Easy"));
             var averageTexture = new Sprite(Content.Load<Texture2D>("Text/Average"));
@@ -73,6 +77,14 @@ namespace PongClient.Screens.HeaderPackage
                 averageButton,
                 hardButton,
             };
+        }
+
+        public void ChangeGameMode(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
+            _game.SelectedMovement = _game.GameMode.GetValueOrDefault(mode);
+            ScreenManager.LoadScreen(new MenuHome(_game));
         }
 
         public override void Draw(GameTime gameTime)
