@@ -1,27 +1,39 @@
-﻿using System;
+﻿using Leap;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Modele.MovementPackage
 {
-    internal class LeapMotion : IMovement
+    class LeapMotion
     {
 
-        public float GetMovement()
+        private static Controller controller = new Controller();
+        private static LeapListener listener = new LeapListener();
+        public float Coord { get; private set; }
+
+        public LeapMotion()
         {
-            throw new NotImplementedException();
+            controller.AddListener(listener);
+            listener.OnHandMade += OnHandMade;
         }
 
-        public void Start()
+        void OnHandMade(HandList hands)
         {
-            throw new NotImplementedException();
+            Coord = hands.FirstOrDefault().PalmPosition.y;
+            Debug.WriteLine("EventLeap value={0}",Coord);
         }
 
-        public void Stop()
+
+        public void OnClosing()
         {
-            throw new NotImplementedException();
+            controller.RemoveListener(listener);
+            controller.Dispose();
+            listener.Dispose();
         }
+
     }
 }

@@ -31,6 +31,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Modele\Modele.csproj" />
   </ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /yr &quot;Leap\dll&quot; &quot;$(TargetDir)&quot;" />
+		<Exec Command="xcopy /yr &quot;Leap\svcleap&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />

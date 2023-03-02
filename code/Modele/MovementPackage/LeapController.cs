@@ -1,5 +1,4 @@
-﻿using Modele.MovementPackage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.Drivers.Leap
+namespace Modele.MovementPackage
 {
     public class LeapController : IMovement
     {
@@ -18,20 +17,20 @@ namespace Modele.Drivers.Leap
         private void LaunchSvcLeapMotion()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            
+
             startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = false;
             //Verif Path
             startInfo.FileName = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LeapSvc.exe");
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            
+
             try
             {
-                
+
                 //optimisation posible si le svc est déja start
                 using (Process process = Process.Start(startInfo))
                 {
-                    if(process != null)
+                    if (process != null)
                     {
                         process.WaitForExitAsync();
                         Debug.WriteLine("Service ON !");
@@ -40,9 +39,9 @@ namespace Modele.Drivers.Leap
                     {
                         Debug.WriteLine("Le Service n'a pas pu démarré !");
                     }
-                    
+
                 }
-                
+
             }
             catch
             {
@@ -57,13 +56,13 @@ namespace Modele.Drivers.Leap
                 process.Kill();
                 Debug.WriteLine("Kill");
             }
-            
+
         }
 
         public void Start()
         {
             LaunchSvcLeapMotion();
-            device= new LeapMotion();
+            device = new LeapMotion();
         }
 
         public void Stop()
@@ -74,7 +73,8 @@ namespace Modele.Drivers.Leap
 
         public float GetMovement()
         {
-            return device.Coord;
+            Debug.WriteLine("GetMvtLeap is call value = {0}", device.Coord);
+            return (device.Coord*600)/1080;
         }
     }
 }
