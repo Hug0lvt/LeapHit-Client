@@ -19,6 +19,16 @@ namespace Modele.MovementPackage
         {
             return MouseExtended.GetState().Position.Y;
         }
+
+        public void Start()
+        {
+            return;
+        }
+
+        public void Stop()
+        {
+            return;
+        }
     }
 
 }

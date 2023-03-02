@@ -56,7 +56,8 @@ namespace PongClient.Screens
             var paddleExternalPlayer = new Paddle(_widthCenter*2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
 
-            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
+            //var localPlayer = new User(paddleLocalPlayer, ball, new Modele.MovementPackage.Mouse(), "loris");
+            var localPlayer = new User(paddleLocalPlayer, ball, new Modele.Drivers.Leap.LeapController(), "loris");
             var externalPlayer = new Bot(paddleExternalPlayer, ball, 1);
 
             var gameStat = new GameStat();
