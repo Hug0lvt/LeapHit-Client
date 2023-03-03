@@ -11,6 +11,9 @@ using PongClient.Screens;
 using PongClient.Screens.MenuPackage;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace PongClient
 {
@@ -28,6 +31,7 @@ namespace PongClient
 
         public GamePong()
         {
+
             _graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
@@ -61,7 +65,7 @@ namespace PongClient
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.F11) )
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F11) )
             {
                 if (_graphics.IsFullScreen)
                 {
@@ -77,6 +81,9 @@ namespace PongClient
                 _graphics.IsFullScreen = !_graphics.IsFullScreen;
                 _graphics.ApplyChanges();
             }
+
+            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
+            Debug.WriteLine(screen.Bounds.Width + " " + screen.Bounds.Height);
 
             base.Update(gameTime);
         }
