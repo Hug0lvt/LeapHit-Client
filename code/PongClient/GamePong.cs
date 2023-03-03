@@ -27,10 +27,24 @@ namespace PongClient
         public User User { get; }
         public int BotLevel { get; set; }
 
+        private int ScreenResolutionWidth;
+        private int ScreenResolutionHeight;
+
         public Dictionary<string, IMovement> GameMode { get; }
 
         public GamePong()
         {
+
+            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
+            ScreenResolutionWidth = screen.Bounds.Width; 
+            ScreenResolutionHeight = screen.Bounds.Height;
+
+            int newWidth = 1920; // nouvelle largeur en pixels
+            int newHeight = 1080; // nouvelle hauteur en pixels
+
+            var bounds = screen.Bounds;
+            bounds.Width = newWidth;
+            bounds.Height = newHeight;
 
             _graphics = new GraphicsDeviceManager(this)
             {
@@ -82,10 +96,18 @@ namespace PongClient
                 _graphics.ApplyChanges();
             }
 
-            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
-            Debug.WriteLine(screen.Bounds.Width + " " + screen.Bounds.Height);
-
             base.Update(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
+
+            var bounds = screen.Bounds;
+            bounds.Width = ScreenResolutionWidth;
+            bounds.Height = ScreenResolutionHeight;
+            Debug.WriteLine("fin");
+            base.OnExiting(sender, args);
         }
     }
 }
