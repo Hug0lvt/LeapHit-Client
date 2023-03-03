@@ -14,6 +14,8 @@ using System.Diagnostics;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 
 namespace PongClient
 {
@@ -56,7 +58,7 @@ namespace PongClient
             base.LoadContent();
 
             _screenManager.LoadScreen(new MenuHome(this));
-
+         
             GameMode.Add("mouse", new Modele.MovementPackage.Mouse());
             GameMode.Add("leap", new LeapMotion());
             GameMode.Add("camera", new Camera());

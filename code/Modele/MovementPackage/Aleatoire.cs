@@ -29,5 +29,15 @@ namespace Modele.MovementPackage
         {
             return GetAleatoireMovement();
         }
+
+        public void StartMovement()
+        {
+            return;
+        }
+
+        public void StopMovement()
+        {
+            return; 
+        }
     }
 }

@@ -81,6 +81,7 @@ namespace PongClient.Screens.MenuPackage
 
             _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat);
 
+            _localPlayer.StrategieMovement.StartMovement();
             ScreenManager.LoadScreen(new PartyScreen(_game, _pongGame));
         }
 

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modele\Modele.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\Leap.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\LeapCSharp.dll&quot; &quot;$(TargetDir)&quot;" />
+    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\LeapCSharp.NET4.0.dll&quot; &quot;$(TargetDir)&quot;" />
+  </Target>
+
+</Project>

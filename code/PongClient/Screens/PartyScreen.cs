@@ -96,6 +96,7 @@ namespace PongClient.Screens
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 _game.IsMouseVisible = true;
+                _pongGame.LocalPlayer.StrategieMovement.StopMovement();
                 ScreenManager.LoadScreen(new MenuHome(_game));
             }
 

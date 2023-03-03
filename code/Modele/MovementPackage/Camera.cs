@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipes;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,44 +11,55 @@ namespace Modele.MovementPackage
 {
     public class Camera  : IMovement
     {
-        public string fileNamePath { get; private set; }
-        public string python { get; private set; }
-
-        public Process process { get; private set; } = new Process();
-        public float coordonate { get; private set; }
-
+        private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\Modele\\CameraExe\\dist\\main\\main.exe");
+        private Process process;
+        private Thread thread;
+        private float coordonate;
         private NamedPipeClientStream pipeClient;
+        private bool _stopThread = false;
 
+
+        public void SetCoordonate(float value)
+        {
+
+            coordonate = value;
+        }
 
         public void update()
         {
-            Debug.WriteLine(fileNamePath);
+            Debug.WriteLine(exeFile);
             pipeClient = new NamedPipeClientStream(".", "CSServer", PipeDirection.In);
             using (pipeClient)
-
             {
                 {
-                    // Connect to the pipe or wait until the pipe is available.
-                    //Console.Write("Attempting to connect to pipe...");
                     pipeClient.Connect();
-
-                    //Console.WriteLine("Connected to pipe.");
-                    //Console.WriteLine("There are currently {0} pipe server instances open.",
-                    //pipeClient.NumberOfServerInstances);
                     using (StreamReader sr = new StreamReader(pipeClient))
                     {
                         // Display the read text to the console
                         string temp;
-                        while ((temp = sr.ReadLine()) != null)
+                        while (!_stopThread)
                         {
-                            if (temp == "VideoClosed")
+                            string? srValue = sr.ReadLine();
+                            if (srValue != null)
                             {
-                                Debug.WriteLine("i notopent");
-                                sr.Close();
-                                this.close();
+                                temp = srValue;
+
+
+                                if (temp == "VideoClosed")
+                                {
+                                    Debug.WriteLine("i notopent");
+                                    sr.Close();
+                                    return;
+                                }
+                                if (temp == "ready")
+                                {
+                                    Debug.WriteLine("lessgo");
+                                    continue;
+                                }
+                                SetCoordonate(float.Parse(temp)*1080/(800));
                             }
-                            //Position.Y=float.Parse(temp);
                         }
+                        return;
                     }
                 }
 
@@ -55,32 +67,33 @@ namespace Modele.MovementPackage
             }
         }
 
-        public void start()
+        public float GetMovement()
+        {
+            return coordonate;
+        }
+
+        public void StartMovement()
         {
             process = new Process();
-            var startInfo = new ProcessStartInfo(python, fileNamePath)
+            var startInfo = new ProcessStartInfo(exeFile)
             {
-                RedirectStandardOutput = true,
+                RedirectStandardOutput = false,
                 UseShellExecute = false,
                 CreateNoWindow = false,
-                RedirectStandardError = true
+                RedirectStandardError = false
             };
 
 
             process = Process.Start(startInfo);
-            Thread t = new Thread(() => update());
-            t.Start();
+            thread = new Thread(() => update());
+            thread.Start();
         }
 
-        public void close()
+        public void StopMovement()
         {
+            _stopThread = true;
             pipeClient?.Close();
             process?.Kill();
-        }
-
-        public float GetMovement()
-        {
-            return coordonate;
         }
     }
 }
