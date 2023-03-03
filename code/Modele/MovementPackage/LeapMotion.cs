@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Modele.MovementPackage
 {
-    internal class LeapMotion : IMovement
+    public class LeapMotion : IMovement
     {
 
         public float GetMovement()

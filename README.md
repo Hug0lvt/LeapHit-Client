@@ -1,7 +1,11 @@
 ```mermaid
 classDiagram
     
-    User --> "*" Skin : skins
+
+    class UserPlayer
+    UserPlayer ..> User
+    UserPlayer --|> Player
+    
 
     class GameEntity{
         -/x : double
@@ -36,7 +40,7 @@ classDiagram
         -/touchBallCount : int
         -/timePlayed : int
     }
-    UserStat "1" <--  User : globalStat
+    
 
     class Skin{
         -/asset : string
@@ -55,7 +59,11 @@ classDiagram
     class User{
         -/pseudo : string
     }
-    User --|> Player
+    User --> "1" UserStat : globalStat
+    User --> "*" Skin : skins
+    User --> "1" Skin : selectedBall
+    User --> "1" Skin : selectedPaddle
+    
 
     class Bot{
     }

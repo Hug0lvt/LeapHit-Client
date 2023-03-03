@@ -1,5 +1,4 @@
 ﻿using Modele.EntityPackage;
-using Modele.MovementPackage;
 using Modele.SkinPackage;
 using System;
 using System.Collections.Generic;
@@ -9,15 +8,32 @@ using System.Threading.Tasks;
 
 namespace Modele.PlayerPackage
 {
-    public class User : Player
+    public class User
     {
         private string pseudo;
+        private UserStat globalStat;
+        private List<Skin> skins;
 
-        public User(GameEntity paddle, GameEntity ball, IMovement movement, string pseudo) : 
-            base(paddle, ball)
+        private Skin selectedBall;
+        private Skin selectedPaddle;
+
+        public BallSkin SelectedBall { get { return (BallSkin)selectedBall; } }
+        public PaddleSkin SelectedPaddle { get { return (PaddleSkin)selectedPaddle; } }
+
+        public User(string pseudo)
         {
             this.pseudo = pseudo;
-            strategyMouvement = movement;
+            globalStat = new UserStat();
+            skins = new List<Skin>();
+
+            selectedPaddle = new PaddleSkin("Form/paddle", "simplePaddle");
+            selectedBall = new BallSkin("Form/ball", "simpleBall");
+
+            skins.Add(selectedBall);
+            skins.Add(selectedPaddle);
         }
+
+        public void AddSkin(Skin skin) { skins.Add(skin); }
+        public void RemoveSkin(Skin skin) {  skins.Remove(skin); }
     }
 }

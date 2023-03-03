@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PongClient.Screens
+namespace PongClient.Screens.HeaderPackage
 {
-    public class StatisticsScreen : ScreenHeader
+    public class FriendScreen : ScreenHeader
     {
-        private Texture2D _statisticsTexture;
+        private Texture2D _friendsTexture;
         private SpriteBatch _spriteBatch;
 
-        public StatisticsScreen(GamePong game)
+        public FriendScreen(GamePong game)
             : base(game)
         {
         }
@@ -23,7 +23,7 @@ namespace PongClient.Screens
         {
             base.LoadContent();
 
-            _statisticsTexture = Content.Load<Texture2D>("Text/Statistics");
+            _friendsTexture = Content.Load<Texture2D>("Text/Friends");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -33,7 +33,7 @@ namespace PongClient.Screens
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(_statisticsTexture, new Vector2(_widthCenter * 2 - _statisticsTexture.Width, 40 - _statisticsTexture.Height / 2), Color.White);
+            _spriteBatch.Draw(_friendsTexture, new Vector2(_widthCenter * 2 - _friendsTexture.Width, 40 - _friendsTexture.Height / 2), Color.White);
 
             _spriteBatch.End();
         }

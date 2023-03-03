@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Sprites;
 using PongClient.Controls;
+using PongClient.Screens.MenuPackage;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PongClient.Screens
+namespace PongClient.Screens.HeaderPackage
 {
     public class ScreenHeader : PongScreen
     {
@@ -18,7 +20,7 @@ namespace PongClient.Screens
         private Texture2D _returnBarTexture;
         private Texture2D _rondBackTexture;
         private Texture2D _rondFrontTexture;
-        private Texture2D _returnIcoTexture;
+        private Sprite _returnIcoTexture;
 
         private Button buttonReturn;
         private int heightBar = 80;
@@ -36,9 +38,9 @@ namespace PongClient.Screens
             _returnBarTexture = Content.Load<Texture2D>("Form/returnBar");
             _rondBackTexture = Content.Load<Texture2D>("Form/rondBack");
             _rondFrontTexture = Content.Load<Texture2D>("Form/rondFront");
-            _returnIcoTexture = Content.Load<Texture2D>("Icon/returnIco");
+            _returnIcoTexture = new Sprite(Content.Load<Texture2D>("Icon/returnIco"));
 
-            buttonReturn = new Button(_returnIcoTexture, new Vector2(20, heightBar / 2 - _returnIcoTexture.Height / 2));
+            buttonReturn = new Button(_returnIcoTexture, new Vector2(40, heightBar / 2));
             buttonReturn.Click += ReturnButton_Clicked;
         }
 
@@ -57,7 +59,7 @@ namespace PongClient.Screens
 
         private void ReturnButton_Clicked(object sender, EventArgs e)
         {
-            ScreenManager.LoadScreen(new MenuScreen(_game));
+            ScreenManager.LoadScreen(new MenuHome(_game));
         }
 
         public override void Update(GameTime gameTime)

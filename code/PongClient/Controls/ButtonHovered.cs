@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,12 @@ namespace PongClient.Controls
     public class ButtonHovered : Button
     {
         private bool _isHovering;
-        private Texture2D _whiteRectangleTexture;
-        public Vector2 _position2;
+        private Sprite _whiteRectangleTexture;
         public event EventHandler Click;
 
-        public ButtonHovered(Texture2D texture, Texture2D whiteRectangleTexture, Vector2 position, Vector2 whitePosition)
+        public ButtonHovered(Sprite texture, Sprite whiteRectangleTexture, Vector2 position)
             : base(texture, position)
         {
-            _position2 = whitePosition;
             _whiteRectangleTexture = whiteRectangleTexture;
         }
 
@@ -27,9 +26,9 @@ namespace PongClient.Controls
         {
             if (_isHovering)
             {
-                spriteBatch.Draw(_whiteRectangleTexture, _position2, Color.White);
+                spriteBatch.Draw(_whiteRectangleTexture, _position, 0, Vector2.One);
             }
-            spriteBatch.Draw(_texture, _position, Color.White);
+            spriteBatch.Draw(_texture, _position, 0, Vector2.One);
         }
 
         public override void Update(GameTime gameTime)
@@ -41,7 +40,7 @@ namespace PongClient.Controls
 
             _isHovering = false;
 
-            if (mouseRectangle.Intersects(new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height)))
+            if (mouseRectangle.Intersects(new Rectangle((int)_position.X - _texture.TextureRegion.Width / 2, (int)_position.Y - _texture.TextureRegion.Height / 2, _texture.TextureRegion.Width, _texture.TextureRegion.Height)))
             {
                 _isHovering = true;
 
