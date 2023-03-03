@@ -34,18 +34,6 @@ namespace PongClient
 
         public GamePong()
         {
-
-            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
-            ScreenResolutionWidth = screen.Bounds.Width; 
-            ScreenResolutionHeight = screen.Bounds.Height;
-
-            int newWidth = 1920; // nouvelle largeur en pixels
-            int newHeight = 1080; // nouvelle hauteur en pixels
-
-            var bounds = screen.Bounds;
-            bounds.Width = newWidth;
-            bounds.Height = newHeight;
-
             _graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
@@ -101,11 +89,6 @@ namespace PongClient
 
         protected override void OnExiting(object sender, EventArgs args)
         {
-            System.Windows.Forms.Screen screen = System.Windows.Forms.Screen.PrimaryScreen;
-
-            var bounds = screen.Bounds;
-            bounds.Width = ScreenResolutionWidth;
-            bounds.Height = ScreenResolutionHeight;
             Debug.WriteLine("fin");
             base.OnExiting(sender, args);
         }
