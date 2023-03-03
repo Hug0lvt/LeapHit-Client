@@ -188,6 +188,18 @@
 /processorParam:TextureFormat=Color
 /build:Icon/returnIco.png
 
+#begin Sounds/gameplay.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/gameplay.wav
+
+#begin Sounds/mainMusic.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/mainMusic.wav
+
 #begin Text/Average.png
 /importer:TextureImporter
 /processor:TextureProcessor

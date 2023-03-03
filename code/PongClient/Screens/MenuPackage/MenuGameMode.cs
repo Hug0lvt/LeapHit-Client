@@ -72,6 +72,7 @@ namespace PongClient.Screens.MenuPackage
 
         private void LocalButton_Click(object sender, EventArgs e)
         {
+            _menuSoundEffectInstance.Stop();
             var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");            
             var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 

@@ -8,6 +8,7 @@ using MonoGame.Extended.Screens;
 using System.Xml.Linq;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Sprites;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -16,6 +17,9 @@ namespace PongClient.Screens.MenuPackage
         private Sprite _leapHitTexture;
         protected Sprite _whiteRectangleTexture;
         private SpriteBatch _spriteBatch;
+
+        protected static SoundEffect _menuSoundEffect;
+        protected static SoundEffectInstance _menuSoundEffectInstance;
 
         public MenuScreen(GamePong game)
           : base(game)
@@ -29,6 +33,18 @@ namespace PongClient.Screens.MenuPackage
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _leapHitTexture = new Sprite(Content.Load<Texture2D>("Text/LeapHit"));
             _whiteRectangleTexture = new Sprite(Content.Load<Texture2D>("Form/whiteRectangle"));
+
+            if (_menuSoundEffect == null)
+            {
+                _menuSoundEffect = Content.Load<SoundEffect>("Sounds/mainMusic");
+            }
+
+            if (_menuSoundEffectInstance == null || _menuSoundEffectInstance.State != SoundState.Playing)
+            {
+                _menuSoundEffectInstance = _menuSoundEffect.CreateInstance();
+                _menuSoundEffectInstance.IsLooped = true; // Lecture en boucle
+                _menuSoundEffectInstance.Play();
+            }
         }
 
         public override void Draw(GameTime gameTime)

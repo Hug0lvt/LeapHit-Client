@@ -22,6 +22,7 @@ using Modele.GamePackage;
 using System.Timers;
 using MonoGame.Extended.BitmapFonts;
 using PongClient.Screens.MenuPackage;
+using Microsoft.Xna.Framework.Audio;
 
 namespace PongClient.Screens
 {
@@ -33,6 +34,7 @@ namespace PongClient.Screens
 
         private Modele.GamePackage.Game _pongGame;
         private Timer _timer = new Timer();
+        private SoundEffectInstance _musicInstance; // Instance de la musique
 
         public PartyScreen(GamePong game, Modele.GamePackage.Game pongGame)
           : base(game)
@@ -48,6 +50,11 @@ namespace PongClient.Screens
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _rectangleBasTexture = Content.Load<Texture2D>("Form/RectangleBas");
             _rectangleHautTexture = Content.Load<Texture2D>("Form/RectangleHaut");
+
+            var music = Content.Load<SoundEffect>("Sounds/gameplay");
+            _musicInstance = music.CreateInstance();
+            _musicInstance.IsLooped = true; // Lecture en boucle
+            _musicInstance.Play(); // Démarrage de la musique
         }
 
         public override void Draw(GameTime gameTime)
@@ -96,6 +103,7 @@ namespace PongClient.Screens
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 _game.IsMouseVisible = true;
+                _musicInstance.Stop();
                 _pongGame.LocalPlayer.StrategieMovement.StopMovement();
                 ScreenManager.LoadScreen(new MenuHome(_game));
             }
