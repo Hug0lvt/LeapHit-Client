@@ -15,6 +15,8 @@ using Modele.SkinPackage;
 using MonoGame.Extended.Sprites;
 using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
+using MonoGame.Extended.BitmapFonts;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -90,7 +92,10 @@ namespace PongClient.Screens.MenuPackage
 
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);
-            _spriteBatch.DrawString(_game.Font, _game.SelectedMovement.ToString(), new Vector2(_widthCenter - _game.Font.MeasureString(_game.SelectedMovement.ToString()).Length(), _heightCenter*2), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
+
+            var text = "Selected mode : " + _game.SelectedMovement.ToString().Substring(23);
+            Debug.WriteLine(text);
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length() / 2, _heightCenter * 2 - 200), new Microsoft.Xna.Framework.Color(0, 140, 0), 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
             _spriteBatch.End();
         }
         public override void Update(GameTime gameTime)
