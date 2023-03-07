@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Screens;
+using Modele.MovementPackage.MotionSensorPackage;
+using PongClient.Controls;
 
 namespace PongClient.Screens
 {
@@ -18,6 +20,12 @@ namespace PongClient.Screens
             : base(game)
         {
             _game = game;
+        }
+
+        public override void LoadContent()
+        {
+            base.LoadContent();
+
             _backgroundTexture = Content.Load<Texture2D>("fond");
 
             _widthCenter = GraphicsDevice.Viewport.Width / 2;

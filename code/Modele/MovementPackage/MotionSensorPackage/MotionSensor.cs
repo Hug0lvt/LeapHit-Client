@@ -28,7 +28,7 @@ namespace Modele.MovementPackage.MotionSensorPackage
         }
         public abstract float GetMovement();
 
-        public virtual void StartMovement() { return; }
+        public virtual void StartMovement() { setReady(true); }
 
         public virtual void StopMovement() { return; }
 

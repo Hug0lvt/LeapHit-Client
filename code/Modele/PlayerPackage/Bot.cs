@@ -26,7 +26,7 @@ namespace Modele.PlayerPackage
                     strategyMouvement = new Aleatoire(ball, paddle, 2, 3);
                     break;
                 case 3:
-                    strategyMouvement = new Aleatoire(ball, paddle, 3, 6);
+                    strategyMouvement = new Aleatoire(ball, paddle, 3, 7);
                     break;
                 default:
                     break;

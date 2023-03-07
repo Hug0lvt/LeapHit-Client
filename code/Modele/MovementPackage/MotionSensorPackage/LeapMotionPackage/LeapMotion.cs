@@ -16,7 +16,6 @@ namespace Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage
 
         public LeapMotion()
         {
-            setReady(true);
             controller.AddListener(listener);
             listener.OnHandMade += OnHandMade;
         }

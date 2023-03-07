@@ -14,10 +14,6 @@ namespace Modele.MovementPackage.MotionSensorPackage
 {
     public class Mouse : MotionSensor
     {
-        public Mouse()
-        {
-            setReady(true);
-        }
         public override float GetMovement()
         {
             return MouseExtended.GetState().Position.Y;

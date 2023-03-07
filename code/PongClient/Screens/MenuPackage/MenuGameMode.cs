@@ -82,8 +82,8 @@ namespace PongClient.Screens.MenuPackage
 
             _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat);
 
-            _localPlayer.StrategieMovement.StartMovement();
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
+            _pongGame.LocalPlayer.StrategieMovement.StartMovement();
         }
 
         public override void Draw(GameTime gameTime)
@@ -95,8 +95,7 @@ namespace PongClient.Screens.MenuPackage
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);
 
-            var text = "Selected mode : " + _game.SelectedMovement.ToString().Substring(23);
-            Debug.WriteLine(text);
+            var text = "Selected mode : " + _game.SelectedMovement.ToString().Substring(43);
             _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length() / 2, _heightCenter * 2 - 200), new Microsoft.Xna.Framework.Color(0, 140, 0), 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
             _spriteBatch.End();
         }
