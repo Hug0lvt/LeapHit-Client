@@ -25,6 +25,10 @@ namespace PongClient.Screens
 
         private LoadBall rightBall;
         private LoadBall leftBall;
+        private LoadBall rightLongBall;
+        private LoadBall leftLongBall;
+
+        private List<LoadBall> loadedBalls;
 
         private Game _loadedGame;
 
@@ -41,10 +45,25 @@ namespace PongClient.Screens
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _textureLoadBall = Content.Load<Texture2D>("Form/loadBall");
 
-            centerBall = new Vector2(_widthCenter - _textureLoadBall.Width, _heightCenter - _textureLoadBall.Height);
+            centerBall = new Vector2(_widthCenter - _textureLoadBall.Width/2, _heightCenter - _textureLoadBall.Height/2);
+            
+            var max = 300;
+            var speed = 5;
+            var rightBall = new LoadBall(max, centerBall, speed);
+            var leftBall = new LoadBall(max, centerBall, -speed);
 
-            rightBall = new LoadBall(300, centerBall, 5);
-            leftBall = new LoadBall(300, centerBall, -5);
+            var longMax = max * 2;
+            var longSpeed = speed * 2;
+            var rightLongBall = new LoadBall(longMax, centerBall, longSpeed);
+            var leftLongBall = new LoadBall(longMax, centerBall, -longSpeed);
+
+            loadedBalls = new List<LoadBall>()
+            {
+                rightBall,
+                leftBall,
+                rightLongBall,
+                leftLongBall,
+            };
 
             (_loadedGame.LocalPlayer.StrategieMovement as MotionSensor).PropertyChanged += OnReadyChanged;
         }
@@ -54,9 +73,12 @@ namespace PongClient.Screens
             base.Draw(gameTime);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_textureLoadBall, centerBall, Color.White);
-            _spriteBatch.Draw(_textureLoadBall, rightBall.Position, Color.White * 0.5f);
-            _spriteBatch.Draw(_textureLoadBall, leftBall.Position, Color.White * 0.5f);
+
+            _spriteBatch.Draw(_textureLoadBall, centerBall, null, Color.White, 0, Vector2.Zero, Vector2.One * 0.5f, SpriteEffects.None, 0);
+            foreach (var loadedBall in loadedBalls)
+            {
+                _spriteBatch.Draw(_textureLoadBall, loadedBall.Position, null, Color.White * 0.5f, 0, Vector2.Zero, Vector2.One * 0.5f, SpriteEffects.None, 0);
+            }
 
             _spriteBatch.End();
         }
@@ -65,8 +87,10 @@ namespace PongClient.Screens
         {
             base.Update(gameTime);
 
-            rightBall.Move();
-            leftBall.Move();
+            foreach (var loadedBall in loadedBalls)
+            {
+                loadedBall.Move();
+            }
         }
 
         private void OnReadyChanged(object sender, PropertyChangedEventArgs e)
