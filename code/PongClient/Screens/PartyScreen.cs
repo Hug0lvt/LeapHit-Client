@@ -23,6 +23,7 @@ using System.Timers;
 using MonoGame.Extended.BitmapFonts;
 using PongClient.Screens.MenuPackage;
 using Microsoft.Xna.Framework.Audio;
+using Game = Modele.GamePackage.Game;
 
 namespace PongClient.Screens
 {
@@ -32,11 +33,11 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        private Modele.GamePackage.Game _pongGame;
+        private Game _pongGame;
         private Timer _timer = new Timer();
         private SoundEffectInstance _musicInstance; // Instance de la musique
 
-        public PartyScreen(GamePong game, Modele.GamePackage.Game pongGame)
+        public PartyScreen(GamePong game, Game pongGame)
           : base(game)
         {
             game.IsMouseVisible = false;

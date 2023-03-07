@@ -83,7 +83,7 @@ namespace PongClient.Screens.MenuPackage
             _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat);
 
             _localPlayer.StrategieMovement.StartMovement();
-            ScreenManager.LoadScreen(new PartyScreen(_game, _pongGame));
+            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
         }
 
         public override void Draw(GameTime gameTime)
