@@ -12,6 +12,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\dots_loading.riv" />
     <None Remove="Content\Form\paddle.png" />
     <None Remove="Content\kenney-rocket-square.bmfc" />
     <None Remove="Content\kenney-rocket-square.fnt" />
