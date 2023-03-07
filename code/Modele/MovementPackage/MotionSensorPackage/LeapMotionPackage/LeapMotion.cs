@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage
 {
-    public class LeapMotion : IMovement
+    public class LeapMotion : MotionSensor
     {
 
         private static Controller controller = new Controller();
@@ -16,6 +16,7 @@ namespace Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage
 
         public LeapMotion()
         {
+            setReady(true);
             controller.AddListener(listener);
             listener.OnHandMade += OnHandMade;
         }
@@ -47,16 +48,7 @@ namespace Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage
             listener.Dispose();
         }
 
-        public float GetMovement() => Coordonate;
+        public override float GetMovement() => Coordonate;
 
-        public void StartMovement()
-        {
-            return;
-        }
-
-        public void StopMovement()
-        {
-            return;
-        }
     }
 }

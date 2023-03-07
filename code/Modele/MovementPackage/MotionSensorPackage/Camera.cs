@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Modele.MovementPackage.MotionSensorPackage
 {
-    public class Camera : IMovement
+    public class Camera : MotionSensor
     {
         private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\Modele\\CameraExe\\dist\\main\\main.exe");
         private Process process;
@@ -53,7 +53,7 @@ namespace Modele.MovementPackage.MotionSensorPackage
                                 }
                                 if (temp == "ready")
                                 {
-                                    Debug.WriteLine("lessgo");
+                                    setReady(true);
                                     continue;
                                 }
                                 SetCoordonate(float.Parse(temp) * 1080 / 800);
@@ -67,12 +67,12 @@ namespace Modele.MovementPackage.MotionSensorPackage
             }
         }
 
-        public float GetMovement()
+        public override float GetMovement()
         {
             return coordonate;
         }
 
-        public void StartMovement()
+        public override void StartMovement()
         {
             process = new Process();
             var startInfo = new ProcessStartInfo(exeFile)
@@ -89,7 +89,7 @@ namespace Modele.MovementPackage.MotionSensorPackage
             thread.Start();
         }
 
-        public void StopMovement()
+        public override void StopMovement()
         {
             _stopThread = true;
             pipeClient?.Close();

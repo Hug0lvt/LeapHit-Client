@@ -12,23 +12,18 @@ using MonoGame.Extended.Input;
 
 namespace Modele.MovementPackage.MotionSensorPackage
 {
-    public class Mouse : IMovement
+    public class Mouse : MotionSensor
     {
-
-        public float GetMovement()
+        public Mouse()
+        {
+            setReady(true);
+        }
+        public override float GetMovement()
         {
             return MouseExtended.GetState().Position.Y;
         }
 
-        public void StartMovement()
-        {
-            return;
-        }
 
-        public void StopMovement()
-        {
-            return;
-        }
     }
 
 }
