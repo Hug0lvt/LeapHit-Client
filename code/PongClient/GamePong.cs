@@ -18,6 +18,7 @@ using System.IO;
 using System.Reflection;
 using Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage;
 using Modele.MovementPackage.MotionSensorPackage;
+using Mouse = Modele.MovementPackage.MotionSensorPackage.Mouse;
 
 namespace PongClient
 {
@@ -49,7 +50,7 @@ namespace PongClient
             IsMouseVisible = true;
 
             User = new User("loris");
-            SelectedMovement = new Modele.MovementPackage.MotionSensorPackage.Mouse();
+            SelectedMovement = new Mouse();
 
             _screenManager = Components.Add<ScreenManager>();
             GameMode = new Dictionary<string, IMovement>();
@@ -61,7 +62,7 @@ namespace PongClient
 
             _screenManager.LoadScreen(new MenuHome(this));
          
-            GameMode.Add("mouse", new Modele.MovementPackage.MotionSensorPackage.Mouse());
+            GameMode.Add("mouse", new Mouse());
             GameMode.Add("leap", new LeapMotion());
             GameMode.Add("camera", new Camera());
 
