@@ -13,6 +13,7 @@ using MonoGame.Extended.Timers;
 using MonoGame.Extended.Sprites;
 using PongClient.Screens.MenuPackage;
 using Modele.MovementPackage;
+using Modele.MovementPackage.MotionSensorPackage;
 
 namespace PongClient.Screens.HeaderPackage
 {

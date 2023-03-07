@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage.MotionSensorPong.LeapMotionPackage
+namespace Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage
 {
     public class LeapListener : Listener
     {

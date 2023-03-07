@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage.MotionSensorPong
+namespace Modele.MovementPackage.MotionSensorPackage
 {
-    internal class MotionSensor
+    public class MotionSensor
     {
     }
 }

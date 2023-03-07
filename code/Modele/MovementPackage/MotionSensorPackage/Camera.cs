@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage.MotionSensorPong
+namespace Modele.MovementPackage.MotionSensorPackage
 {
     public class Camera : IMovement
     {
