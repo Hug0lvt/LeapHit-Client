@@ -12,6 +12,7 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.Timers;
 using MonoGame.Extended.Sprites;
 using PongClient.Screens.MenuPackage;
+using Modele.MovementPackage;
 
 namespace PongClient.Screens.HeaderPackage
 {
@@ -22,6 +23,9 @@ namespace PongClient.Screens.HeaderPackage
         private Sprite _botLevel;
         private SpriteBatch _spriteBatch;
         private List<Component> _components;
+
+        private IMovement selectedMovement = new Mouse();
+        private int botLevel = 2;
 
         public OptionScreen(GamePong game)
             : base(game)
@@ -61,12 +65,20 @@ namespace PongClient.Screens.HeaderPackage
 
             var easyButton = new ButtonHovered(easyTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
                                                                                          _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
+            easyButton.Click += ChangeBotLevel;
 
             var averageButton = new ButtonHovered(averageTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
                                                                                        easyButton._position.Y + 90));
+            averageButton.Click += ChangeBotLevel;
 
             var hardButton = new ButtonHovered(hardTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
                                                                                            averageButton._position.Y + 90));
+            hardButton.Click += ChangeBotLevel;
+
+
+            var applyTexture = new Sprite(Content.Load<Texture2D>("Text/Apply"));
+            var applyButton = new ButtonHovered(applyTexture, withRectangle, new Vector2(_widthCenter, _heightCenter * 2 - 100));
+            applyButton.Click += Apply;
 
             _components = new List<Component>()
             {
@@ -76,6 +88,7 @@ namespace PongClient.Screens.HeaderPackage
                 easyButton,
                 averageButton,
                 hardButton,
+                applyButton,
             };
         }
 
@@ -83,8 +96,7 @@ namespace PongClient.Screens.HeaderPackage
         {
             var button = sender as Button;
             var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
-            _game.SelectedMovement = _game.GameMode.GetValueOrDefault(mode);
-            ScreenManager.LoadScreen(new MenuHome(_game));
+            selectedMovement = _game.GameMode.GetValueOrDefault(mode);
         }
 
         public void ChangeBotLevel(object sender, EventArgs e)
@@ -92,21 +104,28 @@ namespace PongClient.Screens.HeaderPackage
             var button = sender as Button;
             var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
 
+            Debug.WriteLine(mode);
+
             switch(mode)
             {
                 case "easy":
-                    _game.BotLevel = 1;
+                    botLevel = 1;
                     break;
                 case "average":
-                    _game.BotLevel = 2;
+                    botLevel = 2;
                     break;
                 case "hard":
-                    _game.BotLevel = 3;
+                    botLevel = 3;
                     break;
                 default: 
                     break;
             }
+        }
 
+        public void Apply(object sender, EventArgs e)
+        {
+            _game.SelectedMovement = selectedMovement;
+            _game.BotLevel = botLevel;
             ScreenManager.LoadScreen(new MenuHome(_game));
         }
 

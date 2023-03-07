@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage
+namespace Modele.MovementPackage.MotionSensorPong
 {
-    public class Camera  : IMovement
+    public class Camera : IMovement
     {
         private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\Modele\\CameraExe\\dist\\main\\main.exe");
         private Process process;
@@ -56,7 +56,7 @@ namespace Modele.MovementPackage
                                     Debug.WriteLine("lessgo");
                                     continue;
                                 }
-                                SetCoordonate(float.Parse(temp)*1080/(800));
+                                SetCoordonate(float.Parse(temp) * 1080 / 800);
                             }
                         }
                         return;
@@ -79,8 +79,8 @@ namespace Modele.MovementPackage
             {
                 RedirectStandardOutput = false,
                 UseShellExecute = false,
-                CreateNoWindow = false,
-                RedirectStandardError = false
+                CreateNoWindow = true,
+                RedirectStandardError = false,
             };
 
 

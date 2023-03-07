@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage
+namespace Modele.MovementPackage.MotionSensorPong.LeapMotionPackage
 {
     public class LeapMotion : IMovement
     {
@@ -29,7 +29,7 @@ namespace Modele.MovementPackage
         {
             float cord = hands.FirstOrDefault().PalmPosition.y;
 
-            cord = (float)(1080 - (3*cord)); //pour ne pas trop aller en haut
+            cord = (float)(1080 - 3 * cord); //pour ne pas trop aller en haut
             cord += 300; //pour ne pas trop aller en bas
 
             if (cord < 0)

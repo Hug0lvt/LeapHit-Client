@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using MonoGame.Extended.Input;
 
 
-namespace Modele.MovementPackage
+namespace Modele.MovementPackage.MotionSensorPackage
 {
     public class Mouse : IMovement
     {

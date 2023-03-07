@@ -19,26 +19,18 @@ namespace Modele.PlayerPackage
 
             switch (difficulty)
             {
-                default:
-                    strategyMouvement = new Facile(ball, paddle);
-                    break;
-            }
-
-            switch (difficulty)
-            {
                 case 1:
-                    strategyMouvement = new Facile(ball, paddle);
+                    strategyMouvement = new Aleatoire(ball, paddle, 1, 1);
                     break;
                 case 2:
-                    strategyMouvement = new Facile(ball, paddle);
+                    strategyMouvement = new Aleatoire(ball, paddle, 2, 3);
                     break;
                 case 3:
-                    strategyMouvement = new Facile(ball, paddle);
+                    strategyMouvement = new Aleatoire(ball, paddle, 3, 6);
                     break;
                 default:
                     break;
             }
-
         }
     }
 }
