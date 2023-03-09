@@ -24,6 +24,7 @@ using MonoGame.Extended.BitmapFonts;
 using PongClient.Screens.MenuPackage;
 using Microsoft.Xna.Framework.Audio;
 using Game = Modele.GamePackage.Game;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PongClient.Screens
 {
@@ -33,9 +34,10 @@ namespace PongClient.Screens
         private Texture2D _rectangleHautTexture;
         private Texture2D _rectangleBasTexture;
 
-        private Game _pongGame;
-        private Timer _timer = new Timer();
+        private readonly Game _pongGame;
         private SoundEffectInstance _musicInstance; // Instance de la musique
+        private readonly TimeSpan timerLength = TimeSpan.FromMinutes(0.3);
+        private readonly int maxScore = 6;
 
         public PartyScreen(GamePong game, Game pongGame)
           : base(game)
@@ -70,6 +72,7 @@ namespace PongClient.Screens
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
 
             DrawScore();
+            DrawTime();
 
             DrawPaddle(_pongGame.LocalPlayer);
             DrawPaddle(_pongGame.ExternalPlayer);
@@ -90,23 +93,29 @@ namespace PongClient.Screens
         public void DrawScore()
         {
             var text = _pongGame.GameStat.Score.GetScore().Item1 + " : " + _pongGame.GameStat.Score.GetScore().Item2;
-            _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length(), 0), Color.Black, 0, Vector2.Zero, Vector2.One * 2f, SpriteEffects.None, 0);
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - (_game.Font.MeasureString(text).Length()*1.5f) / 2, 10), Color.Black, 0.1f, Vector2.Zero, Vector2.One * 1.5f, SpriteEffects.None, 0);
         }
 
-        public void DrawTime(GameTime gameTime)
+        public void DrawTime()
         {
-
+            string text = $"{(timerLength - _pongGame.GameStat.Time).Minutes:00}:{(timerLength - _pongGame.GameStat.Time).Seconds:00}";
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length() / 2, _heightCenter * 2 - 75), Color.Black, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) 
+                || _pongGame.GameStat.Time >= timerLength 
+                || _pongGame.GameStat.Score.GetScore().Item1 >= maxScore 
+                || _pongGame.GameStat.Score.GetScore().Item2 >= maxScore)
             {
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
                 _pongGame.LocalPlayer.StrategieMovement.StopMovement();
                 ScreenManager.LoadScreen(new MenuHome(_game));
             }
+
+            _pongGame.GameStat.Time += gameTime.ElapsedGameTime;
 
             _pongGame.Play(_widthCenter * 2, _heightCenter * 2, gameTime.GetElapsedSeconds());
         }

@@ -23,14 +23,9 @@ namespace PongClient.Screens
         private SpriteBatch _spriteBatch;
         private Vector2 centerBall;
 
-        private LoadBall rightBall;
-        private LoadBall leftBall;
-        private LoadBall rightLongBall;
-        private LoadBall leftLongBall;
-
         private List<LoadBall> loadedBalls;
 
-        private Game _loadedGame;
+        private readonly Game _loadedGame;
 
         public LoadScreen(GamePong game, Game loadedGame) 
             : base(game)

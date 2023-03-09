@@ -62,7 +62,7 @@ namespace PongClient.Screens.MenuPackage
 
         private void LoadUserPlayer()
         {
-            _localPlayer = new UserPlayer(_game.User, 50, _game, _game.SelectedMovement);
+            _localPlayer = new UserPlayer(_game.User, 50, _game, _game.GameMode.GetValueOrDefault(_game.SelectedMovement));
         }
 
         private void OnlineButton_Click(object sender, EventArgs e)
@@ -95,7 +95,7 @@ namespace PongClient.Screens.MenuPackage
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);
 
-            var text = "Selected mode : " + _game.SelectedMovement.ToString().Substring(43);
+            var text = "Selected mode : " + _game.SelectedMovement;
             _spriteBatch.DrawString(_game.Font, text, new Vector2(_widthCenter - _game.Font.MeasureString(text).Length() / 2, _heightCenter * 2 - 200), new Microsoft.Xna.Framework.Color(0, 140, 0), 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
             _spriteBatch.End();
         }

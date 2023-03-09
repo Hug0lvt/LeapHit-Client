@@ -53,7 +53,7 @@ namespace Modele.MovementPackage.MotionSensorPackage
                                 }
                                 if (temp == "ready")
                                 {
-                                    setReady(true);
+                                    SetReady(true);
                                     continue;
                                 }
                                 SetCoordonate(float.Parse(temp) * 1080 / 800);

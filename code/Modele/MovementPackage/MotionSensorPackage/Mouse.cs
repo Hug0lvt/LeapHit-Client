@@ -18,8 +18,5 @@ namespace Modele.MovementPackage.MotionSensorPackage
         {
             return MouseExtended.GetState().Position.Y;
         }
-
-
     }
-
 }

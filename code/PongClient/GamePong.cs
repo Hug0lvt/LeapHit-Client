@@ -28,7 +28,7 @@ namespace PongClient
         private readonly ScreenManager _screenManager;
         public SpriteFont Font { get; set; }
 
-        public IMovement SelectedMovement { get; set; }
+        public string SelectedMovement { get; set; }
         public User User { get; }
         public int BotLevel { get; set; }
 
@@ -50,7 +50,7 @@ namespace PongClient
             IsMouseVisible = true;
 
             User = new User("loris");
-            SelectedMovement = new Mouse();
+            SelectedMovement = "mouse";
 
             _screenManager = Components.Add<ScreenManager>();
             GameMode = new Dictionary<string, IMovement>();
@@ -66,7 +66,7 @@ namespace PongClient
             GameMode.Add("leap", new LeapMotion());
             GameMode.Add("camera", new Camera());
 
-            BotLevel = 1;
+            BotLevel = 2;
             Font = Content.Load<SpriteFont>("Font/font-20");
         }
 

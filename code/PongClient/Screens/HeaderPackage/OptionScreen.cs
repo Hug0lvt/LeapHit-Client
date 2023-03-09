@@ -25,7 +25,7 @@ namespace PongClient.Screens.HeaderPackage
         private SpriteBatch _spriteBatch;
         private List<Component> _components;
 
-        private IMovement selectedMovement = new Mouse();
+        private string selectedMovement = "mouse";
         private int botLevel = 2;
 
         public OptionScreen(GamePong game)
@@ -96,8 +96,7 @@ namespace PongClient.Screens.HeaderPackage
         public void ChangeGameMode(object sender, EventArgs e)
         {
             var button = sender as Button;
-            var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
-            selectedMovement = _game.GameMode.GetValueOrDefault(mode);
+            selectedMovement = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
         }
 
         public void ChangeBotLevel(object sender, EventArgs e)

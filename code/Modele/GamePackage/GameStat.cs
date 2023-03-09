@@ -8,10 +8,10 @@ namespace Modele.GamePackage
 {
     public class GameStat
     {
-        private int time;
+        private TimeSpan time = TimeSpan.Zero;
         private Score score;
 
-        public int Time { get { return time; } set { time = value; } }
+        public TimeSpan Time { get { return time; } set { time = value; } }
         public Score Score { get { return score; } set { score = value; } }
     }
 }

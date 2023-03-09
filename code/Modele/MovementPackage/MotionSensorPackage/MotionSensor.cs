@@ -28,13 +28,11 @@ namespace Modele.MovementPackage.MotionSensorPackage
         }
         public abstract float GetMovement();
 
-        public virtual void StartMovement() { setReady(true); }
+        public virtual void StartMovement() { SetReady(true); }
 
-        public virtual void StopMovement() { return; }
+        public virtual void StopMovement() { SetReady(false); }
 
-        public bool getReady => Ready;
-
-        protected void setReady(bool ready) { Ready = ready; }
+        protected void SetReady(bool ready) { Ready = ready; }
 
         protected void NotifyPropertyChanged(string propertyName)
         {
