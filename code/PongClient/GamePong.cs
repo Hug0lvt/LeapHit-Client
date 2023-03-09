@@ -35,7 +35,7 @@ namespace PongClient
         private int ScreenResolutionWidth;
         private int ScreenResolutionHeight;
 
-        public Dictionary<string, IMovement> GameMode { get; }
+        public Dictionary<string, MotionSensor> GameMode { get; }
 
         public GamePong()
         {
@@ -53,7 +53,7 @@ namespace PongClient
             SelectedMovement = "mouse";
 
             _screenManager = Components.Add<ScreenManager>();
-            GameMode = new Dictionary<string, IMovement>();
+            GameMode = new Dictionary<string, MotionSensor>();
         }
 
         protected override void LoadContent()

@@ -13,24 +13,24 @@ namespace Modele.MovementPackage
 {
     public class Aleatoire : IMovement
     {
-        private readonly GameEntity _ball;
+        private readonly Ball _ball;
         private readonly GameEntity _paddle;
         private readonly int _speed;
 
 
-        public Aleatoire(GameEntity ball, GameEntity paddle, int ballSpeed, int speed)
+        public Aleatoire(Ball ball, GameEntity paddle, int difficulty)
         {
             _ball = ball;
             _paddle = paddle;
 
-            ((Ball)_ball).Difficulty = ballSpeed;
-            _speed = speed;
+            _ball.Difficulty = 2;
+            _speed = difficulty * 3 - 2;
         }
 
         public float GetMovement()
         {
             // Ajouter une latence pour que le bot ne suive pas la balle de manière trop précise
-            float ballY = _ball.Y + ((Ball)_ball).Velocity.Y * 50;
+            float ballY = _ball.Y + _ball.Velocity.Y * 50;
             float newPosition = 0;
 
             // Suivre la position de la balle

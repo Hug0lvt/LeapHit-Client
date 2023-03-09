@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Modele.MovementPackage;
 using Modele.MovementPackage.MotionSensorPackage;
 using Modele.PlayerPackage;
 using MonoGame.Extended.Sprites;
@@ -92,11 +93,12 @@ namespace PongClient.Screens
         {
             if (e.PropertyName == "Ready")
             {
-                MotionSensor sensor = (MotionSensor)sender;
+                MotionSensor sensor = sender as MotionSensor;
                 bool ready = sensor.Ready;
                 if (ready)
                 {
-                    ScreenManager.LoadScreen(new PartyScreen(_game, _loadedGame));
+                    _loadedGame.LocalPlayer.Ready = true;
+                    ScreenManager.LoadScreen(new CountdownScreen(_game, _loadedGame));
                 }
             }
         }

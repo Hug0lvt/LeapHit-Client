@@ -1,5 +1,6 @@
 ﻿using Modele.PlayerPackage;
 using Modele.SkinPackage;
+using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace Modele.EntityPackage
 {
     public class Paddle : GameEntity
     {
+
+        private readonly Random _random = new();
+
         public Paddle(float x, float y, Skin skin, Sprite sprite) 
             : base(x, y, skin, sprite)
         {
@@ -38,7 +42,7 @@ namespace Modele.EntityPackage
                 if (ball.Zone.Right > zone.Right)
                     ball.X = zone.Right + ball.Zone.Width / 2;
 
-                ball.Velocity = new Vector2(-ball.Velocity.X, ball.Velocity.Y);
+                ball.Velocity = new Vector2(-ball.Velocity.X, _random.NextAngle() * 100);
             }
         }
     }
