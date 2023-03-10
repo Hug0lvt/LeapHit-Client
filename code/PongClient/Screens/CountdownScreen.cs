@@ -19,7 +19,7 @@ namespace PongClient.Screens
     {
         private readonly Game _loadedGame;
 
-        TimeSpan timerLength = TimeSpan.FromSeconds(5);
+        TimeSpan timerLength = TimeSpan.FromSeconds(3);
         TimeSpan elapsedTime = TimeSpan.Zero;
 
         SpriteBatch _spriteBatch;
