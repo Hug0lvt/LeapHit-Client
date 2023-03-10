@@ -17,6 +17,7 @@ using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 using MonoGame.Extended.BitmapFonts;
+using Modele.MovementPackage.MotionSensorPackage;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -87,7 +88,7 @@ namespace PongClient.Screens.MenuPackage
             _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat);
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
-            _pongGame.LocalPlayer.StrategieMovement.StartMovement();
+            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         public override void Draw(GameTime gameTime)

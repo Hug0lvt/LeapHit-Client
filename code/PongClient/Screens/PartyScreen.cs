@@ -25,6 +25,7 @@ using PongClient.Screens.MenuPackage;
 using Microsoft.Xna.Framework.Audio;
 using Game = Modele.GamePackage.Game;
 using static System.Net.Mime.MediaTypeNames;
+using Modele.MovementPackage.MotionSensorPackage;
 
 namespace PongClient.Screens
 {
@@ -111,7 +112,7 @@ namespace PongClient.Screens
             {
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
-                _pongGame.LocalPlayer.StrategieMovement.StopMovement();
+                (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
                 ScreenManager.LoadScreen(new MenuHome(_game));
             }
 

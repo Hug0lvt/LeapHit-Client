@@ -17,10 +17,11 @@ namespace Modele.EntityPackage
         private readonly Random _random = new();
         private int _difficulty;
 
-        public Ball(float x, float y, Skin skin, Sprite sprite)
+        public Ball(float x, float y, Skin skin, Sprite sprite,int difficulty=2)
             : base(x, y, skin, sprite)
         {
-            velocity = new Vector2(_random.Next(2, 5) * -100, _random.NextAngle() * 100);
+            velocity = new Vector2(_random.Next(2, 500) * -100, _random.NextAngle() * 100);
+            _difficulty = difficulty;
         }
 
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
