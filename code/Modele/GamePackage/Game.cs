@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Modele.EntityPackage;
+using Modele.EntityPackage.Items;
 using Modele.MovementPackage;
 using Modele.PlayerPackage;
 using MonoGame.Extended;
@@ -63,14 +64,10 @@ namespace Modele.GamePackage
                 timeItemGnerate = 2/*_time + 2 + (float)(rand.NextDouble() * (120 - _time + 2))*/;
                 if (_time >= timeItemGnerate)
                 {
-                    _item = new Item(_screenWidth, _contentManager);
+                    _item = new SnipeItem(_screenWidth, _contentManager);
                 }
             }
             
-            
-          
-            
-           
                
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);

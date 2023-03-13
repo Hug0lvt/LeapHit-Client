@@ -26,6 +26,7 @@ using Microsoft.Xna.Framework.Audio;
 using Game = Modele.GamePackage.Game;
 using static System.Net.Mime.MediaTypeNames;
 using Modele.MovementPackage.MotionSensorPackage;
+using Modele.EntityPackage.Items;
 
 namespace PongClient.Screens
 {

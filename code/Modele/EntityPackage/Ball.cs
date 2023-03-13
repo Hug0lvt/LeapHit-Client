@@ -39,9 +39,10 @@ namespace Modele.EntityPackage
             if (timePass > 3)
             {
                 int mult =(int) velocity.X / _speed;
-                _speed += 1;
+                if(_speed < 15)
+                    _speed += 1;
                 timePass = 0;
-               velocity.X = _speed * mult;
+                velocity.X = _speed * mult;
                 
             }
             x += Velocity.X * delta * _difficulty;

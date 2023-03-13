@@ -32,7 +32,8 @@ namespace Modele.MovementPackage
 
         public float GetMovement()
         {
-            float ballY = _ball.Y + _ball.Velocity.Y * 50;
+            Random random= new Random();
+            float ballY = _ball.Y - 20 + _ball.Velocity.Y * 50;
 
             // Calculer une cible de déplacement en fonction de la position de la balle
             if (Math.Abs(_targetY - ballY) > 50 && _ball.Velocity.X > 0)
