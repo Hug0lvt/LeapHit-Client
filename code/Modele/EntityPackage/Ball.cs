@@ -3,6 +3,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -16,12 +17,17 @@ namespace Modele.EntityPackage
         private Vector2 velocity;
         private readonly Random _random = new();
         private int _difficulty;
+        private int _speed;
+        private int _defaultSpeed;
+        private float timePass = 0;
 
-        public Ball(float x, float y, Skin skin, Sprite sprite,int difficulty=2)
+        public Ball(float x, float y, Skin skin, Sprite sprite,int difficulty=2,int speed=2)
             : base(x, y, skin, sprite)
         {
-            velocity = new Vector2(_random.Next(2, 500) * -100, _random.NextAngle() * 100);
+            velocity = new Vector2(speed * -100, _random.NextAngle() * 100);
             _difficulty = difficulty;
+            _speed = speed;
+            _defaultSpeed= speed;
         }
 
         public Vector2 Velocity { get { return velocity; } set { velocity = value; } }
@@ -29,9 +35,19 @@ namespace Modele.EntityPackage
 
         public override void Move(float delta, int screenHeight, int screenWidth)
         {
+            timePass += delta;
+            if (timePass > 3)
+            {
+                int mult =(int) velocity.X / _speed;
+                _speed += 1;
+                timePass = 0;
+               velocity.X = _speed * mult;
+                
+            }
             x += Velocity.X * delta * _difficulty;
             y += Velocity.Y * delta * _difficulty;
-
+            Debug.WriteLine(_speed+" "+timePass);
+          
             var halfHeight = Zone.Height / 2;
 
             if (y - halfHeight < 0)
@@ -51,12 +67,15 @@ namespace Modele.EntityPackage
         {
             x = screenWidth / 2f;
             y = screenHeight / 2f;
+            timePass = 0;
+            _speed = _defaultSpeed+1;
+            _defaultSpeed++;
             if (local)
             {
-                velocity = new Vector2(_random.Next(2, 5) * -100, _random.NextAngle() * 100);
+                velocity = new Vector2(_speed * -100, _random.NextAngle() * 100);
             } else
             {
-                velocity = new Vector2(_random.Next(2, 5) * 100, _random.NextAngle() * 100);
+                velocity = new Vector2(_speed * 100, _random.NextAngle() * 100);
             }
         }
     }
