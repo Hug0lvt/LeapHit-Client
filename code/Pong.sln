@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PongClient", "PongClient\Po
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modele", "Modele\Modele.csproj", "{472312CD-1C84-47DA-8FF8-B63225E1FD83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAndDebug", "TestAndDebug\TestAndDebug.csproj", "{80944BCC-E6C5-48BE-A0B7-E645F17CA094}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAndDebug", "TestAndDebug\TestAndDebug.csproj", "{80944BCC-E6C5-48BE-A0B7-E645F17CA094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestModel", "TestModel\TestModel.csproj", "{C3425350-1223-4D01-87C7-C886CD41BCB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{80944BCC-E6C5-48BE-A0B7-E645F17CA094}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80944BCC-E6C5-48BE-A0B7-E645F17CA094}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80944BCC-E6C5-48BE-A0B7-E645F17CA094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3425350-1223-4D01-87C7-C886CD41BCB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3425350-1223-4D01-87C7-C886CD41BCB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3425350-1223-4D01-87C7-C886CD41BCB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3425350-1223-4D01-87C7-C886CD41BCB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

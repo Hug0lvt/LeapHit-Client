@@ -13,7 +13,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage;

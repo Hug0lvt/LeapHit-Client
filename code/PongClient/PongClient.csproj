@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RollForward>Major</RollForward>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
   <PropertyGroup>
-    <UseWindowsForms>True</UseWindowsForms>
+    <UseWindowsForms>False</UseWindowsForms>
     <ApplicationIcon>IconLeapHit.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>

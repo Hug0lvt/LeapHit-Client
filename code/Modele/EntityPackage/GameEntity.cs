@@ -16,7 +16,7 @@ namespace Modele.EntityPackage
         protected float y;
         protected Skin skin;
         protected Sprite sprite;
-        protected MonoGame.Extended.RectangleF zone => sprite.GetBoundingRectangle(new Vector2(x, y), 0, Vector2.One);
+        protected MonoGame.Extended.RectangleF zone;
 
         protected GameEntity(float x, float y, Skin skin, Sprite sprite)
         {
@@ -24,12 +24,16 @@ namespace Modele.EntityPackage
             this.y = y;
             this.skin = skin;
             this.sprite = sprite;
+            if(sprite != null)
+            {
+                zone = sprite.GetBoundingRectangle(new Vector2(x, y), 0, Vector2.One);
+            }
         }
 
         public float X { get { return x; } set { x = value; } }
         public float Y { get { return y; } set { y = value; } }
         public string Skin { get { return skin.Asset; } }
-        public MonoGame.Extended.RectangleF Zone { get { return this.zone; } }
+        public MonoGame.Extended.RectangleF Zone { get { return zone; } set { zone = value; } }
         public Sprite Sprite { get { return this.sprite; } }
 
         public abstract void Move(float delta, int screenHeight, int screenWidth);
