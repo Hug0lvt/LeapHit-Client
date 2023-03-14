@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PongClient\PongClient.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Skin_test\" />
+  </ItemGroup>
+
 </Project>
