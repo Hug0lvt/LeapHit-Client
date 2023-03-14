@@ -34,6 +34,9 @@ namespace PongClient
         private int ScreenResolutionWidth;
         private int ScreenResolutionHeight;
 
+
+
+
         public Dictionary<string, MotionSensor> GameMode { get; }
 
         public GamePong()

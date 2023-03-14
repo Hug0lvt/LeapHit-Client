@@ -16,50 +16,43 @@ namespace Modele.MovementPackage
         private readonly Ball _ball;
         private readonly GameEntity _paddle;
         private readonly int _speed;
+        private readonly int _difficulty;
+        private float _targetY;
+
 
 
         public Aleatoire(Ball ball, GameEntity paddle, int difficulty)
         {
             _ball = ball;
             _paddle = paddle;
-
-            _ball.Difficulty = 2;
-            _speed = difficulty * 3 - 2;
+            _speed = difficulty * 4;
+            _difficulty = difficulty;
+            _targetY = _ball.Y;
         }
 
         public float GetMovement()
         {
-            // Ajouter une latence pour que le bot ne suive pas la balle de manière trop précise
-            float ballY = _ball.Y + _ball.Velocity.Y * 50;
-            float newPosition = 0;
+            Random random= new Random();
+            float ballY = _ball.Y - 20 + _ball.Velocity.Y * 50;
 
-            // Suivre la position de la balle
-            if (_paddle.Y < ballY)
+            // Calculer une cible de déplacement en fonction de la position de la balle
+            if (Math.Abs(_targetY - ballY) > 50 && _ball.Velocity.X > 0)
             {
-                newPosition = _paddle.Y += _speed;
-            }
-            else if (_paddle.Y > ballY)
-            {
-                newPosition = _paddle.Y -= _speed;
+                _targetY = ballY + (_paddle.X - _ball.X) / _ball.Velocity.X * _ball.Velocity.Y;
             }
 
-            // Ajouter une petite aléatoire pour rendre le bot moins prévisible
-            if (new Random().Next(0, 100) < 5)
+            // Suivre la cible de déplacement
+            float newPosition = _paddle.Y;
+            if (_paddle.Y < _targetY - _speed)
             {
-                newPosition += new Random().Next(-1, 2) * _speed;
+                newPosition += _speed;
+            }
+            else if (_paddle.Y > _targetY + _speed)
+            {
+                newPosition -= _speed;
             }
 
             return newPosition;
-        }
-
-        public void StartMovement()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopMovement()
-        {
-            throw new NotImplementedException();
         }
     }
 }

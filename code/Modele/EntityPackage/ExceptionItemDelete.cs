@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele.MovementPackage
+namespace Modele.EntityPackage
 {
-    public interface IMovement
+    public class ExceptionItemDelete : Exception
     {
-        public float GetMovement();
-     
     }
 }

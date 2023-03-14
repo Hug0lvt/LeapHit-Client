@@ -25,6 +25,8 @@ using PongClient.Screens.MenuPackage;
 using Microsoft.Xna.Framework.Audio;
 using Game = Modele.GamePackage.Game;
 using static System.Net.Mime.MediaTypeNames;
+using Modele.MovementPackage.MotionSensorPackage;
+using Modele.EntityPackage.Items;
 
 namespace PongClient.Screens
 {
@@ -44,6 +46,7 @@ namespace PongClient.Screens
         {
             game.IsMouseVisible = false;
             _pongGame = pongGame;
+          
         }
 
         public override void LoadContent()
@@ -58,9 +61,12 @@ namespace PongClient.Screens
             _musicInstance = music.CreateInstance();
             _musicInstance.IsLooped = true; // Lecture en boucle
             _musicInstance.Play(); // Démarrage de la musique
-        }
 
-        public override void Draw(GameTime gameTime)
+
+
+    }
+
+    public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
 
@@ -71,6 +77,8 @@ namespace PongClient.Screens
             _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
 
+
+            DrawItem(_pongGame._item);
             DrawScore();
             DrawTime();
 
@@ -88,6 +96,15 @@ namespace PongClient.Screens
         public void DrawBall(Ball ball)
         {
             _spriteBatch.Draw(ball.Sprite, new Vector2(ball.X, ball.Y), 0, Vector2.One);
+        }
+
+        public void DrawItem(Item item)
+        {
+
+            if (item != null)
+            {
+                _spriteBatch.Draw(item.Sprite, new Vector2(item.X, _pongGame._item.Y), 0, Vector2.One);
+            }
         }
 
         public void DrawScore()
@@ -111,12 +128,13 @@ namespace PongClient.Screens
             {
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
-                _pongGame.LocalPlayer.StrategieMovement.StopMovement();
+                (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
                 ScreenManager.LoadScreen(new MenuHome(_game));
             }
 
             _pongGame.GameStat.Time += gameTime.ElapsedGameTime;
-
+            
+          
             _pongGame.Play(_widthCenter * 2, _heightCenter * 2, gameTime.GetElapsedSeconds());
         }
     }
