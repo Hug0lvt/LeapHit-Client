@@ -5,6 +5,7 @@ using Modele.EntityPackage;
 using Modele.GamePackage;
 using Modele.SkinPackage;
 using MonoGame.Extended.Sprites;
+using PongClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,9 @@ namespace TestModel.Entity_test
             Vector2 initialPosition = new(0, 0);
 
             // Act
-            Paddle paddle = new(initialPosition.X, initialPosition.Y, null, null);
+            var game = new GamePong();
+            var graphique = game.Content.Load<Texture2D>("Form/paddle");
+            Paddle paddle = new(initialPosition.X, initialPosition.Y, null, new Sprite(new Texture2D(new GamePong().GraphicsDevice, 10, 50)));
 
             // Assert
             Assert.AreEqual(initialPosition, new Vector2(paddle.X, paddle.Y));
@@ -38,10 +41,8 @@ namespace TestModel.Entity_test
         {
             // Arrange
             Vector2 initialPosition = new(0, 0);
-            Paddle paddle = new(initialPosition.X, initialPosition.Y, null, null)
-            {
-                Zone = new(initialPosition.X, initialPosition.Y, 10, 50)
-            };
+            var graphique = new GamePong().GraphicsDevice;
+            Paddle paddle = new(initialPosition.X, initialPosition.Y, null, new Sprite(new Texture2D(new GamePong().GraphicsDevice, 10, 50)));
 
             // Act
             paddle.Move(10, SCREEN_HEIGHT, SCREEN_WIDTH);

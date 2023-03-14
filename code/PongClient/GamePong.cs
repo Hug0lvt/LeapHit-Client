@@ -26,6 +26,7 @@ namespace PongClient
         private readonly GraphicsDeviceManager _graphics;
         private readonly ScreenManager _screenManager;
         public SpriteFont Font { get; set; }
+        public GraphicsDevice _graphiqueDevice { get { return _graphics.GraphicsDevice; } }
 
         public string SelectedMovement { get; set; }
         public User User { get; }
