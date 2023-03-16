@@ -18,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 using MonoGame.Extended.BitmapFonts;
 using Modele.MovementPackage.MotionSensorPackage;
+using Microsoft.Xna.Framework.Input;
 
 namespace PongClient.Screens.MenuPackage
 {

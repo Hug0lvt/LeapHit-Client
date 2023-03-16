@@ -61,12 +61,9 @@ namespace PongClient.Screens
             _musicInstance = music.CreateInstance();
             _musicInstance.IsLooped = true; // Lecture en boucle
             _musicInstance.Play(); // Démarrage de la musique
+        }
 
-
-
-    }
-
-    public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
 
@@ -129,7 +126,8 @@ namespace PongClient.Screens
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
                 (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
-                ScreenManager.LoadScreen(new MenuHome(_game));
+                if(Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
+                else ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
             }
 
             _pongGame.GameStat.Time += gameTime.ElapsedGameTime;

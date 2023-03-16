@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Modele.MovementPackage.MotionSensorPackage;
 using Modele.PlayerPackage;
 using PongClient.Controls;
@@ -55,6 +56,7 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) (_loadedGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
             base.Update(gameTime);
 
             if(_loadedGame.LocalPlayer.Ready && _loadedGame.ExternalPlayer.Ready)
