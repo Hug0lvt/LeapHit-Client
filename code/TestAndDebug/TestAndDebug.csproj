@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modele\Modele.csproj" />
+    <ProjectReference Include="..\ServerCommunication\ServerCommunication.csproj" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\Leap.dll&quot; &quot;$(TargetDir)&quot;" />
