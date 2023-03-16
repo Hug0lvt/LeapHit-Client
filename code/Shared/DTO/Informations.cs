@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Shared.DTO
 {
-    public enum Messages
+    public class Informations
     {
-        Start,
-        Connect,
-        End
+        public Action Action { get; set; }
     }
 }
