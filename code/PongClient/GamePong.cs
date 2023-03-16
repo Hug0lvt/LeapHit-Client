@@ -73,7 +73,10 @@ namespace PongClient
 
             BotLevel = 2;
 
-            Font = Content.Load<SpriteFont>("Font/gugi");
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile("Gugi-Regular.ttf");
+
+            Font = Content.Load<SpriteFont>("Font/font-20");
         }
 
         protected override void Update(GameTime gameTime)
