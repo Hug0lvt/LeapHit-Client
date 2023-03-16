@@ -44,6 +44,16 @@
 /processorParam:TextureFormat=Compressed
 /build:Font/font-20.spritefont
 
+#begin Font/Gugi-Regular.ttf
+/copy:Font/Gugi-Regular.ttf
+
+#begin Font/gugi.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Font/gugi.spritefont
+
 #begin Form/ball.png
 /importer:TextureImporter
 /processor:TextureProcessor
