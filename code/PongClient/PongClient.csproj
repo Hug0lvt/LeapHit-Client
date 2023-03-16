@@ -14,11 +14,15 @@
   <ItemGroup>
     <None Remove="Content\Animation\loader.gif" />
     <None Remove="Content\dots_loading.riv" />
+    <None Remove="Content\Font\Gugi-Regular.ttf" />
+    <None Remove="Content\Font\gugi.spritefont" />
     <None Remove="Content\Form\paddle.png" />
     <None Remove="Content\kenney-rocket-square.bmfc" />
     <None Remove="Content\kenney-rocket-square.fnt" />
     <None Remove="Content\kenney-rocket-square_0.png" />
+    <None Remove="Gugi-Regular.ttf" />
     <None Remove="IconLeapHit.ico" />
+    <None Remove="Microsoft.Xna.Framework.Graphics.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IconLeapHit.ico" />
@@ -38,14 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Animation\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Content\Font\Gugi-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Gugi-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

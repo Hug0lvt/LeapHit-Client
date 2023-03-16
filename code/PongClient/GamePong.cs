@@ -73,9 +73,6 @@ namespace PongClient
 
             BotLevel = 2;
 
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile("Gugi-Regular.ttf");
-
             Font = Content.Load<SpriteFont>("Font/font-20");
         }
 
