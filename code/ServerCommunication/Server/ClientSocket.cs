@@ -24,7 +24,7 @@ namespace ServerCommunication.Server
 
         public void Connect()
         {
-            string connectionMessage = Shared.DTO.Action.Connect.ToString();
+            string connectionMessage = Shared.DTO.Action.Create.ToString();
             _client.Send(Encoding.ASCII.GetBytes(connectionMessage), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
