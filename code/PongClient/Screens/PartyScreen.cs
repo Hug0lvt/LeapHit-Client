@@ -69,7 +69,7 @@ namespace PongClient.Screens
 
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
-            DrawBall(_pongGame.LocalPlayer.Ball);
+            DrawBall(_pongGame.Ball);
 
             _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);

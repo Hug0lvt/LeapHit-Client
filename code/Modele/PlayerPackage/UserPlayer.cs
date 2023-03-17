@@ -17,11 +17,9 @@ namespace Modele.PlayerPackage
     {
         public UserPlayer(User profile, int startPosition, Game game, MotionSensor strategie)
         {
-            var _widthCenter = game.GraphicsDevice.Viewport.Width / 2;
             var _heightCenter = game.GraphicsDevice.Viewport.Height / 2;
 
             paddle = new Paddle(startPosition, _heightCenter, profile.SelectedPaddle, new Sprite(game.Content.Load<Texture2D>(profile.SelectedPaddle.Asset)));
-            ball = new Ball(_widthCenter, _heightCenter, profile.SelectedBall, new Sprite(game.Content.Load<Texture2D>(profile.SelectedBall.Asset)));
             strategyMouvement = strategie;
         }
     }

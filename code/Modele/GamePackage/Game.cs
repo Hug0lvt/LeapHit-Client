@@ -21,6 +21,7 @@ namespace Modele.GamePackage
         private bool pause;
         private Player localPlayer;
         private Player externalPlayer;
+        protected Ball ball;
         private GameStat gameStat;
         private WebSocket webSocket;
         //Item
@@ -39,8 +40,9 @@ namespace Modele.GamePackage
         public Player LocalPlayer { get { return localPlayer; } }
         public Player ExternalPlayer { get { return externalPlayer; } }
         public GameStat GameStat { get { return gameStat; } }
+        public Ball Ball { get { return ball; } }
 
-        public Game(Player localPlayer, Player externalPlayer, GameStat gameStat, int screenWidth, int screenHeight,ContentManager contentManager)
+        public Game(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight,ContentManager contentManager)
         {
             this.localPlayer = localPlayer;
             this.externalPlayer = externalPlayer;
@@ -48,6 +50,7 @@ namespace Modele.GamePackage
             _screenWidth = screenWidth;
             _screenHeight = screenHeight;
             _contentManager = contentManager;
+            this.ball = ball;
 
             this.gameStat.Score = new Score(this.localPlayer, this.externalPlayer);
            
@@ -72,15 +75,15 @@ namespace Modele.GamePackage
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
-            SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
+            SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
-            localPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
-            externalPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
+            localPlayer.Paddle.BallHitPaddle(ball);
+            externalPlayer.Paddle.BallHitPaddle(ball);
             try
             {
 
                 _item?.Move(elapsedSecond, screenWidth, screenHeight);
-                _item?.BallHitItem(LocalPlayer.Ball);
+                _item?.BallHitItem(ball);
             }
             catch (ExceptionItemDelete)
             {
