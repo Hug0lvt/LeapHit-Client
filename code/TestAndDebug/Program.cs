@@ -1,9 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage;
+﻿using ServerCommunication.Api;
 
-LeapMotion leap = new LeapMotion();
+TokenManager tokenManager = new TokenManager();
 
+tokenManager.Write();
 
-
-Console.ReadLine();
-leap.OnClosing();
+Console.WriteLine(tokenManager.Read());
