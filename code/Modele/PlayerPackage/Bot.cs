@@ -15,7 +15,6 @@ namespace Modele.PlayerPackage
         public Bot(GameEntity paddle, GameEntity ball, int difficulty)
         {
             this.paddle = paddle;
-            this.ball = ball;
             strategyMouvement = new Aleatoire((Ball)ball, paddle, difficulty);
         }
     }

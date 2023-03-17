@@ -14,10 +14,7 @@ namespace Modele.PlayerPackage
         private UserStat globalStat;
         private List<Skin> skins;
 
-        private Skin selectedBall;
         private Skin selectedPaddle;
-
-        public BallSkin SelectedBall { get { return (BallSkin)selectedBall; } }
         public PaddleSkin SelectedPaddle { get { return (PaddleSkin)selectedPaddle; } }
 
         public User(string pseudo)
@@ -27,9 +24,7 @@ namespace Modele.PlayerPackage
             skins = new List<Skin>();
 
             selectedPaddle = new PaddleSkin("Form/paddle", "simplePaddle");
-            selectedBall = new BallSkin("Form/ball", "simpleBall");
 
-            skins.Add(selectedBall);
             skins.Add(selectedPaddle);
         }
 

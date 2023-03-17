@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Modele.MovementPackage;
 using Modele.MovementPackage.MotionSensorPackage;
 using Modele.PlayerPackage;
 using MonoGame.Extended.Sprites;
 using PongClient.Controls;
-using PongClient.Screens.MenuPackage;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Game = Modele.GamePackage.Game;
 
-namespace PongClient.Screens
+namespace PongClient.Screens.MenuPackage
 {
     public class LoadScreen : MenuScreen
     {
@@ -28,7 +28,7 @@ namespace PongClient.Screens
 
         private readonly Game _loadedGame;
 
-        public LoadScreen(GamePong game, Game loadedGame) 
+        public LoadScreen(GamePong game, Game loadedGame)
             : base(game)
         {
             _loadedGame = loadedGame;
@@ -41,8 +41,8 @@ namespace PongClient.Screens
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _textureLoadBall = Content.Load<Texture2D>("Form/loadBall");
 
-            centerBall = new Vector2(_widthCenter - _textureLoadBall.Width/2, _heightCenter - _textureLoadBall.Height/2);
-            
+            centerBall = new Vector2(_widthCenter - _textureLoadBall.Width / 2, _heightCenter - _textureLoadBall.Height / 2);
+
             var max = 300;
             var speed = 5;
             var rightBall = new LoadBall(max, centerBall, speed);
@@ -81,6 +81,7 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) (_loadedGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
             base.Update(gameTime);
 
             foreach (var loadedBall in loadedBalls)
