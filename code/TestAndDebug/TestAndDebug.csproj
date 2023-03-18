@@ -11,10 +11,10 @@
     <ProjectReference Include="..\Modele\Modele.csproj" />
     <ProjectReference Include="..\ServerCommunication\ServerCommunication.csproj" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\Leap.dll&quot; &quot;$(TargetDir)&quot;" />
-    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\LeapCSharp.dll&quot; &quot;$(TargetDir)&quot;" />
-    <Exec Command="xcopy /yr &quot;C:\Users\ramik\Desktop\hopeForLeap\leapTest\leapTest\LeapCSharp.NET4.0.dll&quot; &quot;$(TargetDir)&quot;" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\Leap.dll&quot; &quot;$(TargetDir)&quot;" />
+		<Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\LeapCSharp.dll&quot; &quot;$(TargetDir)&quot;" />
+		<Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\LeapCSharp.NET4.0.dll&quot; &quot;$(TargetDir)&quot;" />
+	</Target>
 
 </Project>

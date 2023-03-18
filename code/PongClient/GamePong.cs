@@ -19,6 +19,8 @@ using System.Reflection;
 using Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage;
 using Modele.MovementPackage.MotionSensorPackage;
 using Mouse = Modele.MovementPackage.MotionSensorPackage.Mouse;
+using System.Drawing.Text;
+using System.Text;
 
 namespace PongClient
 {
@@ -70,6 +72,7 @@ namespace PongClient
             GameMode.Add("camera", new Camera());
 
             BotLevel = 2;
+
             Font = Content.Load<SpriteFont>("Font/font-20");
         }
 

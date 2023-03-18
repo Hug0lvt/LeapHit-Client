@@ -18,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 using MonoGame.Extended.BitmapFonts;
 using Modele.MovementPackage.MotionSensorPackage;
+using Microsoft.Xna.Framework.Input;
 using System.Text.Json;
 
 namespace PongClient.Screens.MenuPackage
@@ -85,10 +86,13 @@ namespace PongClient.Screens.MenuPackage
         private void LocalButton_Click(object sender, EventArgs e)
         {
             _menuSoundEffectInstance.Stop();
-            var paddleSkin = new PaddleSkin("Form/paddle", "simplePaddle");            
+            var paddleSkin = new PaddleSkin("Form/paddle", "simple paddle");            
             var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
 
-            var externalPlayer = new Bot(paddleExternalPlayer, _localPlayer.Ball, _game.BotLevel)
+            var ballSkin = new BallSkin("Form/ball", "simple ball");
+            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
+
+            var externalPlayer = new Bot(paddleExternalPlayer, ball, _game.BotLevel)
             {
                 Ready = true
             };
@@ -96,7 +100,7 @@ namespace PongClient.Screens.MenuPackage
 
             var gameStat = new GameStat();
 
-            _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat,_widthCenter*2,_heightCenter*2,Content);
+            _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat, ball, _widthCenter*2, _heightCenter*2, Content);
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();

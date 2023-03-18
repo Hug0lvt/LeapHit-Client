@@ -9,5 +9,7 @@ namespace Shared.DTO
     public class Informations
     {
         public Action Action { get; set; }
+
+        public T TypeData { get; set; }
     }
 }

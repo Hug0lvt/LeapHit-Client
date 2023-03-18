@@ -39,7 +39,7 @@ namespace PongClient.Screens
         private readonly Game _pongGame;
         private SoundEffectInstance _musicInstance; // Instance de la musique
         private readonly TimeSpan timerLength = TimeSpan.FromMinutes(2);
-        private readonly int maxScore = 6;
+        private readonly int maxScore = 1;
 
         public PartyScreen(GamePong game, Game pongGame)
           : base(game)
@@ -61,18 +61,15 @@ namespace PongClient.Screens
             _musicInstance = music.CreateInstance();
             _musicInstance.IsLooped = true; // Lecture en boucle
             _musicInstance.Play(); // Démarrage de la musique
+        }
 
-
-
-    }
-
-    public override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
-            DrawBall(_pongGame.LocalPlayer.Ball);
+            DrawBall(_pongGame.Ball);
 
             _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
@@ -129,7 +126,8 @@ namespace PongClient.Screens
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
                 (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
-                ScreenManager.LoadScreen(new MenuHome(_game));
+                if(Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
+                else ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
             }
 
             _pongGame.GameStat.Time += gameTime.ElapsedGameTime;
