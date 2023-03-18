@@ -18,6 +18,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
 using MonoGame.Extended.BitmapFonts;
 using Modele.MovementPackage.MotionSensorPackage;
+using System.Text.Json;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -69,6 +70,16 @@ namespace PongClient.Screens.MenuPackage
         private void OnlineButton_Click(object sender, EventArgs e)
         {
             Debug.WriteLine("Online");
+            //_menuSoundEffectInstance.Stop();
+
+            //var externalPlayer =
+            
+            //var gameStat = new GameStat();
+
+            //_pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat, _widthCenter * 2, _heightCenter * 2, Content);
+
+            //ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
+            //(_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void LocalButton_Click(object sender, EventArgs e)
