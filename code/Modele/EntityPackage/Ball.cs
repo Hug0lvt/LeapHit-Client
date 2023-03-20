@@ -47,7 +47,6 @@ namespace Modele.EntityPackage
             }
             x += Velocity.X * delta * _difficulty;
             y += Velocity.Y * delta * _difficulty;
-            Debug.WriteLine(_speed+" "+timePass);
           
             var halfHeight = Zone.Height / 2;
 

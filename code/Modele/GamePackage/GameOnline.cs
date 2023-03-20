@@ -53,6 +53,7 @@ namespace Modele.GamePackage
 
         private override void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
         {
+
             //ball.Move(elapsedSecond, screenHeight, screenWidth);
 
             //var halfWidth = ball.Zone.Width / 2;
