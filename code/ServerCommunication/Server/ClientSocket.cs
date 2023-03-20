@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Shared.DTO;
 
+
 namespace ServerCommunication.Server
 {
     public class ClientSocket
@@ -24,7 +25,7 @@ namespace ServerCommunication.Server
 
         public void Connect()
         {
-            string connectionMessage = Shared.DTO.Action.Create.ToString();
+            string connectionMessage = Shared.DTO.Action.Connect.ToString();
             _client.Send(Encoding.ASCII.GetBytes(connectionMessage), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
