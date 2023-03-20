@@ -58,7 +58,7 @@ namespace Modele.GamePackage
 
         }
 
-        public void Play(int screenWidth, int screenHeight, float elapsedSecond)
+        public virtual void Play(int screenWidth, int screenHeight, float elapsedSecond)
         {
             _time += elapsedSecond;
             if (_item == null)
@@ -92,7 +92,7 @@ namespace Modele.GamePackage
 
         }
 
-        private void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
+        protected virtual void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
         {
             ball.Move(elapsedSecond, screenHeight, screenWidth);
 

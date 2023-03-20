@@ -10,6 +10,23 @@ namespace Shared.DTO
     {
         Start,
         Connect,
-        End
+        End,
+
+        // Client
+        Create,
+        WaitClient,
+        SendReady,
+        SendLocationPaddle,
+        Recieve,
+        JoinRoom,
+        WaitCLient1ToBeReady,
+        WaitClient2ToBeReady,
+
+        // Serveur
+        RoomCreated,
+        Wait,
+        Ready,
+        SendLocationPaddleAgainst,
+        SendWinner,
     }
 }
