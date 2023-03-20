@@ -12,6 +12,11 @@ namespace Shared.DTO
         Connect,
         End,
 
+
+        SendPlayer,
+        RecivePlayer,
+
+
         // Client
         Create,
         WaitClient,
