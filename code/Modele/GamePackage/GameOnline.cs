@@ -1,18 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using Modele.EntityPackage.Items;
 using Modele.EntityPackage;
 using Modele.PlayerPackage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ServerCommunication.Server;
 
 namespace Modele.GamePackage
 {
     public class GameOnline : Game
     {
-        public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, int screenWidth, int screenHeight, ContentManager contentManager) 
+        public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, screenWidth, screenHeight, contentManager)
         {
         }

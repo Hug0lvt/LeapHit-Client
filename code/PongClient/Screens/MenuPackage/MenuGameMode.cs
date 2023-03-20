@@ -20,6 +20,7 @@ using MonoGame.Extended.BitmapFonts;
 using Modele.MovementPackage.MotionSensorPackage;
 using Microsoft.Xna.Framework.Input;
 using System.Text.Json;
+using ServerCommunication.Server;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -70,14 +71,17 @@ namespace PongClient.Screens.MenuPackage
 
         private void OnlineButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Online");
-            //_menuSoundEffectInstance.Stop();
+            _menuSoundEffectInstance.Stop();
 
-            //var externalPlayer =
+            var socket = new ClientSocket("hulivet.fr", 3131);
+            socket.Connect();
+
+            socket.SendPlayer(_localPlayer);
+            var externalPlayer = socket.ReceivePlayer();
             
-            //var gameStat = new GameStat();
+            var gameStat = new GameStat();
 
-            //_pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat, _widthCenter * 2, _heightCenter * 2, Content);
+            _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, _widthCenter * 2, _heightCenter * 2, Content, socket);
 
             //ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             //(_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
