@@ -15,13 +15,13 @@ namespace Shared.DTO
 
         SendPlayer,
         RecivePlayer,
-
+        SendLocationPaddle,
 
         // Client
         Create,
         WaitClient,
         SendReady,
-        SendLocationPaddle,
+        
         Recieve,
         JoinRoom,
         WaitCLient1ToBeReady,
