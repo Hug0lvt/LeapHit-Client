@@ -21,6 +21,7 @@ using Modele.MovementPackage.MotionSensorPackage;
 using Microsoft.Xna.Framework.Input;
 using System.Text.Json;
 using ServerCommunication.Server;
+using Modele.Network;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -76,15 +77,15 @@ namespace PongClient.Screens.MenuPackage
             var socket = new ClientSocket("hulivet.fr", 3131);
             socket.Connect();
 
-            socket.SendPlayer(_localPlayer);
-            var externalPlayer = socket.ReceivePlayer();
+            NetworkPlayer.Send(socket, _localPlayer);
+            var externalPlayer = NetworkPlayer.Receive(socket);
             
             var gameStat = new GameStat();
 
             _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, _widthCenter * 2, _heightCenter * 2, Content, socket);
 
-            //ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
-            //(_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
+            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void LocalButton_Click(object sender, EventArgs e)
