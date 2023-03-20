@@ -18,7 +18,12 @@ namespace Modele.Network
 
         public static Player Receive(ClientSocket clientSocket) 
         {
-            return clientSocket.Receive<Player>().Data;
+            Player player = clientSocket.Receive<Player>().Data;
+            while(player is null)
+            {
+                player = clientSocket.Receive<Player>().Data;
+            }
+            return player;
         }
     }
 }
