@@ -10,5 +10,11 @@ namespace Shared.DTO
     {
         public Informations Informations { get; set; }
         public T Data { get; set; }
+
+        public ObjectTransfert(Informations infos, T datas)
+        {
+            Informations = infos;
+            Data = datas;
+        }
     }
 }

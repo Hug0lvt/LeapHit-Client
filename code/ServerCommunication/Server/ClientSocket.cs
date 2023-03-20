@@ -39,7 +39,7 @@ namespace ServerCommunication.Server
             _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(datas)), _serverEndPoint);
         }
 
-        public ObjectTransfert<T> Recive<T>() 
+        public ObjectTransfert<T> Receive<T>() 
         {
             if (_stateConnexion == false) throw new SocketException();
             IPEndPoint remoteEndPoint = _serverEndPoint;
