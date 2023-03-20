@@ -49,8 +49,8 @@ namespace Modele.GamePackage
 
             //SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
 
-            localPlayer.Paddle.BallHitPaddle(ball);
-            externalPlayer.Paddle.BallHitPaddle(ball);
+            //localPlayer.Paddle.BallHitPaddle(ball);
+            //externalPlayer.Paddle.BallHitPaddle(ball);
             //try
             //{
 
