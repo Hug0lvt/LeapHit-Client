@@ -9,10 +9,10 @@ namespace Shared.DTO
     public class Informations
     {
         public Action Action { get; set; }
-        public double Frame { get; set; }
+        public long Frame { get; set; }
         public string TypeData { get; set; }
 
-        public Informations(Action action, double frame, string type)
+        public Informations(Action action, long frame, string type)
         {
             Action = action;
             Frame = frame;
