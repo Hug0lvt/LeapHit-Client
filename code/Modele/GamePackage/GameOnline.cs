@@ -1,15 +1,29 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Modele.EntityPackage;
+using Modele.Network;
 using Modele.PlayerPackage;
 using ServerCommunication.Server;
+using Shared.DTO;
 
 namespace Modele.GamePackage
 {
     public class GameOnline : Game
     {
-        public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
-            : base(localPlayer, externalPlayer, gameStat, screenWidth, screenHeight, contentManager)
+        private Player localPlayer;
+        private Player externalPlayer;
+        protected Ball ball;
+        private GameStat gameStat;
+        private ClientSocket clientSocket;
+        public ClientSocket Socket { get { return clientSocket; } }
+        private long frame = 0;
+
+        public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
+            : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
         {
+            this.localPlayer = localPlayer;
+            this.externalPlayer = externalPlayer;
+            this.ball = ball;
+            this.clientSocket = socket;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
@@ -26,13 +40,17 @@ namespace Modele.GamePackage
             //}
 
 
-            //localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
-            //externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
+            localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
+            clientSocket.Send<float>(new ObjectTransfert<float>(new Informations(Shared.DTO.Action.SendLocationPaddle, frame, typeof(float).ToString()), localPlayer.Paddle.Y));
+            frame++;
+
+            var playerReceive = NetworkPlayer.ReceiveLocation(clientSocket);
+            externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
             //SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
 
-            //localPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
-            //externalPlayer.Paddle.BallHitPaddle(localPlayer.Ball);
+            localPlayer.Paddle.BallHitPaddle(ball);
+            externalPlayer.Paddle.BallHitPaddle(ball);
             //try
             //{
 

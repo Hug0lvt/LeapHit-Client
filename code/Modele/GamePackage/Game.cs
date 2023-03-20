@@ -23,7 +23,6 @@ namespace Modele.GamePackage
         private Player externalPlayer;
         protected Ball ball;
         private GameStat gameStat;
-        private WebSocket webSocket;
         //Item
         public Item _item;
         private int _screenWidth;

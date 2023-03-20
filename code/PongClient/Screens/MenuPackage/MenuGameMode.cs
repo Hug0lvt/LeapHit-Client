@@ -75,14 +75,19 @@ namespace PongClient.Screens.MenuPackage
             _menuSoundEffectInstance.Stop();
 
             var socket = new ClientSocket("hulivet.fr", 3131);
-            socket.Connect();
 
-            NetworkPlayer.Send(socket, _localPlayer);
-            var externalPlayer = NetworkPlayer.Receive(socket);
+            var playerToSend = _localPlayer;
+            playerToSend.Paddle.X = _widthCenter * 2 - playerToSend.Paddle.X;
+
+            NetworkPlayer.SendPlayer(socket, playerToSend);
+            var externalPlayer = NetworkPlayer.ReceivePlayer(socket);
             
             var gameStat = new GameStat();
 
-            _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, _widthCenter * 2, _heightCenter * 2, Content, socket);
+            var ballSkin = new BallSkin("Form/ball", "simple ball");
+            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
+
+            _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, ball, _widthCenter * 2, _heightCenter * 2, Content, socket);
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();

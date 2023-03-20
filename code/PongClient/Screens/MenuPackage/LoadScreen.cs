@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Modele.GamePackage;
 using Modele.MovementPackage;
 using Modele.MovementPackage.MotionSensorPackage;
 using Modele.PlayerPackage;
@@ -99,6 +100,7 @@ namespace PongClient.Screens.MenuPackage
                 if (ready)
                 {
                     _loadedGame.LocalPlayer.Ready = true;
+                    if(_loadedGame.GetType() == typeof(GameOnline)) (_loadedGame as GameOnline).Socket.Connect();
                     ScreenManager.LoadScreen(new CountdownScreen(_game, _loadedGame));
                 }
             }
