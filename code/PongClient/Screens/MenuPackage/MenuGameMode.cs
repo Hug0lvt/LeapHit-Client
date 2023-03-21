@@ -76,9 +76,12 @@ namespace PongClient.Screens.MenuPackage
 
             var socket = new ClientSocket("hulivet.fr", 3131);
 
-            var playerToSend = _localPlayer;
-            playerToSend.Paddle.X = _widthCenter * 2 - playerToSend.Paddle.X;
-            playerToSend.Paddle.Sprite = null;
+            var playerToSend = new Shared.DTO.UserPlayer()
+            {
+                Pseudo = _localPlayer.Profile.Pseudo,
+                X = _widthCenter * 2 - _localPlayer.Paddle.X,
+                Y = _localPlayer.Paddle.Y
+            };
 
             var playerDto = new Shared.DTO.Player()
             {
@@ -91,8 +94,10 @@ namespace PongClient.Screens.MenuPackage
             socket.Connect(playerDto);
 
             NetworkPlayer.SendPlayer(socket, playerToSend);
-            var externalPlayer = NetworkPlayer.ReceivePlayer(socket);
-            externalPlayer.Paddle.Sprite = new Sprite(Content.Load<Texture2D>(_localPlayer.Paddle.Skin));
+            var playerReceive = NetworkPlayer.ReceivePlayer(socket);
+            var profile = new User(playerReceive.Pseudo);
+            profile.SelectedPaddle = _localPlayer.Paddle.SkinAll as PaddleSkin;
+            var externalPlayer = new UserPlayer(profile, (int)playerReceive.X, _game, new Modele.MovementPackage.MotionSensorPackage.Mouse());
             
             var gameStat = new GameStat();
 

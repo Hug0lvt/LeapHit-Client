@@ -29,6 +29,7 @@ namespace Modele.EntityPackage
         public float X { get { return x; } set { x = value; } }
         public float Y { get { return y; } set { y = value; } }
         public string Skin { get { return skin.Asset; } }
+        public Skin SkinAll { get { return skin; } }
         public MonoGame.Extended.RectangleF Zone { get { return this.zone; } }
         public Sprite Sprite { get { return this.sprite; } set { this.sprite = value; } }
 

@@ -12,17 +12,17 @@ namespace Modele.Network
 {
     public static class NetworkPlayer
     {
-        public static void SendPlayer(ClientSocket clientSocket, Player player) 
+        public static void SendPlayer(ClientSocket clientSocket, Shared.DTO.UserPlayer player) 
         { 
-            clientSocket.Send<Player>(new ObjectTransfert<Player>(new Informations(Shared.DTO.Action.SendPlayer,0,typeof(Player).ToString()),player));
+            clientSocket.Send(new ObjectTransfert<Shared.DTO.UserPlayer>(new Informations(Shared.DTO.Action.SendPlayer,0,typeof(Shared.DTO.UserPlayer).ToString()), player));
         }
 
-        public static Player ReceivePlayer(ClientSocket clientSocket) 
+        public static Shared.DTO.UserPlayer ReceivePlayer(ClientSocket clientSocket) 
         {
-            Player player = clientSocket.Receive<Player>().Data;
+            Shared.DTO.UserPlayer player = clientSocket.Receive<Shared.DTO.UserPlayer>().Data;
             while(player is null)
             {
-                player = clientSocket.Receive<Player>().Data;
+                player = clientSocket.Receive<Shared.DTO.UserPlayer>().Data;
             }
             return player;
         }

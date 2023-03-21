@@ -15,7 +15,7 @@ namespace Modele.PlayerPackage
         private List<Skin> skins;
 
         private Skin selectedPaddle;
-        public PaddleSkin SelectedPaddle { get { return (PaddleSkin)selectedPaddle; } }
+        public PaddleSkin SelectedPaddle { get { return (PaddleSkin)selectedPaddle; } set { this.selectedPaddle = value; } }
 
         public User(string pseudo)
         {
