@@ -8,30 +8,14 @@ namespace Shared.DTO
 {
     public enum Action
     {
-        Start,
+        Join,
+        Host,
         Connect,
         End,
 
-
         SendPlayer,
         RecivePlayer,
-        SendLocationPaddle,
+        SendEntities
 
-        // Client
-        Create,
-        WaitClient,
-        SendReady,
-        
-        Recieve,
-        JoinRoom,
-        WaitCLient1ToBeReady,
-        WaitClient2ToBeReady,
-
-        // Serveur
-        RoomCreated,
-        Wait,
-        Ready,
-        SendLocationPaddleAgainst,
-        SendWinner,
     }
 }

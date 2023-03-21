@@ -25,15 +25,5 @@ namespace Modele.Network
             }
             return player;
         }
-
-        public static float ReceiveLocation(ClientSocket clientSocket)
-        {
-            float? location = clientSocket.Receive<float>().Data;
-            while (location is null)
-            {
-                location = clientSocket.Receive<float>().Data;
-            }
-            return (float)location;
-        }
     }
 }
