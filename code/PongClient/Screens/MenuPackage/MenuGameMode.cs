@@ -30,7 +30,7 @@ namespace PongClient.Screens.MenuPackage
         private List<Component> _components;
         private SpriteBatch _spriteBatch;
 
-        private Player _localPlayer;
+        private UserPlayer _localPlayer;
         private Modele.GamePackage.Game _pongGame;
 
         public MenuGameMode(GamePong game) 
@@ -78,6 +78,16 @@ namespace PongClient.Screens.MenuPackage
 
             var playerToSend = _localPlayer;
             playerToSend.Paddle.X = _widthCenter * 2 - playerToSend.Paddle.X;
+
+            var playerDto = new Shared.DTO.Player()
+            {
+                name = _localPlayer.Profile.Pseudo,
+                nbBallTouchTotal = _localPlayer.Profile.GlobalStat.TouchBallCount,
+                timePlayed = _localPlayer.Profile.GlobalStat.TimePlayed,
+                playerId = _localPlayer.Profile.Pseudo,
+            };
+
+            socket.Connect(playerDto);
 
             NetworkPlayer.SendPlayer(socket, playerToSend);
             var externalPlayer = NetworkPlayer.ReceivePlayer(socket);

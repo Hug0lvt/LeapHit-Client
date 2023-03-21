@@ -15,22 +15,20 @@ namespace ServerCommunication.Server
     {
         public IPEndPoint _serverEndPoint { get; set; }
         public bool _stateConnexion { get; set; }
-        UdpClient _client { get; set; }
+        public UdpClient _client { get; set; }
 
         public ClientSocket(string host, int port)
         {
-            IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
+            //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
 
-            //IPEndPoint _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.205.58"), 3131);
-
-
-            _client = new UdpClient(_serverEndPoint);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.205.58"), 3131);
+            _client = new UdpClient();
         }
 
-        public void Connect()
+        public void Connect(Player player)
         {
-            string connectionMessage = Shared.DTO.Action.Connect.ToString();
-            _client.Send(Encoding.ASCII.GetBytes(connectionMessage), _serverEndPoint);
+             
+            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(new ObjectTransfert<Player>(new Informations(Shared.DTO.Action.Connect, 0, typeof(Player).ToString()), player))), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
             _serverEndPoint.Port = Int32.Parse(Encoding.ASCII.GetString(_client.Receive(ref remoteEndPoint)));

@@ -4,6 +4,7 @@ using Modele.Network;
 using Modele.PlayerPackage;
 using ServerCommunication.Server;
 using Shared.DTO;
+using Player = Modele.PlayerPackage.Player;
 
 namespace Modele.GamePackage
 {
@@ -61,7 +62,7 @@ namespace Modele.GamePackage
             NetworkGameEntities.Send(clientSocket, 
                                     new GameEntities(
                                         new Tuple<float, float>(
-                                            ball.X,
+                                            screenWidth - ball.X,
                                             ball.Y
                                         ), 
                                         localPlayer.Paddle.Y
