@@ -78,6 +78,7 @@ namespace PongClient.Screens.MenuPackage
 
             var playerToSend = _localPlayer;
             playerToSend.Paddle.X = _widthCenter * 2 - playerToSend.Paddle.X;
+            playerToSend.Paddle.Sprite = null;
 
             var playerDto = new Shared.DTO.Player()
             {
@@ -91,6 +92,7 @@ namespace PongClient.Screens.MenuPackage
 
             NetworkPlayer.SendPlayer(socket, playerToSend);
             var externalPlayer = NetworkPlayer.ReceivePlayer(socket);
+            externalPlayer.Paddle.Sprite = new Sprite(Content.Load<Texture2D>(_localPlayer.Paddle.Skin));
             
             var gameStat = new GameStat();
 

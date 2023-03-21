@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -27,7 +28,6 @@ namespace ServerCommunication.Server
 
         public void Connect(Player player)
         {
-             
             _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(new ObjectTransfert<Player>(new Informations(Shared.DTO.Action.Connect, 0, typeof(Player).ToString()), player))), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
@@ -38,7 +38,8 @@ namespace ServerCommunication.Server
         public void Send<T>(ObjectTransfert<T> datas)
         {
             if (_stateConnexion == false) throw new SocketException();
-            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(datas)), _serverEndPoint);
+            Debug.WriteLine(datas.Data);
+            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize<ObjectTransfert<T>>(datas)), _serverEndPoint);
         }
 
         public ObjectTransfert<T> Receive<T>() 
