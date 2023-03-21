@@ -19,7 +19,11 @@ namespace ServerCommunication.Server
 
         public ClientSocket(string host, int port)
         {
-            IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
+            //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
+
+            IPEndPoint _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.205.58"), 3131);
+
+
             _client = new UdpClient(_serverEndPoint);
         }
 
