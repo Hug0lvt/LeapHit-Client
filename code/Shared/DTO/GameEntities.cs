@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Shared.DTO
 {
-    public class GameEnities
+    public class GameEntities
     {
-        Tuple<float, float> Ball { get; set; }
-        float Paddle { get; set; }
+        public Tuple<float, float> Ball { get; set; }
+        public float Paddle { get; set; }
 
-        public GameEnities(Tuple<float, float> ball, float paddle)
+        public GameEntities(Tuple<float, float> ball, float paddle)
         {
             Ball = ball;
             Paddle = paddle;

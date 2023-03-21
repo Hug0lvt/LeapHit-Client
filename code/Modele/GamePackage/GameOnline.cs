@@ -23,7 +23,7 @@ namespace Modele.GamePackage
             this.localPlayer = localPlayer;
             this.externalPlayer = externalPlayer;
             this.ball = ball;
-            this.clientSocket = socket;
+            clientSocket = socket;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
@@ -39,16 +39,37 @@ namespace Modele.GamePackage
             //    }
             //}
 
+            // Receive Data
+            GameEntities datas = NetworkGameEntities.Receive(clientSocket);
+            float playerReceive = datas.Paddle;
+            Tuple<float, float> ballReceive = datas.Ball;
 
+            // Set coordonate
+            ball.X = ballReceive.Item1;
+            ball.Y = ballReceive.Item2;
+
+            // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
-            clientSocket.Send<float>(new ObjectTransfert<float>(new Informations(Shared.DTO.Action.SendLocationPaddle, frame, typeof(float).ToString()), localPlayer.Paddle.Y));
-            frame++;
-
-            var playerReceive = NetworkPlayer.ReceiveLocation(clientSocket);
             externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
+                    
+            ball.Move(elapsedSecond, screenHeight, screenWidth);
 
-            //SetScore(localPlayer.Ball, screenWidth, screenHeight, elapsedSecond);
+            SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
+            // Send Data
+
+            NetworkGameEntities.Send(clientSocket, 
+                                    new GameEntities(
+                                        new Tuple<float, float>(
+                                            ball.X,
+                                            ball.Y
+                                        ), 
+                                        localPlayer.Paddle.Y
+                                    ), 
+                                    frame
+                                );
+
+            frame++;
             //localPlayer.Paddle.BallHitPaddle(ball);
             //externalPlayer.Paddle.BallHitPaddle(ball);
             //try
@@ -64,24 +85,22 @@ namespace Modele.GamePackage
 
         }
 
-        private override void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
+        protected override void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
         {
 
-            //ball.Move(elapsedSecond, screenHeight, screenWidth);
+            var halfWidth = ball.Zone.Width / 2;
 
-            //var halfWidth = ball.Zone.Width / 2;
+            if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
+            {
+                gameStat.Score.IncrementScore(localPlayer);
+                ball.Reset(screenHeight, screenWidth, true);
+            }
 
-            //if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
-            //{
-            //    gameStat.Score.IncrementScore(localPlayer);
-            //    ball.Reset(screenHeight, screenWidth, true);
-            //}
-
-            //if (ball.X < -halfWidth && ball.Velocity.X < 0)
-            //{
-            //    gameStat.Score.IncrementScore(externalPlayer);
-            //    ball.Reset(screenHeight, screenWidth, false);
-            //}
+            if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            {
+                gameStat.Score.IncrementScore(externalPlayer);
+                ball.Reset(screenHeight, screenWidth, false);
+            }
         }
     }
 }
