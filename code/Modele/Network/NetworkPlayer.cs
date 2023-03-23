@@ -6,23 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Player = Modele.PlayerPackage.Player;
+using UserPlayer = Shared.DTO.UserPlayer;
 
 namespace Modele.Network
 {
     public static class NetworkPlayer
     {
-        public static void SendPlayer(ClientSocket clientSocket, Player player) 
+        public static void SendPlayer(ClientSocket clientSocket, UserPlayer player) 
         { 
-            clientSocket.Send<Player>(new ObjectTransfert<Player>(new Informations(Shared.DTO.Action.SendPlayer,0,typeof(Player).ToString()),player));
+            clientSocket.Send<UserPlayer>(new ObjectTransfert<UserPlayer>(new Informations(Shared.DTO.Action.SendPlayer,0,typeof(UserPlayer).ToString()),player));
         }
 
-        public static Player ReceivePlayer(ClientSocket clientSocket) 
+        public static UserPlayer ReceivePlayer(ClientSocket clientSocket) 
         {
-            Player player = clientSocket.Receive<Player>().Data;
+            UserPlayer player = clientSocket.Receive<UserPlayer>().Data;
             while(player is null)
             {
-                player = clientSocket.Receive<Player>().Data;
+                player = clientSocket.Receive<UserPlayer>().Data;
             }
             return player;
         }
