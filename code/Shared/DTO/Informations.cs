@@ -18,5 +18,10 @@ namespace Shared.DTO
             Frame = frame;
             TypeData = type;
         }
+
+        public Informations()
+        {
+            
+        }
     }
 }
