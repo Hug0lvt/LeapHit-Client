@@ -22,13 +22,18 @@ namespace ServerCommunication.Server
         {
             //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
 
-            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.205.58"), 3131);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.43.36"), 3131);
             _client = new UdpClient();
         }
 
         public void Connect(Player player)
         {
-            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(new ObjectTransfert<Player>(new Informations(Shared.DTO.Action.Connect, 0, typeof(Player).ToString()), player))), _serverEndPoint);
+            ObjectTransfert<Player> obj = new ObjectTransfert<Player>()
+            {
+                Informations = new Informations(Shared.DTO.Action.Connect, 0, typeof(Player).ToString()),
+                Data = player
+            };
+            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(obj)), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
             _serverEndPoint.Port = Int32.Parse(Encoding.ASCII.GetString(_client.Receive(ref remoteEndPoint)));

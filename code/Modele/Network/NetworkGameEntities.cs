@@ -13,16 +13,12 @@ namespace Modele.Network
     {
         public static void Send(ClientSocket clientSocket, GameEntities entities, long frame)
         {
-            clientSocket.Send<GameEntities>(
-                new ObjectTransfert<GameEntities>(
-                    new Informations(
-                        Shared.DTO.Action.SendEntities, 
-                        frame, 
-                        typeof(GameEntities).ToString()
-                        ), 
-                    entities
-                    )
-                );
+            ObjectTransfert<GameEntities> obj = new ObjectTransfert<GameEntities>()
+            {
+                Informations = new Informations(Shared.DTO.Action.SendEntities, frame, typeof(GameEntities).ToString()),
+                Data = entities
+            };
+            clientSocket.Send<GameEntities>(obj);
         }
 
         public static GameEntities Receive(ClientSocket clientSocket)

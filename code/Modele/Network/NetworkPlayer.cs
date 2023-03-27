@@ -1,4 +1,5 @@
-﻿using Modele.PlayerPackage;
+﻿using Leap;
+using Modele.PlayerPackage;
 using ServerCommunication.Server;
 using Shared.DTO;
 using System;
@@ -13,8 +14,13 @@ namespace Modele.Network
     public static class NetworkPlayer
     {
         public static void SendPlayer(ClientSocket clientSocket, UserPlayer player) 
-        { 
-            clientSocket.Send<UserPlayer>(new ObjectTransfert<UserPlayer>(new Informations(Shared.DTO.Action.SendPlayer,0,typeof(UserPlayer).ToString()),player));
+        {
+            ObjectTransfert<UserPlayer> obj = new ObjectTransfert<UserPlayer>()
+            {
+                Informations = new Informations(Shared.DTO.Action.SendPlayer, 0, typeof(UserPlayer).ToString()),
+                Data = player
+            };
+            clientSocket.Send<UserPlayer>(obj);
         }
 
         public static UserPlayer ReceivePlayer(ClientSocket clientSocket) 
