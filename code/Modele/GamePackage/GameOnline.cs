@@ -4,6 +4,7 @@ using Modele.Network;
 using Modele.PlayerPackage;
 using ServerCommunication.Server;
 using Shared.DTO;
+using System.Diagnostics;
 using Player = Modele.PlayerPackage.Player;
 
 namespace Modele.GamePackage
@@ -48,6 +49,7 @@ namespace Modele.GamePackage
                                         ),
                                         localPlayer.Paddle.Y
                                     );
+            Debug.WriteLine("envoie : " + data.Paddle );
 
             NetworkGameEntities.Send(clientSocket,
                                     data,
@@ -57,6 +59,7 @@ namespace Modele.GamePackage
             // Receive Data
             GameEntities datas = NetworkGameEntities.Receive(clientSocket);
             float playerReceive = datas.Paddle;
+            Debug.WriteLine( "reçu : " + playerReceive );
             Tuple<float, float> ballReceive = datas.Ball;
 
             // Set coordonate

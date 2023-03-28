@@ -43,12 +43,11 @@ namespace ServerCommunication.Server
         public void Send<T>(ObjectTransfert<T> datas)
         {
             if (_stateConnexion == false) throw new SocketException();
-            Debug.WriteLine(datas.Data);
             var json = JsonSerializer.Serialize<ObjectTransfert<T>>(datas);
             _client.Send(Encoding.ASCII.GetBytes(json), _serverEndPoint);
         }
 
-        public ObjectTransfert<T> Receive<T>() 
+        public ObjectTransfert<T>? Receive<T>() 
         {
             if (_stateConnexion == false) throw new SocketException();
             IPEndPoint remoteEndPoint = _serverEndPoint;
