@@ -40,6 +40,19 @@ namespace Modele.GamePackage
             //    }
             //}
 
+            // Send Data
+
+            NetworkGameEntities.Send(clientSocket,
+                                    new GameEntities(
+                                        new Tuple<float, float>(
+                                            screenWidth - ball.X,
+                                            ball.Y
+                                        ),
+                                        screenWidth - localPlayer.Paddle.Y
+                                    ),
+                                    frame
+                                );
+
             // Receive Data
             GameEntities datas = NetworkGameEntities.Receive(clientSocket);
             float playerReceive = datas.Paddle;
@@ -57,18 +70,7 @@ namespace Modele.GamePackage
 
             //SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
-            // Send Data
-
-            NetworkGameEntities.Send(clientSocket, 
-                                    new GameEntities(
-                                        new Tuple<float, float>(
-                                            screenWidth - ball.X,
-                                            ball.Y
-                                        ), 
-                                        localPlayer.Paddle.Y
-                                    ), 
-                                    frame
-                                );
+            
 
             frame++;
             //localPlayer.Paddle.BallHitPaddle(ball);
