@@ -26,6 +26,41 @@ namespace Modele.GamePackage
             this.externalPlayer = externalPlayer;
             this.ball = ball;
             clientSocket = socket;
+
+            Thread thread = new Thread(() => ExchangeData(screenWidth, screenHeight));
+        }
+
+        public void ExchangeData(int screenWidth, int screenHeight)
+        {
+            // Send Data
+            var data = new GameEntities(
+                                        new Tuple<float, float>(
+                                            screenWidth - ball.X,
+                                            ball.Y
+                                        ),
+                                        localPlayer.Paddle.Y
+                                    );
+            Debug.WriteLine("envoie : " + data.Paddle);
+
+            NetworkGameEntities.Send(clientSocket,
+                                    data,
+                                    frame
+                                );
+
+            // Receive Data
+            GameEntities datas = NetworkGameEntities.Receive(clientSocket);
+            float playerReceive = datas.Paddle;
+            Debug.WriteLine("reçu : " + playerReceive);
+            Tuple<float, float> ballReceive = datas.Ball;
+
+            // Set coordonate
+            /*ball.X = ballReceive.Item1;
+            ball.Y = ballReceive.Item2;*/
+
+            // Move
+            externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
+
+            frame++;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
@@ -41,7 +76,8 @@ namespace Modele.GamePackage
             //    }
             //}
 
-            // Send Data
+
+            /*// Send Data
             var data = new GameEntities(
                                         new Tuple<float, float>(
                                             screenWidth - ball.X,
@@ -66,17 +102,15 @@ namespace Modele.GamePackage
             /*ball.X = ballReceive.Item1;
             ball.Y = ballReceive.Item2;*/
 
-            // Move
+            // Move*/
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
-            externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
+            //externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
                     
             //ball.Move(elapsedSecond, screenHeight, screenWidth);
 
             //SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
-            
-
-            frame++;
+           
             //localPlayer.Paddle.BallHitPaddle(ball);
             //externalPlayer.Paddle.BallHitPaddle(ball);
             //try
