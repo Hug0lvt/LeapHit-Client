@@ -19,6 +19,8 @@ namespace Modele.GamePackage
         public ClientSocket Socket { get { return clientSocket; } }
         private long frame = 0;
 
+        private Thread thread;
+
         public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
         {
@@ -27,7 +29,8 @@ namespace Modele.GamePackage
             this.ball = ball;
             clientSocket = socket;
 
-            Thread thread = new Thread(() => ExchangeData(screenWidth, screenHeight));
+            thread = new Thread(() => ExchangeData(screenWidth, screenHeight));
+            thread.Start();
         }
 
         public void ExchangeData(int screenWidth, int screenHeight)
