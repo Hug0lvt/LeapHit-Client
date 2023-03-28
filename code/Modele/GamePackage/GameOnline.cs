@@ -59,8 +59,8 @@ namespace Modele.GamePackage
                 Tuple<float, float> ballReceive = datas.Ball;
 
                 // Set coordonate
-                /*ball.X = ballReceive.Item1;
-                ball.Y = ballReceive.Item2;*/
+                ball.X = ballReceive.Item1;
+                ball.Y = ballReceive.Item2;
 
                 // Move
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
@@ -112,7 +112,7 @@ namespace Modele.GamePackage
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
             //externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
                     
-            //ball.Move(elapsedSecond, screenHeight, screenWidth);
+            ball.Move(elapsedSecond, screenHeight, screenWidth);
 
             //SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
