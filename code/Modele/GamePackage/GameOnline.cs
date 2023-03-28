@@ -41,15 +41,16 @@ namespace Modele.GamePackage
             //}
 
             // Send Data
-
-            NetworkGameEntities.Send(clientSocket,
-                                    new GameEntities(
+            var data = new GameEntities(
                                         new Tuple<float, float>(
                                             screenWidth - ball.X,
                                             ball.Y
                                         ),
                                         screenWidth - localPlayer.Paddle.Y
-                                    ),
+                                    );
+
+            NetworkGameEntities.Send(clientSocket,
+                                    data,
                                     frame
                                 );
 
