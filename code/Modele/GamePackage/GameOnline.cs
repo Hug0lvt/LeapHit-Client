@@ -53,6 +53,7 @@ namespace Modele.GamePackage
                                     data,
                                     frame
                                 );
+            Thread.Sleep(250);
 
             // Receive Data
             GameEntities datas = NetworkGameEntities.Receive(clientSocket);
