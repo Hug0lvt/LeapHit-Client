@@ -1,49 +1,84 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Modele.MovementPackage;
+using Modele.PlayerPackage;
+using Modele.SkinPackage;
+using MonoGame.Extended;
+using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using PongClient.Screens;
+using PongClient.Screens.MenuPackage;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
+using Modele.MovementPackage.MotionSensorPackage.LeapMotionPackage;
+using Modele.MovementPackage.MotionSensorPackage;
+using Mouse = Modele.MovementPackage.MotionSensorPackage.Mouse;
+using System.Drawing.Text;
+using System.Text;
 
 namespace PongClient
 {
     public class GamePong : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-        private Screen _currentScreen;
+        private readonly GraphicsDeviceManager _graphics;
+        private readonly ScreenManager _screenManager;
+        public SpriteFont Font { get; set; }
 
+        public string SelectedMovement { get; set; }
+        public User User { get; }
+        public int BotLevel { get; set; }
+
+        private int ScreenResolutionWidth;
+        private int ScreenResolutionHeight;
+
+
+
+
+        public Dictionary<string, MotionSensor> GameMode { get; }
 
         public GamePong()
         {
-            _graphics = new GraphicsDeviceManager(this);
-
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-
-            _graphics.IsFullScreen = true;
-            _graphics.ApplyChanges();
+            _graphics = new GraphicsDeviceManager(this)
+            {
+                PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+                PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
+                IsFullScreen = true,
+            };
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-        }
 
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
+            User = new User("loris");
+            SelectedMovement = "mouse";
 
-            base.Initialize();
+            _screenManager = Components.Add<ScreenManager>();
+            GameMode = new Dictionary<string, MotionSensor>();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
 
-            _currentScreen = new MenuScreen(this);
-            // TODO: use this.Content to load your game content here
+            _screenManager.LoadScreen(new MenuHome(this));
+         
+            GameMode.Add("mouse", new Mouse());
+            GameMode.Add("leap", new LeapMotion());
+            GameMode.Add("camera", new Camera());
+
+            BotLevel = 2;
+
+            Font = Content.Load<SpriteFont>("Font/font-20");
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.F11) )
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.F11) )
             {
                 if (_graphics.IsFullScreen)
                 {
@@ -60,34 +95,13 @@ namespace PongClient
                 _graphics.ApplyChanges();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                changeScreen(gameTime, new MenuScreen(this, GraphicsDevice, Content));
-            }
-
-            _currentScreen.Update(gameTime);
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected override void OnExiting(object sender, EventArgs args)
         {
-            GraphicsDevice.Clear(Color.Beige);
-
-            _currentScreen.Draw(gameTime, _spriteBatch);
-
-            // TODO: Add your drawing code here
-
-            base.Draw(gameTime);
-        }
-
-        public void changeScreen(GameTime gameTime, Screen screen)
-        {
-            _currentScreen.Dispose();
-            _currentScreen = screen;
-            _currentScreen.Draw(gameTime, _spriteBatch);
+            Debug.WriteLine("fin");
+            base.OnExiting(sender, args);
         }
     }
 }
