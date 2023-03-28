@@ -52,7 +52,15 @@ namespace ServerCommunication.Server
         {
             if (_stateConnexion == false) throw new SocketException();
             IPEndPoint remoteEndPoint = _serverEndPoint;
-            return JsonSerializer.Deserialize<ObjectTransfert<T>>(_client.Receive(ref remoteEndPoint));
+            ObjectTransfert<T> data = null;
+            try
+            {
+                data = JsonSerializer.Deserialize<ObjectTransfert<T>>(_client.Receive(ref remoteEndPoint));
+            } catch (JsonException ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return data;
         }
 
         public void Disconnect()
