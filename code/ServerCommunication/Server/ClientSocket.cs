@@ -44,7 +44,8 @@ namespace ServerCommunication.Server
         {
             if (_stateConnexion == false) throw new SocketException();
             Debug.WriteLine(datas.Data);
-            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize<ObjectTransfert<T>>(datas)), _serverEndPoint);
+            var json = JsonSerializer.Serialize<ObjectTransfert<T>>(datas);
+            _client.Send(Encoding.ASCII.GetBytes(json), _serverEndPoint);
         }
 
         public ObjectTransfert<T> Receive<T>() 

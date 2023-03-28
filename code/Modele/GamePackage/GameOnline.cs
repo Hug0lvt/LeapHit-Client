@@ -46,7 +46,7 @@ namespace Modele.GamePackage
                                             screenWidth - ball.X,
                                             ball.Y
                                         ),
-                                        screenWidth - localPlayer.Paddle.Y
+                                        localPlayer.Paddle.Y
                                     );
 
             NetworkGameEntities.Send(clientSocket,
