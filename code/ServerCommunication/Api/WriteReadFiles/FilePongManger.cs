@@ -12,16 +12,18 @@ namespace ServerCommunication.Api.WriteReadFiles
     {
         private string _fileName { get; set; }
 
+        public FilePongManger(string fileName)
         {
-            _token = token;
             _fileName = fileName;
         }
 
+        public void Write(string toWrite)
         {
             using (var stream = File.Open(_fileName, FileMode.Create))
             {
                 using (var writer = new BinaryWriter(stream, Encoding.UTF8, false))
                 {
+                    writer.Write(toWrite);
 
                 }
             }
@@ -43,10 +45,5 @@ namespace ServerCommunication.Api.WriteReadFiles
             }
             throw new ExceptionFileDosentExist();
         }
-
-
-
-
-
     }
 }

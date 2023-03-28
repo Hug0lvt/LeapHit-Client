@@ -2,7 +2,7 @@
 using ServerCommunication.Api.HttpMangers;
 using ServerCommunication.Api.WriteReadFiles;
 
-TokenManager tokenManager = new TokenManager();
-
-IdManager tokenManager = new IdManager();
+IdManager id
+    = new IdManager();
+Console.WriteLine(id.ManageId());
 
