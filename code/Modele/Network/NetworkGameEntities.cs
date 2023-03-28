@@ -23,7 +23,7 @@ namespace Modele.Network
 
         public static GameEntities Receive(ClientSocket clientSocket)
         {
-            GameEntities entities = clientSocket.Receive<GameEntities>().Data;
+            GameEntities? entities = clientSocket.Receive<GameEntities>().Data;
             while (entities is null)
             {
                 entities = clientSocket.Receive<GameEntities>().Data;

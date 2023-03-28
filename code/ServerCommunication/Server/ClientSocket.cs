@@ -56,7 +56,7 @@ namespace ServerCommunication.Server
             try
             {
                 data = JsonSerializer.Deserialize<ObjectTransfert<T>>(_client.Receive(ref remoteEndPoint));
-            } catch (JsonException ex)
+            } catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
             }
