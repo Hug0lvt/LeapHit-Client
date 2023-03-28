@@ -23,20 +23,13 @@ namespace Modele.Network
 
         public static GameEntities Receive(ClientSocket clientSocket)
         {
-            try
+            var entities = clientSocket.Receive<GameEntities>();
+            while (entities == null)
             {
-                GameEntities? entities = clientSocket.Receive<GameEntities>().Data;
-                while (entities == null)
-                {
-                    entities = clientSocket.Receive<GameEntities>().Data;
-                }
-
-                return entities;
-            } catch (Exception e)
-            {
-
+                entities = clientSocket.Receive<GameEntities>();
             }
-            return new GameEntities(new Tuple<float, float>(0, 0), 0);
+
+            return entities.Data;
         }
 
 
