@@ -99,6 +99,11 @@ namespace PongClient.Screens.MenuPackage
                 bool ready = sensor.Ready;
                 if (ready)
                 {
+                    if(_loadedGame.GetType() == typeof(GameOnline))
+                    {
+
+                        _loadedGame.ExternalPlayer.Ready = true;
+                    }
                     _loadedGame.LocalPlayer.Ready = true;
                     ScreenManager.LoadScreen(new CountdownScreen(_game, _loadedGame));
                 }

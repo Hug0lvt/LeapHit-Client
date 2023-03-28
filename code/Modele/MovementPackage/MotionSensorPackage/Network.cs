@@ -8,6 +8,9 @@ namespace Modele.MovementPackage.MotionSensorPackage
 {
     public class Network : MotionSensor
     {
+        public Network() { 
+            base.Ready = true;
+        }
         public override float GetMovement()
         {
             throw new NotImplementedException();

@@ -106,6 +106,7 @@ namespace PongClient.Screens.MenuPackage
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            (_pongGame.ExternalPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void LocalButton_Click(object sender, EventArgs e)

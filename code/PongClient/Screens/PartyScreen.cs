@@ -118,6 +118,7 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
+            Debug.WriteLine("test");
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) 
                 || _pongGame.GameStat.Time >= timerLength 
                 || _pongGame.GameStat.Score.GetScore().Item1 >= maxScore 
