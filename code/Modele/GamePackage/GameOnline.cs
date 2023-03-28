@@ -35,35 +35,38 @@ namespace Modele.GamePackage
 
         public void ExchangeData(int screenWidth, int screenHeight)
         {
-            // Send Data
-            var data = new GameEntities(
-                                        new Tuple<float, float>(
-                                            screenWidth - ball.X,
-                                            ball.Y
-                                        ),
-                                        localPlayer.Paddle.Y
+            while (true)
+            {
+                // Send Data
+                var data = new GameEntities(
+                                            new Tuple<float, float>(
+                                                screenWidth - ball.X,
+                                                ball.Y
+                                            ),
+                                            localPlayer.Paddle.Y
+                                        );
+                Debug.WriteLine("envoie : " + data.Paddle);
+
+                NetworkGameEntities.Send(clientSocket,
+                                        data,
+                                        frame
                                     );
-            Debug.WriteLine("envoie : " + data.Paddle);
 
-            NetworkGameEntities.Send(clientSocket,
-                                    data,
-                                    frame
-                                );
+                // Receive Data
+                GameEntities datas = NetworkGameEntities.Receive(clientSocket);
+                float playerReceive = datas.Paddle;
+                Debug.WriteLine("reçu : " + playerReceive);
+                Tuple<float, float> ballReceive = datas.Ball;
 
-            // Receive Data
-            GameEntities datas = NetworkGameEntities.Receive(clientSocket);
-            float playerReceive = datas.Paddle;
-            Debug.WriteLine("reçu : " + playerReceive);
-            Tuple<float, float> ballReceive = datas.Ball;
+                // Set coordonate
+                /*ball.X = ballReceive.Item1;
+                ball.Y = ballReceive.Item2;*/
 
-            // Set coordonate
-            /*ball.X = ballReceive.Item1;
-            ball.Y = ballReceive.Item2;*/
+                // Move
+                externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
-            // Move
-            externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
-
-            frame++;
+                frame++;
+            }
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
