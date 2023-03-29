@@ -64,12 +64,7 @@ namespace Modele.GamePackage
                     ball.Y = ballReceive.Item2;
                 }
 
-                if (clientSocket._isHost)
-                {
-                    ball.Move(elapsedtime, screenHeight, screenWidth);
-                    localPlayer.Paddle.BallHitPaddle(ball);
-                    externalPlayer.Paddle.BallHitPaddle(ball);
-                }
+                
 
                 // Move
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
@@ -94,8 +89,13 @@ namespace Modele.GamePackage
             // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
-            
-            elapsedtime = elapsedSecond;
+
+            if (clientSocket._isHost)
+            {
+                ball.Move(elapsedSecond, screenHeight, screenWidth);
+                localPlayer.Paddle.BallHitPaddle(ball);
+                externalPlayer.Paddle.BallHitPaddle(ball);
+            }
             SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
 
