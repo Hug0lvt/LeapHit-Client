@@ -52,6 +52,21 @@ namespace Modele.GamePackage
                                         frame
                                     );
 
+                if(clientSocket._isHost)
+                {
+                    clientSocket.Send(
+                        new ObjectTransfert<Tuple<int, int>>()
+                        {
+                            Data = GameStat.Score.GetScore(),
+                            Informations = new Informations(
+                                Shared.DTO.Action.SendScore,
+                                frame,
+                                typeof(Tuple<int, int>).ToString()
+                            )
+                        }
+                    );
+                }
+
                 // Receive Data
                 GameEntities datas = NetworkGameEntities.Receive(clientSocket);
                 float playerReceive = datas.Paddle;
@@ -65,19 +80,6 @@ namespace Modele.GamePackage
 
                     Tuple<int, int> score = clientSocket.Receive<Tuple<int, int>>().Data;
                     GameStat.Score.SetScore(score);
-                } 
-                else
-                {
-                    clientSocket.Send(
-                        new ObjectTransfert<Tuple<int, int>>() { 
-                            Data = GameStat.Score.GetScore(), 
-                            Informations = new Informations(
-                                Shared.DTO.Action.SendScore, 
-                                frame, 
-                                typeof(Tuple<int, int>).ToString()
-                            ) 
-                        }
-                    );
                 }
 
                 // Move
