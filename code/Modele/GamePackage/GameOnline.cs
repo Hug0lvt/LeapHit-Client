@@ -62,9 +62,23 @@ namespace Modele.GamePackage
                     // Set coordonate
                     ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
-                }
 
-                
+                    Tuple<int, int> score = clientSocket.Receive<Tuple<int, int>>().Data;
+                    GameStat.Score.SetScore(score);
+                } 
+                else
+                {
+                    clientSocket.Send(
+                        new ObjectTransfert<Tuple<int, int>>() { 
+                            Data = GameStat.Score.GetScore(), 
+                            Informations = new Informations(
+                                Shared.DTO.Action.SendScore, 
+                                frame, 
+                                typeof(Tuple<int, int>).ToString()
+                            ) 
+                        }
+                    );
+                }
 
                 // Move
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
@@ -95,8 +109,8 @@ namespace Modele.GamePackage
                 ball.Move(elapsedSecond, screenHeight, screenWidth);
                 localPlayer.Paddle.BallHitPaddle(ball);
                 externalPlayer.Paddle.BallHitPaddle(ball);
+                SetScore(ball, screenWidth, screenHeight, elapsedSecond);
             }
-            SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
 
             //try
@@ -129,19 +143,13 @@ namespace Modele.GamePackage
             if (ball.X > right && ball.Velocity.X > 0)
             {
                 GameStat.Score.IncrementScore(localPlayer);
-                if(clientSocket._isHost)
-                {
-                    ball.Reset(screenHeight, screenWidth, true);
-                }
+                ball.Reset(screenHeight, screenWidth, true);
             }
 
             if (ball.X < left && ball.Velocity.X < 0)
             {
                 GameStat.Score.IncrementScore(externalPlayer);
-                if (clientSocket._isHost)
-                {
-                    ball.Reset(screenHeight, screenWidth, false);
-                }
+                ball.Reset(screenHeight, screenWidth, false);
             }
         }
     }
