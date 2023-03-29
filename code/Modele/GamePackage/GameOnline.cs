@@ -21,6 +21,7 @@ namespace Modele.GamePackage
         private float _elapsedtime = 0;
 
         private Thread thread;
+        private Thread threadBall;
 
         public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
@@ -31,6 +32,11 @@ namespace Modele.GamePackage
             clientSocket = socket;
 
             thread = new Thread(() => ExchangeData(screenWidth, screenHeight));
+            if (clientSocket._isHost)
+            {
+                threadBall = new Thread(() => MoveBall(screenWidth, screenHeight));
+            }
+
             thread.Start();
         }
 
@@ -46,7 +52,6 @@ namespace Modele.GamePackage
                                             ),
                                             localPlayer.Paddle.Y
                                         );
-                Debug.WriteLine("envoie : " + data.Paddle);
 
                 NetworkGameEntities.Send(clientSocket,
                                         data,
@@ -57,24 +62,26 @@ namespace Modele.GamePackage
                 GameEntities datas = NetworkGameEntities.Receive(clientSocket);
                 float playerReceive = datas.Paddle;
 
-                if (clientSocket._isHost)
+                if (!clientSocket._isHost)
                 {
-                    ball.Move(_elapsedtime, screenHeight, screenWidth);
-                    localPlayer.Paddle.BallHitPaddle(ball);
-                    externalPlayer.Paddle.BallHitPaddle(ball);
-                } else {
                     Tuple<float, float> ballReceive = datas.Ball;
                     // Set coordonate
                     ball.X = ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
                 }
                 
-
                 // Move
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
                 frame++;
             }
+        }
+
+        public void MoveBall(int screenWidth, int screenHeight)
+        {
+            ball.Move(_elapsedtime, screenHeight, screenWidth);
+            localPlayer.Paddle.BallHitPaddle(ball);
+            externalPlayer.Paddle.BallHitPaddle(ball);
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
