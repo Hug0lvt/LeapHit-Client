@@ -80,9 +80,12 @@ namespace Modele.GamePackage
 
         public void MoveBall(int screenWidth, int screenHeight)
         {
-            ball.Move(_elapsedtime, screenHeight, screenWidth);
-            localPlayer.Paddle.BallHitPaddle(ball);
-            externalPlayer.Paddle.BallHitPaddle(ball);
+            while (true)
+            {
+                ball.Move(_elapsedtime, screenHeight, screenWidth);
+                localPlayer.Paddle.BallHitPaddle(ball);
+                externalPlayer.Paddle.BallHitPaddle(ball);
+            }
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
