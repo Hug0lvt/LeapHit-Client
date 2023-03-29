@@ -11,22 +11,22 @@ namespace Modele.Network
 {
     public static class NetworkGameEntities
     {
-        public static void Send(ClientSocket clientSocket, GameEntities entities, long frame)
+        public static void Send(ClientSocket clientSocket, Tuple<GameEntities, Tuple<int, int>> entities, long frame)
         {
-            ObjectTransfert<GameEntities> obj = new ObjectTransfert<GameEntities>()
+            ObjectTransfert<Tuple<GameEntities, Tuple<int, int>>> obj = new ObjectTransfert<Tuple<GameEntities, Tuple<int, int>>>()
             {
-                Informations = new Informations(Shared.DTO.Action.SendEntities, frame, typeof(GameEntities).ToString()),
+                Informations = new Informations(Shared.DTO.Action.SendEntities, frame, typeof(Tuple<GameEntities, Tuple<int, int>>).ToString()),
                 Data = entities
             };
-            clientSocket.Send<GameEntities>(obj);
+            clientSocket.Send<Tuple<GameEntities, Tuple<int, int>>>(obj);
         }
 
-        public static GameEntities Receive(ClientSocket clientSocket)
+        public static Tuple<GameEntities, Tuple<int, int>> Receive(ClientSocket clientSocket)
         {
-            var entities = clientSocket.Receive<GameEntities>();
+            var entities = clientSocket.Receive<Tuple<GameEntities, Tuple<int, int>>>();
             while (entities == null)
             {
-                entities = clientSocket.Receive<GameEntities>();
+                entities = clientSocket.Receive<Tuple<GameEntities, Tuple<int, int>>>();
             }
 
             return entities.Data;

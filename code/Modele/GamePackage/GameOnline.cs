@@ -39,54 +39,33 @@ namespace Modele.GamePackage
             while (true)
             {
                 // Send Data
-                var data = new GameEntities(
-                                            new Tuple<float, float>(
-                                                ball.X,
-                                                ball.Y
-                                            ),
-                                            localPlayer.Paddle.Y
-                                        );
+                var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
+                                                                        new Tuple<float, float>(
+                                                                            ball.X,
+                                                                            ball.Y
+                                                                        ),
+                                                                        localPlayer.Paddle.Y
+                                                                    ), 
+                                                                    GameStat.Score.GetScore()
+                                                                );
 
                 NetworkGameEntities.Send(clientSocket,
                                         data,
                                         frame
                                     );
 
-                if(clientSocket._isHost)
-                {
-                    clientSocket.Send(
-                        new ObjectTransfert<Tuple<int, int>>()
-                        {
-                            Data = GameStat.Score.GetScore(),
-                            Informations = new Informations(
-                                Shared.DTO.Action.SendScore,
-                                frame,
-                                typeof(Tuple<int, int>).ToString()
-                            )
-                        }
-                    );
-                }
-
                 // Receive Data
-                GameEntities datas = NetworkGameEntities.Receive(clientSocket);
-                float playerReceive = datas.Paddle;
+                Tuple<GameEntities, Tuple<int, int>> datas = NetworkGameEntities.Receive(clientSocket);
+                float playerReceive = datas.Item1.Paddle;
 
                 if (!clientSocket._isHost)
                 {
-                    Tuple<float, float> ballReceive = datas.Ball;
+                    Tuple<float, float> ballReceive = datas.Item1.Ball;
                     // Set coordonate
                     ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
 
-                    try
-                    {
-
-                        Tuple<int, int> score = clientSocket.Receive<Tuple<int, int>>().Data;
-                        GameStat.Score.SetScore(score);
-                    } catch ( Exception ex )
-                    {
-                        Debug.WriteLine( ex.Message );
-                    }
+                    GameStat.Score.SetScore(datas.Item2);
                 }
 
                 // Move
