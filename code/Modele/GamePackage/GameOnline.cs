@@ -19,6 +19,7 @@ namespace Modele.GamePackage
         private long frame = 0;
 
         private Thread thread;
+        private bool isFinish = false;
 
         public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
@@ -34,7 +35,7 @@ namespace Modele.GamePackage
 
         public void ExchangeData(int screenWidth, int screenHeight)
         {
-            while (true)
+            while (!isFinish)
             {
                 // Send Data
                 var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
@@ -73,6 +74,11 @@ namespace Modele.GamePackage
 
                 frame++;
             }
+        }
+
+        public void Finish()
+        {
+            isFinish = true;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)

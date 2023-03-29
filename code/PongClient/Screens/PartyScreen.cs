@@ -127,8 +127,12 @@ namespace PongClient.Screens
                 _musicInstance.Stop();
                 (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
 
-                if(Keyboard.GetState().IsKeyDown(Keys.Escape) ) ScreenManager.LoadScreen(new MenuHome(_game));
-                else   ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
+                else
+                {
+                    (_pongGame as GameOnline).Finish();
+                    ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
+                }
             }
 
             _pongGame.GameStat.Time += gameTime.ElapsedGameTime;
