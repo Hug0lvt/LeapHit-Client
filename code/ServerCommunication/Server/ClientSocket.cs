@@ -17,12 +17,13 @@ namespace ServerCommunication.Server
         public IPEndPoint _serverEndPoint { get; set; }
         public bool _stateConnexion { get; set; }
         public UdpClient _client { get; set; }
+        public bool _isHost { get; set; }
 
         public ClientSocket(string host, int port)
         {
             //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
 
-            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.43.36"), 3131);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.205.58"), 3131);
             _client = new UdpClient();
         }
 
@@ -36,7 +37,10 @@ namespace ServerCommunication.Server
             _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(obj)), _serverEndPoint);
 
             IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
-            _serverEndPoint.Port = Int32.Parse(Encoding.ASCII.GetString(_client.Receive(ref remoteEndPoint)));
+            Tuple<int, bool> dataReceive = JsonSerializer.Deserialize<Tuple<int, bool>>(_client.Receive(ref remoteEndPoint));
+
+            _serverEndPoint.Port = dataReceive.Item1;
+            _isHost = dataReceive.Item2;
             _stateConnexion = true;
         }
 
