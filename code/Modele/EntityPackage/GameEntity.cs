@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Modele.EntityPackage
 {
-    public abstract  class GameEntity
+    public abstract class GameEntity
     {
         protected float x;
         protected float y;

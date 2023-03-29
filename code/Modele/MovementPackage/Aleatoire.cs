@@ -19,7 +19,7 @@ namespace Modele.MovementPackage
         private readonly int _difficulty;
         private float _targetY;
 
-
+        public float ElapsedSeconds { get; set; }
 
         public Aleatoire(Ball ball, GameEntity paddle, int difficulty)
         {
@@ -32,24 +32,53 @@ namespace Modele.MovementPackage
 
         public float GetMovement()
         {
-            Random random= new Random();
-            float ballY = _ball.Y - 20 + _ball.Velocity.Y * 50;
+            //Random random= new Random();
+            //float ballY = _ball.Y - 20 + _ball.Velocity.Y * 50;
 
-            // Calculer une cible de déplacement en fonction de la position de la balle
-            if (Math.Abs(_targetY - ballY) > 50 && _ball.Velocity.X > 0)
-            {
-                _targetY = ballY + (_paddle.X - _ball.X) / _ball.Velocity.X * _ball.Velocity.Y;
-            }
+            //// Calculer une cible de déplacement en fonction de la position de la balle
+            //if (Math.Abs(_targetY - ballY) > 50 && _ball.Velocity.X > 0)
+            //{
+            //    _targetY = ballY + (_paddle.X - _ball.X) / _ball.Velocity.X * _ball.Velocity.Y;
+            //}
 
-            // Suivre la cible de déplacement
+            //// Suivre la cible de déplacement
+            //float newPosition = _paddle.Y;
+            //if (_paddle.Y < _targetY - _speed)
+            //{
+            //    newPosition += _speed;
+            //}
+            //else if (_paddle.Y > _targetY + _speed)
+            //{
+            //    newPosition -= _speed;
+            //}
+
+            //return newPosition;
+
+
+            const float difficulty = 1.1f;
+            var paddleSpeed = Math.Abs(_ball.Velocity.Y) * difficulty;
+
+            if (paddleSpeed < 0)
+                paddleSpeed = -paddleSpeed;
+
             float newPosition = _paddle.Y;
-            if (_paddle.Y < _targetY - _speed)
+
+            //ball moving down
+            if (_ball.Velocity.Y > 0)
             {
-                newPosition += _speed;
+                if (_ball.Y > newPosition)
+                    newPosition += paddleSpeed * ElapsedSeconds;
+                else
+                    newPosition -= paddleSpeed * ElapsedSeconds;
             }
-            else if (_paddle.Y > _targetY + _speed)
+
+            //ball moving up
+            if (_ball.Velocity.Y < 0)
             {
-                newPosition -= _speed;
+                if (_ball.Y < newPosition)
+                    newPosition -= paddleSpeed * ElapsedSeconds;
+                else
+                    newPosition += paddleSpeed * ElapsedSeconds;
             }
 
             return newPosition;

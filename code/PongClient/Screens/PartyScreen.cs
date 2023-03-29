@@ -70,12 +70,12 @@ namespace PongClient.Screens
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
             DrawBall(_pongGame.Ball);
+            
+            DrawItem(_pongGame._item);
 
             _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
-
-
-            DrawItem(_pongGame._item);
+            
             DrawScore();
             DrawTime();
 
@@ -130,7 +130,7 @@ namespace PongClient.Screens
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
                 else
                 {
-                    (_pongGame as GameOnline).Finish();
+                    if(_pongGame.GetType() == typeof(GameOnline)) (_pongGame as GameOnline).Finish();
                     ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
                 }
             }

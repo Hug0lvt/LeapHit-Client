@@ -1,4 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Modele.SkinPackage;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +13,9 @@ namespace Modele.EntityPackage.Items
 {
     public class SnipeItem : Item
     {
-        public SnipeItem(int screenWidth, ContentManager contentManager) : base(screenWidth, contentManager)
+        private static Skin skinItem = new Skin("Icon/flashsmall", "speed");
+        public SnipeItem(int screenWidth, ContentManager contentManager) : 
+            base(_random.Next(screenWidth / 3, screenWidth - screenWidth / 3), 0, skinItem, new Sprite(contentManager.Load<Texture2D>(skinItem.Asset)))
         {
         }
 
@@ -21,15 +26,6 @@ namespace Modele.EntityPackage.Items
                 ball.Velocity = new Vector2(ball.Velocity.X * 5, Y);
                 throw new ExceptionItemDelete();
             }            
-        }
-
-        public override void Move(float delta, int screenHeight, int screenWidth)
-        {
-            {
-                y += 1;
-                if (y >= screenHeight)
-                    throw new ExceptionItemDelete();
-            }
         }
     }
 }

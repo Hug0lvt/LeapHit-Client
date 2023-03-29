@@ -78,21 +78,12 @@ namespace Modele.GamePackage
 
         public void Finish()
         {
+            Debug.WriteLine("fin partie");
             isFinish = true;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
         {
-            //_time += elapsedSecond;
-            //if (_item == null)
-            //{
-            //    Random rand = new Random();
-            //    timeItemGnerate = 2/*_time + 2 + (float)(rand.NextDouble() * (120 - _time + 2))*/;
-            //    if (_time >= timeItemGnerate)
-            //    {
-            //        _item = new SnipeItem(_screenWidth, _contentManager);
-            //    }
-            //}
 
             // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
@@ -105,19 +96,6 @@ namespace Modele.GamePackage
                 externalPlayer.Paddle.BallHitPaddle(ball);
                 SetScore(ball, screenWidth, screenHeight, elapsedSecond);
             }
-
-
-            //try
-            //{
-
-            //    _item?.Move(elapsedSecond, screenWidth, screenHeight);
-            //    _item?.BallHitItem(LocalPlayer.Ball);
-            //}
-            //catch (ExceptionItemDelete)
-            //{
-            //    _item = null;
-            //}
-
         }
 
         protected override void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
