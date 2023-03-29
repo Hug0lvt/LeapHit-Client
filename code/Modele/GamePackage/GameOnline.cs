@@ -41,7 +41,7 @@ namespace Modele.GamePackage
                 // Send Data
                 var data = new GameEntities(
                                             new Tuple<float, float>(
-                                                screenWidth - ball.X,
+                                                ball.X,
                                                 ball.Y
                                             ),
                                             localPlayer.Paddle.Y
@@ -60,7 +60,7 @@ namespace Modele.GamePackage
                 {
                     Tuple<float, float> ballReceive = datas.Ball;
                     // Set coordonate
-                    ball.X = ballReceive.Item1;
+                    ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
                 }
 
