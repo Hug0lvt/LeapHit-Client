@@ -97,13 +97,13 @@ namespace Modele.GamePackage
 
             var halfWidth = ball.Zone.Width / 2;
 
-            if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
+            if (ball.X > screenWidth - halfWidth && ball.Velocity.X > 0)
             {
                 gameStat.Score.IncrementScore(localPlayer);
                 ball.Reset(screenHeight, screenWidth, true);
             }
 
-            if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            if (ball.X < halfWidth && ball.Velocity.X < 0)
             {
                 gameStat.Score.IncrementScore(externalPlayer);
                 ball.Reset(screenHeight, screenWidth, false);

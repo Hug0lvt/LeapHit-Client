@@ -117,13 +117,13 @@ namespace Modele.GamePackage
 
             var halfWidth = ball.Zone.Width / 2;
 
-            var right = screenWidth + halfWidth;
-            var left = -halfWidth;
+            var right = screenWidth - halfWidth;
+            var left = halfWidth;
 
             if (!clientSocket._isHost)
             {
-                right = screenWidth + halfWidth - 10;
-                left = -halfWidth + 10;
+                right -= 10;
+                left += 10;
             }
 
             if (ball.X > right && ball.Velocity.X > 0)
