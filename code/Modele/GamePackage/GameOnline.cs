@@ -18,7 +18,7 @@ namespace Modele.GamePackage
         private ClientSocket clientSocket;
         public ClientSocket Socket { get { return clientSocket; } }
         private long frame = 0;
-        private float _elapsedtime = 0;
+        private float elapsedtime = 0;
 
         private Thread thread;
 
@@ -63,7 +63,14 @@ namespace Modele.GamePackage
                     ball.X = ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
                 }
-                
+
+                if (clientSocket._isHost)
+                {
+                    ball.Move(elapsedtime, screenHeight, screenWidth);
+                    localPlayer.Paddle.BallHitPaddle(ball);
+                    externalPlayer.Paddle.BallHitPaddle(ball);
+                }
+
                 // Move
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
@@ -87,13 +94,8 @@ namespace Modele.GamePackage
             // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
-            if (clientSocket._isHost)
-            {
-                ball.Move(elapsedSecond, screenHeight, screenWidth);
-                localPlayer.Paddle.BallHitPaddle(ball);
-                externalPlayer.Paddle.BallHitPaddle(ball);
-            }
-
+            
+            elapsedtime = elapsedSecond;
             SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
 
@@ -117,7 +119,7 @@ namespace Modele.GamePackage
 
             if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
             {
-                gameStat.Score.IncrementScore(localPlayer);
+                GameStat.Score.IncrementScore(localPlayer);
                 if(clientSocket._isHost)
                 {
                     ball.Reset(screenHeight, screenWidth, true);
@@ -126,7 +128,7 @@ namespace Modele.GamePackage
 
             if (ball.X < -halfWidth && ball.Velocity.X < 0)
             {
-                gameStat.Score.IncrementScore(externalPlayer);
+                GameStat.Score.IncrementScore(externalPlayer);
                 if (clientSocket._isHost)
                 {
                     ball.Reset(screenHeight, screenWidth, false);
