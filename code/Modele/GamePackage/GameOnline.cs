@@ -14,11 +14,9 @@ namespace Modele.GamePackage
         private Player localPlayer;
         private Player externalPlayer;
         protected Ball ball;
-        private GameStat gameStat;
         private ClientSocket clientSocket;
         public ClientSocket Socket { get { return clientSocket; } }
         private long frame = 0;
-        private float elapsedtime = 0;
 
         private Thread thread;
 
@@ -65,7 +63,9 @@ namespace Modele.GamePackage
                     ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
 
-                    GameStat.Score.SetScore(datas.Item2);
+                    Tuple<int, int> score = new Tuple<int, int>(datas.Item2.Item2, datas.Item2.Item1);
+
+                    GameStat.Score.SetScore(score);
                 }
 
                 // Move
