@@ -35,7 +35,6 @@ namespace Modele.GamePackage
             if (clientSocket._isHost)
             {
                 threadBall = new Thread(() => MoveBall(screenWidth, screenHeight));
-
                 threadBall.Start();
             }
 
