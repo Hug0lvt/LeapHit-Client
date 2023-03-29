@@ -11,12 +11,14 @@ namespace Shared.DTO
         public Action Action { get; set; }
         public long Frame { get; set; }
         public string TypeData { get; set; }
+        public string? IdRoom { get; set; }
 
-        public Informations(Action action, long frame, string type)
+        public Informations(Action action, long frame, string type, string? idRoom = null)
         {
             Action = action;
             Frame = frame;
             TypeData = type;
+            IdRoom = idRoom;
         }
 
         public Informations()

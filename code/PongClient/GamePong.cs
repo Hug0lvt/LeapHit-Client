@@ -54,7 +54,7 @@ namespace PongClient
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            User = new User("loris");
+            User = new User("loriss");
             SelectedMovement = "mouse";
 
             _screenManager = Components.Add<ScreenManager>();

@@ -44,6 +44,40 @@ namespace ServerCommunication.Server
             _stateConnexion = true;
         }
 
+        public void Host(Player player)
+        {
+            ObjectTransfert<Player> obj = new ObjectTransfert<Player>()
+            {
+                Informations = new Informations(Shared.DTO.Action.Host, 0, typeof(Player).ToString()),
+                Data = player
+            };
+            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(obj)), _serverEndPoint);
+
+            IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
+            Tuple<int, bool> dataReceive = JsonSerializer.Deserialize<Tuple<int, bool>>(_client.Receive(ref remoteEndPoint));
+
+            _serverEndPoint.Port = dataReceive.Item1;
+            _isHost = dataReceive.Item2;
+            _stateConnexion = true;
+        }
+
+        public void Join(Player player, string idRoom)
+        {
+            ObjectTransfert<Player> obj = new ObjectTransfert<Player>()
+            {
+                Informations = new Informations(Shared.DTO.Action.Join, 0, typeof(Player).ToString(), idRoom),
+                Data = player
+            };
+            _client.Send(Encoding.ASCII.GetBytes(JsonSerializer.Serialize(obj)), _serverEndPoint);
+
+            IPEndPoint remoteEndPoint = new IPEndPoint(_serverEndPoint.Address, 0);
+            Tuple<int, bool> dataReceive = JsonSerializer.Deserialize<Tuple<int, bool>>(_client.Receive(ref remoteEndPoint));
+
+            _serverEndPoint.Port = dataReceive.Item1;
+            _isHost = dataReceive.Item2;
+            _stateConnexion = true;
+        }
+
         public void Send<T>(ObjectTransfert<T> datas)
         {
             if (_stateConnexion == false) throw new SocketException();

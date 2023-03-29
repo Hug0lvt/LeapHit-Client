@@ -46,20 +46,32 @@ namespace PongClient.Screens.MenuPackage
 
             var onlineTexture = new Sprite(Content.Load<Texture2D>("Text/Online"));
             var localTexture = new Sprite(Content.Load<Texture2D>("Text/Local"));
+            var hostTexture = new Sprite(Content.Load<Texture2D>("Text/Host"));
+            var joinTexture = new Sprite(Content.Load<Texture2D>("Text/Join"));
 
             var onlineButton = new ButtonHovered(onlineTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
-                                                                                                    _heightCenter - 100));
+                                                                                                    _heightCenter - 150));
             onlineButton.Click += OnlineButton_Click;
 
 
             var localButton = new ButtonHovered(localTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
-                                                                                                  onlineButton._position.Y + 150));
+                                                                                                  onlineButton._position.Y + 100));
             localButton.Click += LocalButton_Click;
+
+            var hostButton = new ButtonHovered(hostTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                  localButton._position.Y + 100));
+            hostButton.Click += HostButton_Click;
+
+            var joinButton = new ButtonHovered(joinTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                  hostButton._position.Y + 100));
+            joinButton.Click += JoinButton_Click;
 
             _components = new List<Component>()
             {
                 onlineButton,
                 localButton,
+                joinButton,
+                hostButton,
             };
 
             LoadUserPlayer();
@@ -130,6 +142,16 @@ namespace PongClient.Screens.MenuPackage
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+        }
+
+        private void HostButton_Click(object sender, EventArgs e)
+        {
+            ScreenManager.LoadScreen(new HostScreen(_game, _localPlayer));
+        }
+
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            ScreenManager.LoadScreen(new JoinScreen(_game, _localPlayer));
         }
 
         public override void Draw(GameTime gameTime)
