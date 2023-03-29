@@ -78,8 +78,15 @@ namespace Modele.GamePackage
                     ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
 
-                    Tuple<int, int> score = clientSocket.Receive<Tuple<int, int>>().Data;
-                    GameStat.Score.SetScore(score);
+                    try
+                    {
+
+                        Tuple<int, int> score = clientSocket.Receive<Tuple<int, int>>().Data;
+                        GameStat.Score.SetScore(score);
+                    } catch ( Exception ex )
+                    {
+                        Debug.WriteLine( ex.Message );
+                    }
                 }
 
                 // Move
