@@ -21,6 +21,7 @@ using Modele.MovementPackage.MotionSensorPackage;
 using Mouse = Modele.MovementPackage.MotionSensorPackage.Mouse;
 using System.Drawing.Text;
 using System.Text;
+using ServerCommunication.Api;
 
 namespace PongClient
 {
@@ -54,7 +55,8 @@ namespace PongClient
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            User = new User("loriss");
+            var id = new IdManager();
+            User = new User(id.ManageId());
             SelectedMovement = "mouse";
 
             _screenManager = Components.Add<ScreenManager>();
