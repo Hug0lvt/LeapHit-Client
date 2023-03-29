@@ -21,7 +21,6 @@ namespace Modele.GamePackage
         private float _elapsedtime = 0;
 
         private Thread thread;
-        private Thread threadBall;
 
         public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
@@ -32,12 +31,6 @@ namespace Modele.GamePackage
             clientSocket = socket;
 
             thread = new Thread(() => ExchangeData(screenWidth, screenHeight));
-            if (clientSocket._isHost)
-            {
-                threadBall = new Thread(() => MoveBall(screenWidth, screenHeight));
-                threadBall.Start();
-            }
-
             thread.Start();
         }
 
@@ -78,16 +71,6 @@ namespace Modele.GamePackage
             }
         }
 
-        public void MoveBall(int screenWidth, int screenHeight)
-        {
-            while (true)
-            {
-                ball.Move(_elapsedtime, screenHeight, screenWidth);
-                localPlayer.Paddle.BallHitPaddle(ball);
-                externalPlayer.Paddle.BallHitPaddle(ball);
-            }
-        }
-
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
         {
             //_time += elapsedSecond;
@@ -101,46 +84,19 @@ namespace Modele.GamePackage
             //    }
             //}
 
-
-            /*// Send Data
-            var data = new GameEntities(
-                                        new Tuple<float, float>(
-                                            screenWidth - ball.X,
-                                            ball.Y
-                                        ),
-                                        localPlayer.Paddle.Y
-                                    );
-            Debug.WriteLine("envoie : " + data.Paddle );
-
-            NetworkGameEntities.Send(clientSocket,
-                                    data,
-                                    frame
-                                );
-
-            // Receive Data
-            GameEntities datas = NetworkGameEntities.Receive(clientSocket);
-            float playerReceive = datas.Paddle;
-            Debug.WriteLine( "reçu : " + playerReceive );
-            Tuple<float, float> ballReceive = datas.Ball;
-
-            // Set coordonate
-            /*ball.X = ballReceive.Item1;
-            ball.Y = ballReceive.Item2;*/
-
-            // Move*/
+            // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
-            //externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
-
-            //ball.Move(elapsedSecond, screenHeight, screenWidth);
             
-
-            _elapsedtime = elapsedSecond;
+            if (clientSocket._isHost)
+            {
+                ball.Move(_elapsedtime, screenHeight, screenWidth);
+                localPlayer.Paddle.BallHitPaddle(ball);
+                externalPlayer.Paddle.BallHitPaddle(ball);
+            }
 
             SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
 
-            //localPlayer.Paddle.BallHitPaddle(ball);
-            //externalPlayer.Paddle.BallHitPaddle(ball);
             //try
             //{
 
