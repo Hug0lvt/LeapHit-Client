@@ -39,7 +39,7 @@ namespace PongClient.Screens
         private readonly Game _pongGame;
         private SoundEffectInstance _musicInstance; // Instance de la musique
         private readonly TimeSpan timerLength = TimeSpan.FromMinutes(2);
-        private readonly int maxScore = 1;
+        private readonly int maxScore = 6;
 
         public PartyScreen(GamePong game, Game pongGame)
           : base(game)
@@ -70,12 +70,12 @@ namespace PongClient.Screens
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
             DrawBall(_pongGame.Ball);
+            
+            DrawItem(_pongGame._item);
 
             _spriteBatch.Draw(_rectangleHautTexture, new Rectangle(0, 0, _widthCenter * 2, _rectangleHautTexture.Height), Color.White);
             _spriteBatch.Draw(_rectangleBasTexture, new Rectangle(0, _heightCenter * 2 - _rectangleBasTexture.Height, _widthCenter * 2, _rectangleBasTexture.Height), Color.White);
-
-
-            DrawItem(_pongGame._item);
+            
             DrawScore();
             DrawTime();
 
@@ -118,7 +118,7 @@ namespace PongClient.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) 
+            if ((Keyboard.GetState().IsKeyDown(Keys.Escape) && _pongGame.GetType() != typeof(GameOnline))
                 || _pongGame.GameStat.Time >= timerLength 
                 || _pongGame.GameStat.Score.GetScore().Item1 >= maxScore 
                 || _pongGame.GameStat.Score.GetScore().Item2 >= maxScore)
@@ -126,8 +126,13 @@ namespace PongClient.Screens
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
                 (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
-                if(Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
-                else ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
+                else
+                {
+                    if(_pongGame.GetType() == typeof(GameOnline)) (_pongGame as GameOnline).Finish();
+                    ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
+                }
             }
 
             _pongGame.GameStat.Time += gameTime.ElapsedGameTime;

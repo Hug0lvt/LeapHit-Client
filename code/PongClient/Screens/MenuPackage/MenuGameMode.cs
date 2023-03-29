@@ -19,6 +19,9 @@ using System.Drawing;
 using MonoGame.Extended.BitmapFonts;
 using Modele.MovementPackage.MotionSensorPackage;
 using Microsoft.Xna.Framework.Input;
+using System.Text.Json;
+using ServerCommunication.Server;
+using Modele.Network;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -27,7 +30,7 @@ namespace PongClient.Screens.MenuPackage
         private List<Component> _components;
         private SpriteBatch _spriteBatch;
 
-        private Player _localPlayer;
+        private UserPlayer _localPlayer;
         private Modele.GamePackage.Game _pongGame;
 
         public MenuGameMode(GamePong game) 
@@ -43,20 +46,32 @@ namespace PongClient.Screens.MenuPackage
 
             var onlineTexture = new Sprite(Content.Load<Texture2D>("Text/Online"));
             var localTexture = new Sprite(Content.Load<Texture2D>("Text/Local"));
+            var hostTexture = new Sprite(Content.Load<Texture2D>("Text/Host"));
+            var joinTexture = new Sprite(Content.Load<Texture2D>("Text/Join"));
 
             var onlineButton = new ButtonHovered(onlineTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
-                                                                                                    _heightCenter - 100));
+                                                                                                    _heightCenter - 150));
             onlineButton.Click += OnlineButton_Click;
 
 
             var localButton = new ButtonHovered(localTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
-                                                                                                  onlineButton._position.Y + 150));
+                                                                                                  onlineButton._position.Y + 100));
             localButton.Click += LocalButton_Click;
+
+            var hostButton = new ButtonHovered(hostTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                  localButton._position.Y + 100));
+            hostButton.Click += HostButton_Click;
+
+            var joinButton = new ButtonHovered(joinTexture, _whiteRectangleTexture, new Vector2(_widthCenter,
+                                                                                                  hostButton._position.Y + 100));
+            joinButton.Click += JoinButton_Click;
 
             _components = new List<Component>()
             {
                 onlineButton,
                 localButton,
+                joinButton,
+                hostButton,
             };
 
             LoadUserPlayer();
@@ -69,7 +84,41 @@ namespace PongClient.Screens.MenuPackage
 
         private void OnlineButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("Online");
+            _menuSoundEffectInstance.Stop();
+
+            var socket = new ClientSocket("hulivet.fr", 3131);
+
+            var playerToSend = new Shared.DTO.UserPlayer()
+            {
+                Pseudo = _localPlayer.Profile.Pseudo,
+                X = (int)(_widthCenter * 2 - _localPlayer.Paddle.X)
+            };
+
+            var playerDto = new Shared.DTO.Player()
+            {
+                name = _localPlayer.Profile.Pseudo,
+                nbBallTouchTotal = _localPlayer.Profile.GlobalStat.TouchBallCount,
+                timePlayed = _localPlayer.Profile.GlobalStat.TimePlayed,
+                playerId = _localPlayer.Profile.Pseudo,
+            };
+
+            socket.Connect(playerDto);
+
+            NetworkPlayer.SendPlayer(socket, playerToSend);
+            var playerReceive = NetworkPlayer.ReceivePlayer(socket);
+            var externalPlayer = new UserPlayer(new User(playerReceive.Pseudo), playerReceive.X, _game, new Modele.MovementPackage.MotionSensorPackage.Mouse());
+            externalPlayer.Paddle.Sprite = new Sprite(Content.Load<Texture2D>(_localPlayer.Paddle.Skin));
+            
+            var gameStat = new GameStat();
+
+            var ballSkin = new BallSkin("Form/ball", "simple ball");
+            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
+
+            _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, ball, _widthCenter * 2, _heightCenter * 2, Content, socket);
+
+            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
+            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            (_pongGame.ExternalPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void LocalButton_Click(object sender, EventArgs e)
@@ -93,6 +142,16 @@ namespace PongClient.Screens.MenuPackage
 
             ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
             (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+        }
+
+        private void HostButton_Click(object sender, EventArgs e)
+        {
+            ScreenManager.LoadScreen(new HostScreen(_game, _localPlayer));
+        }
+
+        private void JoinButton_Click(object sender, EventArgs e)
+        {
+            ScreenManager.LoadScreen(new JoinScreen(_game, _localPlayer));
         }
 
         public override void Draw(GameTime gameTime)

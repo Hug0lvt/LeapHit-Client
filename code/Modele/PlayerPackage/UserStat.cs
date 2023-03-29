@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Modele.PlayerPackage
 {
-    class UserStat
+    public class UserStat
     {
-        private int touchBallCount;
-        private int timePlayed;
+        public int TouchBallCount { get; private set; }
+        public int TimePlayed { get; private set; }
     }
 }

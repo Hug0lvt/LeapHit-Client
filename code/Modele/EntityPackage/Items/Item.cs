@@ -13,15 +13,22 @@ namespace Modele.EntityPackage.Items
 {
     public abstract class Item : GameEntity
     {
-        private static Skin _skin = new Skin("Icon/returnIco", "speed");
-        private static Random _random = new Random();
-        public Item(int screenWidth, ContentManager contentManager) :
-            base(_random.Next(screenWidth / 3, screenWidth - screenWidth / 3), 0, _skin, new Sprite(contentManager.Load<Texture2D>(_skin.Asset)))
-        {
+        protected static Random _random = new Random();
 
+        public Item(float x, float y, Skin skin, Sprite sprite)
+            : base (x, y, skin, sprite)
+        {
+            
         }
 
-        public abstract override void Move(float delta, int screenHeight, int screenWidth);
+        public override void Move(float delta, int screenHeight, int screenWidth)
+        {
+            {
+                y += 2;
+                if (y >= screenHeight)
+                    throw new ExceptionItemDelete();
+            }
+        }
 
         public abstract void BallHitItem(Ball ball);
 

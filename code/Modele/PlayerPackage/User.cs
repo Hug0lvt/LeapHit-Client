@@ -10,8 +10,8 @@ namespace Modele.PlayerPackage
 {
     public class User
     {
-        private string pseudo;
-        private UserStat globalStat;
+        public string Pseudo { get; private set; }
+        public UserStat GlobalStat { get; private set; }
         private List<Skin> skins;
 
         private Skin selectedPaddle;
@@ -19,8 +19,8 @@ namespace Modele.PlayerPackage
 
         public User(string pseudo)
         {
-            this.pseudo = pseudo;
-            globalStat = new UserStat();
+            Pseudo = pseudo;
+            GlobalStat = new UserStat();
             skins = new List<Skin>();
 
             selectedPaddle = new PaddleSkin("Form/paddle", "simplePaddle");

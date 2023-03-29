@@ -16,7 +16,7 @@ namespace PongClient.Screens.HeaderPackage
 {
     public class ScreenHeader : PongScreen
     {
-        private SpriteBatch _spriteBatch;
+        protected SpriteBatch _spriteBatch;
         private Texture2D _returnBarTexture;
         private Texture2D _rondBackTexture;
         private Texture2D _rondFrontTexture;

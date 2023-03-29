@@ -23,16 +23,12 @@ namespace Modele.GamePackage
         private Player externalPlayer;
         protected Ball ball;
         private GameStat gameStat;
-        private WebSocket webSocket;
         //Item
         public Item _item;
         private int _screenWidth;
         private int _screenHeight;
         private ContentManager _contentManager;
-        private float timeItemGnerate;
-
-
-        private float _time = 0;
+        private float timeItemGnerate = (float)(new Random().NextDouble()* (10 - 4));
 
 
 
@@ -58,14 +54,16 @@ namespace Modele.GamePackage
 
         }
 
-        public void Play(int screenWidth, int screenHeight, float elapsedSecond)
+        public virtual void Play(int screenWidth, int screenHeight, float elapsedSecond)
         {
-            _time += elapsedSecond;
+            
             if (_item == null)
             {
                 Random rand = new Random();
-                timeItemGnerate = 2/*_time + 2 + (float)(rand.NextDouble() * (120 - _time + 2))*/;
-                if (_time >= timeItemGnerate)
+
+                Debug.WriteLine(gameStat.Time.TotalSeconds + "  ----- " + timeItemGnerate);
+
+                if (gameStat.Time.TotalSeconds >= timeItemGnerate)
                 {
                     _item = new SnipeItem(_screenWidth, _contentManager);
                 }
@@ -73,6 +71,7 @@ namespace Modele.GamePackage
             
                
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
+            if (externalPlayer.GetType() == typeof(Bot)) (externalPlayer.StrategieMovement as Aleatoire).ElapsedSeconds = elapsedSecond;
             externalPlayer.Paddle.Move(externalPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
 
             SetScore(ball, screenWidth, screenHeight, elapsedSecond);
@@ -88,23 +87,24 @@ namespace Modele.GamePackage
             catch (ExceptionItemDelete)
             {
                 _item = null;
+                timeItemGnerate = (float)(new Random().NextDouble() * (15 - 10) + gameStat.Time.TotalSeconds);
             }
 
         }
 
-        private void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
+        protected virtual void SetScore(Ball ball, int screenWidth, int screenHeight, float elapsedSecond)
         {
             ball.Move(elapsedSecond, screenHeight, screenWidth);
 
             var halfWidth = ball.Zone.Width / 2;
 
-            if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
+            if (ball.X > screenWidth - halfWidth && ball.Velocity.X > 0)
             {
                 gameStat.Score.IncrementScore(localPlayer);
                 ball.Reset(screenHeight, screenWidth, true);
             }
 
-            if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            if (ball.X < halfWidth && ball.Velocity.X < 0)
             {
                 gameStat.Score.IncrementScore(externalPlayer);
                 ball.Reset(screenHeight, screenWidth, false);

@@ -61,7 +61,6 @@ classDiagram
     }
     User --> "1" UserStat : globalStat
     User --> "*" Skin : skins
-    User --> "1" Skin : selectedBall
     User --> "1" Skin : selectedPaddle
     
 
