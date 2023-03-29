@@ -86,10 +86,10 @@ namespace Modele.GamePackage
 
             // Move
             localPlayer.Paddle.Move(localPlayer.StrategieMovement.GetMovement(), screenHeight, screenWidth);
-            
+
             if (clientSocket._isHost)
             {
-                ball.Move(_elapsedtime, screenHeight, screenWidth);
+                ball.Move(elapsedSecond, screenHeight, screenWidth);
                 localPlayer.Paddle.BallHitPaddle(ball);
                 externalPlayer.Paddle.BallHitPaddle(ball);
             }
