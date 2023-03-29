@@ -117,7 +117,16 @@ namespace Modele.GamePackage
 
             var halfWidth = ball.Zone.Width / 2;
 
-            if (ball.X > screenWidth + halfWidth && ball.Velocity.X > 0)
+            var right = screenWidth + halfWidth;
+            var left = -halfWidth;
+
+            if (!clientSocket._isHost)
+            {
+                right = screenWidth + halfWidth - 10;
+                left = -halfWidth + 10;
+            }
+
+            if (ball.X > right && ball.Velocity.X > 0)
             {
                 GameStat.Score.IncrementScore(localPlayer);
                 if(clientSocket._isHost)
@@ -126,7 +135,7 @@ namespace Modele.GamePackage
                 }
             }
 
-            if (ball.X < -halfWidth && ball.Velocity.X < 0)
+            if (ball.X < left && ball.Velocity.X < 0)
             {
                 GameStat.Score.IncrementScore(externalPlayer);
                 if (clientSocket._isHost)
