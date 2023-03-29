@@ -56,11 +56,9 @@ namespace Modele.GamePackage
                 GameEntities datas = NetworkGameEntities.Receive(clientSocket);
                 float playerReceive = datas.Paddle;
 
-                Debug.WriteLine("reçu : " + playerReceive);
-                Tuple<float, float> ballReceive = datas.Ball;
-
                 if (!clientSocket._isHost)
-                { 
+                {
+                    Tuple<float, float> ballReceive = datas.Ball;
                     // Set coordonate
                     ball.X = ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
@@ -120,11 +118,11 @@ namespace Modele.GamePackage
             if (clientSocket._isHost)
             {
                 ball.Move(elapsedSecond, screenHeight, screenWidth);
-                //localPlayer.Paddle.BallHitPaddle(ball);
-                //externalPlayer.Paddle.BallHitPaddle(ball);
+                localPlayer.Paddle.BallHitPaddle(ball);
+                externalPlayer.Paddle.BallHitPaddle(ball);
             }
 
-            //SetScore(ball, screenWidth, screenHeight, elapsedSecond);
+            SetScore(ball, screenWidth, screenHeight, elapsedSecond);
 
 
             //localPlayer.Paddle.BallHitPaddle(ball);
