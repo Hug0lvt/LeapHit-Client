@@ -22,14 +22,11 @@ namespace PongClient.Screens.HeaderPackage
         private Sprite _optionTexture;
         private Sprite _gameModeTexture;
         private Sprite _botLevel;
-        private SpriteBatch _spriteBatch;
         private List<Component> _components;
 
-        private Vector2 rectangleHoverPosition;
-
-        private Vector2 rectanglePosition1;
-        private Vector2 rectanglePosition2;
-        private Vector2 rectanglePosition3;
+        private Vector2 movementButton;
+        private Vector2 botButton;
+        private Sprite withRectangle;
 
         private string selectedMovement = "mouse";
         private int botLevel = 2;
@@ -48,7 +45,7 @@ namespace PongClient.Screens.HeaderPackage
             _botLevel = new Sprite(Content.Load<Texture2D>("Text/Bot Level"));
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var withRectangle = new Sprite(Content.Load<Texture2D>("Form/littleWhiteRectangle"));
+            withRectangle = new Sprite(Content.Load<Texture2D>("Form/littleWhiteRectangle"));
 
             var mouseTexture = new Sprite(Content.Load<Texture2D>("Text/Mouse"));
             var leapTexture = new Sprite(Content.Load<Texture2D>("Text/Leap"));
@@ -58,21 +55,15 @@ namespace PongClient.Screens.HeaderPackage
                                                                                          _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
             mouseButton.Click += ChangeGameMode;
 
-            rectanglePosition1 = new Vector2(_widthCenter / 2, _heightCenter - 100 + _gameModeTexture.TextureRegion.Height);
-
             var leapButton = new ButtonHovered(leapTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                        mouseButton._position.Y + 90));
             leapButton.Click += ChangeGameMode;
-
-            rectanglePosition2 = new Vector2(_widthCenter / 2, mouseButton._position.Y + 90);
 
             var cameraButton = new ButtonHovered(cameraTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                            leapButton._position.Y + 90));
             cameraButton.Click += ChangeGameMode;
 
-            rectanglePosition3 = new Vector2(_widthCenter / 2, leapButton._position.Y + 90);
-
-            rectangleHoverPosition = rectanglePosition1;
+            movementButton = mouseButton._position;
 
             var easyTexture = new Sprite(Content.Load<Texture2D>("Text/Easy"));
             var averageTexture = new Sprite(Content.Load<Texture2D>("Text/Average"));
@@ -89,6 +80,8 @@ namespace PongClient.Screens.HeaderPackage
             var hardButton = new ButtonHovered(hardTexture, withRectangle, new Vector2(_widthCenter * 2 - _widthCenter / 2,
                                                                                            averageButton._position.Y + 90));
             hardButton.Click += ChangeBotLevel;
+
+            botButton = averageButton._position;
 
 
             var applyTexture = new Sprite(Content.Load<Texture2D>("Text/Apply"));
@@ -109,16 +102,16 @@ namespace PongClient.Screens.HeaderPackage
 
         public void ChangeGameMode(object sender, EventArgs e)
         {
-            var button = sender as Button;
+            var button = sender as ButtonHovered;
             selectedMovement = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
-
-            //rectangleHoverPosition = rectanglePosition1;
+            movementButton = button._position;
         }
 
         public void ChangeBotLevel(object sender, EventArgs e)
         {
             var button = sender as Button;
             var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
+            botButton = button._position;
 
             Debug.WriteLine(mode);
 
@@ -154,6 +147,9 @@ namespace PongClient.Screens.HeaderPackage
             _spriteBatch.Draw(_optionTexture, new Vector2(_widthCenter * 2 - _optionTexture.TextureRegion.Width / 2, 40), 0, Vector2.One);
             _spriteBatch.Draw(_gameModeTexture, new Vector2(_widthCenter / 2, _heightCenter - 100), 0, Vector2.One);
             _spriteBatch.Draw(_botLevel, new Vector2(_widthCenter * 2 - _widthCenter / 2, _heightCenter - 100), 0, Vector2.One);
+            _spriteBatch.Draw(withRectangle, movementButton);
+            _spriteBatch.Draw(withRectangle, botButton);
+
 
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);

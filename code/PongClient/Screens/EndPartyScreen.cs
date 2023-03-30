@@ -6,16 +6,20 @@ using Modele.EntityPackage;
 using Modele.MovementPackage.MotionSensorPackage;
 using Modele.PlayerPackage;
 using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Sprites;
 using PongClient.Controls;
 using PongClient.Screens.MenuPackage;
+using Shared.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 using Game = Modele.GamePackage.Game;
+using Player = Modele.PlayerPackage.Player;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace PongClient.Screens
@@ -79,18 +83,18 @@ namespace PongClient.Screens
             _spriteBatch.Draw(_backgroundTexture, new Vector2(0, 0), Color.White);
 
             DrawParty(gameTime, _pongGame);
-            DrawPlayer(gameTime, _pongGame.LocalPlayer, localPlayerRectangle);
-            DrawPlayer(gameTime, _pongGame.ExternalPlayer, externalPlayerRectangle);
+            DrawPlayer(gameTime, _pongGame.LocalPlayer, localPlayerRectangle, "You");
+            DrawPlayer(gameTime, _pongGame.ExternalPlayer, externalPlayerRectangle, "Opponent");
 
             newGameButton.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
         }
 
-        public void DrawPlayer(GameTime gameTime, Player player, Card playerCard)
+        public void DrawPlayer(GameTime gameTime, Player player, Card playerCard, string text)
         {
             playerCard.Draw(gameTime, _spriteBatch);
-
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(playerCard.Position.X - _game.Font.MeasureString(text).Length() / 2, playerCard.Position.Y - 80), Color.White);    
         }
 
         public void DrawParty(GameTime gameTime, Game game)
@@ -98,7 +102,12 @@ namespace PongClient.Screens
             rectangle1.Draw(gameTime, _spriteBatch);
             rectangle2.Draw(gameTime, _spriteBatch);
             rectangle3.Draw(gameTime, _spriteBatch);
-
+            var text = game.GameStat.Score.GetWinner() == game.LocalPlayer ? "Winner" : "Loser";
+            var you = game.GameStat.Score.GetScore().Item1.ToString();
+            var opponent = game.GameStat.Score.GetScore().Item2.ToString();
+            _spriteBatch.DrawString(_game.Font, text, new Vector2(rectangle1.Position.X - _game.Font.MeasureString(text).Length() / 2, rectangle1.Position.Y - 30), Color.Black);
+            _spriteBatch.DrawString(_game.Font, you, new Vector2(rectangle2.Position.X - _game.Font.MeasureString(you).Length() / 2, rectangle2.Position.Y - 30), Color.Black);
+            _spriteBatch.DrawString(_game.Font, opponent, new Vector2(rectangle3.Position.X - _game.Font.MeasureString(opponent).Length() / 2, rectangle3.Position.Y - 30), Color.Black);
         }
 
         private void NewGameButton_Click(object sender, EventArgs e)
