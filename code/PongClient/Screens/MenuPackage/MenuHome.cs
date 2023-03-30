@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonoGame.Extended.Sprites;
+using System.Diagnostics;
 
 namespace PongClient.Screens.MenuPackage
 {
@@ -15,6 +16,9 @@ namespace PongClient.Screens.MenuPackage
     {
         private List<Component> _components;
         private SpriteBatch _spriteBatch;
+        private readonly TimeSpan timerLength = TimeSpan.FromSeconds(10);
+        private double timer = 0;
+        private Sprite whitePlay;
 
         public MenuHome(GamePong game)
           : base(game)
@@ -33,7 +37,7 @@ namespace PongClient.Screens.MenuPackage
             var statisticsTexture = new Sprite(Content.Load<Texture2D>("Text/Statistics"));
             var friendIcoTexture = new Sprite(Content.Load<Texture2D>("Icon/FriendsIco"));
             
-            var whitePlay = new Sprite(Content.Load<Texture2D>("Form/PlayWhite"));
+            whitePlay = new Sprite(Content.Load<Texture2D>("Form/PlayWhite"));
 
             var newGameButton = new ButtonHovered(playIcoTexture, whitePlay, new Vector2(_widthCenter,
                                                                                  _heightCenter - 200));
@@ -101,6 +105,17 @@ namespace PongClient.Screens.MenuPackage
 
             base.Draw(gameTime);
 
+            Debug.WriteLine(timer);
+            if (timer > 10)
+            {
+                _spriteBatch.Draw(whitePlay, new Vector2(_widthCenter, _heightCenter - 200));
+            }
+
+            if (timer > 11) 
+            {
+                timer = 9;
+            }
+
             foreach (var component in _components)
                 component.Draw(gameTime, _spriteBatch);
 
@@ -109,6 +124,9 @@ namespace PongClient.Screens.MenuPackage
 
         public override void Update(GameTime gameTime)
         {
+            timer += gameTime.ElapsedGameTime.TotalSeconds;
+            
+
             base.Update(gameTime);
 
             foreach (var component in _components)
