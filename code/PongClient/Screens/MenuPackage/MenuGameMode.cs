@@ -84,64 +84,14 @@ namespace PongClient.Screens.MenuPackage
 
         private void OnlineButton_Click(object sender, EventArgs e)
         {
-            _menuSoundEffectInstance.Stop();
-
-            var socket = new ClientSocket("hulivet.fr", 3131);
-
-            var playerToSend = new Shared.DTO.UserPlayer()
-            {
-                Pseudo = _localPlayer.Profile.Pseudo,
-                X = (int)(_widthCenter * 2 - _localPlayer.Paddle.X)
-            };
-
-            var playerDto = new Shared.DTO.Player()
-            {
-                name = _localPlayer.Profile.Pseudo,
-                nbBallTouchTotal = _localPlayer.Profile.GlobalStat.TouchBallCount,
-                timePlayed = _localPlayer.Profile.GlobalStat.TimePlayed,
-                playerId = _localPlayer.Profile.Pseudo,
-            };
-
-            socket.Connect(playerDto);
-
-            NetworkPlayer.SendPlayer(socket, playerToSend);
-            var playerReceive = NetworkPlayer.ReceivePlayer(socket);
-            var externalPlayer = new UserPlayer(new User(playerReceive.Pseudo), playerReceive.X, _game, new Modele.MovementPackage.MotionSensorPackage.Mouse());
-            externalPlayer.Paddle.Sprite = new Sprite(Content.Load<Texture2D>(_localPlayer.Paddle.Skin));
-            
-            var gameStat = new GameStat();
-
-            var ballSkin = new BallSkin("Form/ball", "simple ball");
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
-
-            _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, ball, _widthCenter * 2, _heightCenter * 2, Content, socket);
-
-            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
-            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
-            (_pongGame.ExternalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            ScreenManager.LoadScreen(new LoadScreen(_game, _localPlayer, "online"));
+            (_localPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void LocalButton_Click(object sender, EventArgs e)
         {
-            _menuSoundEffectInstance.Stop();
-            var paddleSkin = new PaddleSkin("Form/paddle", "simple paddle");            
-            var paddleExternalPlayer = new Paddle(_widthCenter * 2 - 100, _heightCenter, paddleSkin, new Sprite(Content.Load<Texture2D>(paddleSkin.Asset)));
-
-            var ballSkin = new BallSkin("Form/ball", "simple ball");
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
-
-            var externalPlayer = new Bot(paddleExternalPlayer, ball, _game.BotLevel)
-            {
-                Ready = true
-            };
-
-
-            var gameStat = new GameStat();
-
-            _pongGame = new Modele.GamePackage.Game(_localPlayer, externalPlayer, gameStat, ball, _widthCenter*2, _heightCenter*2, Content);
-
-            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
-            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            ScreenManager.LoadScreen(new LoadScreen(_game, _localPlayer, "local"));
+            (_localPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
 
         private void HostButton_Click(object sender, EventArgs e)

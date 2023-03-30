@@ -82,39 +82,8 @@ namespace PongClient.Screens
 
         private void StartGame()
         {
-            var socket = new ClientSocket("hulivet.fr", 3131);
-
-            var playerToSend = new Shared.DTO.UserPlayer()
-            {
-                Pseudo = _localPlayer.Profile.Pseudo,
-                X = (int)(_widthCenter * 2 - _localPlayer.Paddle.X)
-            };
-
-            var playerDto = new Shared.DTO.Player()
-            {
-                name = _localPlayer.Profile.Pseudo,
-                nbBallTouchTotal = _localPlayer.Profile.GlobalStat.TouchBallCount,
-                timePlayed = _localPlayer.Profile.GlobalStat.TimePlayed,
-                playerId = _localPlayer.Profile.Pseudo,
-            };
-
-            socket.Host(playerDto);
-
-            NetworkPlayer.SendPlayer(socket, playerToSend);
-            var playerReceive = NetworkPlayer.ReceivePlayer(socket);
-            var externalPlayer = new UserPlayer(new User(playerReceive.Pseudo), playerReceive.X, _game, new Modele.MovementPackage.MotionSensorPackage.Mouse());
-            externalPlayer.Paddle.Sprite = new Sprite(Content.Load<Texture2D>(_localPlayer.Paddle.Skin));
-
-            var gameStat = new GameStat();
-
-            var ballSkin = new BallSkin("Form/ball", "simple ball");
-            var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
-
-            var _pongGame = new GameOnline(_localPlayer, externalPlayer, gameStat, ball, _widthCenter * 2, _heightCenter * 2, Content, socket);
-
-            ScreenManager.LoadScreen(new LoadScreen(_game, _pongGame));
-            (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StartMovement();
-            (_pongGame.ExternalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            ScreenManager.LoadScreen(new LoadScreen(_game, _localPlayer, "host"));
+            (_localPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
     }
 }

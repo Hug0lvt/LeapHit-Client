@@ -19,7 +19,7 @@ namespace ServerCommunication.Server
         public UdpClient _client { get; set; }
         public bool _isHost { get; set; }
 
-        public ClientSocket(string host, int port)
+        public ClientSocket()
         {
             //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
 
