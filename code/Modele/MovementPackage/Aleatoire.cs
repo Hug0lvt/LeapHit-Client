@@ -8,17 +8,19 @@ namespace Modele.MovementPackage
         private readonly GameEntity _paddle;
 
         public float ElapsedSeconds { get; set; }
+        private float _difficulty;
 
-        public Aleatoire(Ball ball, GameEntity paddle, int difficulty)
+        public Aleatoire(Ball ball, GameEntity paddle, float difficulty)
         {
             _ball = ball;
             _paddle = paddle;
+            _difficulty = difficulty;
+
         }
 
         public float GetMovement()
         {
-            const float difficulty = 1.1f;
-            var paddleSpeed = Math.Abs(_ball.Velocity.Y) * difficulty;
+            var paddleSpeed = Math.Abs(_ball.Velocity.Y) * _difficulty;
 
             if (paddleSpeed < 0)
                 paddleSpeed = -paddleSpeed;

@@ -39,7 +39,7 @@ namespace PongClient.Screens
         private readonly Game _pongGame;
         private SoundEffectInstance _musicInstance; // Instance de la musique
         private readonly TimeSpan timerLength = TimeSpan.FromMinutes(2);
-        private readonly int maxScore = 1;
+        private readonly int maxScore = 6;
 
         public PartyScreen(GamePong game, Game pongGame)
           : base(game)

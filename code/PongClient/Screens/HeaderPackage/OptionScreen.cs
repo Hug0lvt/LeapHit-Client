@@ -29,7 +29,7 @@ namespace PongClient.Screens.HeaderPackage
         private Sprite withRectangle;
 
         private string selectedMovement = "mouse";
-        private int botLevel = 2;
+        private float botLevel = 1.5f;
 
         public OptionScreen(GamePong game)
             : base(game)
@@ -118,13 +118,13 @@ namespace PongClient.Screens.HeaderPackage
             switch(mode)
             {
                 case "easy":
-                    botLevel = 1;
+                    botLevel = 1.4f;
                     break;
                 case "average":
-                    botLevel = 2;
+                    botLevel = 1.6f;
                     break;
                 case "hard":
-                    botLevel = 3;
+                    botLevel = 2.2f;
                     break;
                 default: 
                     break;
