@@ -25,6 +25,12 @@ namespace PongClient.Screens.HeaderPackage
         private SpriteBatch _spriteBatch;
         private List<Component> _components;
 
+        private Vector2 rectangleHoverPosition;
+
+        private Vector2 rectanglePosition1;
+        private Vector2 rectanglePosition2;
+        private Vector2 rectanglePosition3;
+
         private string selectedMovement = "mouse";
         private int botLevel = 2;
 
@@ -52,13 +58,21 @@ namespace PongClient.Screens.HeaderPackage
                                                                                          _heightCenter - 100 + _gameModeTexture.TextureRegion.Height));
             mouseButton.Click += ChangeGameMode;
 
+            rectanglePosition1 = new Vector2(_widthCenter / 2, _heightCenter - 100 + _gameModeTexture.TextureRegion.Height);
+
             var leapButton = new ButtonHovered(leapTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                        mouseButton._position.Y + 90));
             leapButton.Click += ChangeGameMode;
 
+            rectanglePosition2 = new Vector2(_widthCenter / 2, mouseButton._position.Y + 90);
+
             var cameraButton = new ButtonHovered(cameraTexture, withRectangle, new Vector2(_widthCenter / 2,
                                                                                            leapButton._position.Y + 90));
             cameraButton.Click += ChangeGameMode;
+
+            rectanglePosition3 = new Vector2(_widthCenter / 2, leapButton._position.Y + 90);
+
+            rectangleHoverPosition = rectanglePosition1;
 
             var easyTexture = new Sprite(Content.Load<Texture2D>("Text/Easy"));
             var averageTexture = new Sprite(Content.Load<Texture2D>("Text/Average"));
@@ -97,6 +111,8 @@ namespace PongClient.Screens.HeaderPackage
         {
             var button = sender as Button;
             selectedMovement = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
+
+            //rectangleHoverPosition = rectanglePosition1;
         }
 
         public void ChangeBotLevel(object sender, EventArgs e)

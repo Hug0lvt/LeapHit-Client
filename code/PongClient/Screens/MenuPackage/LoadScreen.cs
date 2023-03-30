@@ -164,7 +164,7 @@ namespace PongClient.Screens.MenuPackage
             var ball = new Ball(_widthCenter, _heightCenter, ballSkin, new Sprite(Content.Load<Texture2D>(ballSkin.Asset)));
 
             _loadedGame = new GameOnline(_localPlayer, externalPlayer, gameStat, ball, _widthCenter * 2, _heightCenter * 2, Content, socket);
-            (_loadedGame.ExternalPlayer.StrategieMovement as MotionSensor).StartMovement();
+            _loadedGame.ExternalPlayer.Ready = true;
         }
 
         private void StartLocalGame()
