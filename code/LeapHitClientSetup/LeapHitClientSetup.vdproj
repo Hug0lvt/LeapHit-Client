@@ -46046,7 +46046,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_93697D644587422998CCDF0D5387BBE6"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:C:\\[Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -48238,9 +48238,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:LeapHitClientSetup"
+        "ProductName" = "8:LeapHitClient"
         "ProductCode" = "8:{0CC95F0D-6192-425B-B066-D1B288374A4B}"
-        "PackageCode" = "8:{4B2E152E-E286-4B5B-B376-52EA2C02C5A5}"
+        "PackageCode" = "8:{0391C8EC-2F66-481C-B691-FB51C5E93D49}"
         "UpgradeCode" = "8:{683E66B1-9585-4BDB-9C74-522085A364BC}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
