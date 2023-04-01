@@ -11,7 +11,8 @@ namespace Modele.MovementPackage.MotionSensorPackage
 {
     public class Camera : MotionSensor
     {
-        private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\Modele\\CameraExe\\dist\\main\\main.exe");
+        //private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..\\..\\..\\..\\Modele\\CameraExe\\dist\\main\\main.exe");
+        private string exeFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "main\\main.exe");
         private Process process;
         private Thread thread;
         private float coordonate;
@@ -74,6 +75,7 @@ namespace Modele.MovementPackage.MotionSensorPackage
 
         public override void StartMovement()
         {
+            Debug.WriteLine(exeFile);
             process = new Process();
             var startInfo = new ProcessStartInfo(exeFile)
             {

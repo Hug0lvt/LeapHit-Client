@@ -21,9 +21,9 @@ namespace ServerCommunication.Server
 
         public ClientSocket()
         {
-            //IPEndPoint _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses(host).FirstOrDefault(), port);
+            _serverEndPoint = new IPEndPoint(Dns.GetHostAddresses("hulivet.fr").FirstOrDefault(), 3131);
 
-            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.135.58"), 3131);
+            //_serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.135.58"), 3131);
             _client = new UdpClient();
         }
 
