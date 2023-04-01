@@ -60,5 +60,8 @@
 	  <Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\Leap.dll&quot; &quot;$(TargetDir)&quot;" />
 	  <Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\LeapCSharp.dll&quot; &quot;$(TargetDir)&quot;" />
 	  <Exec Command="xcopy /yr &quot;$(ProjectDir)..\Modele\Dll\LeapCSharp.NET4.0.dll&quot; &quot;$(TargetDir)&quot;" />
+	  <Exec Command="if not exist $(TargetDir)\main mkdir $(TargetDir)\main"/>
+	  <Exec Command="xcopy /yres &quot;$(ProjectDir)..\Modele\CameraExe\dist\main&quot; &quot;$(TargetDir)main&quot; " />
+
   </Target>
 </Project>
