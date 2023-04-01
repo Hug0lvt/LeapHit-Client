@@ -12,7 +12,7 @@ namespace Modele.PlayerPackage
 {
     public class Bot : Player
     {
-        public Bot(GameEntity paddle, GameEntity ball, int difficulty)
+        public Bot(GameEntity paddle, GameEntity ball, float difficulty)
         {
             this.paddle = paddle;
             strategyMouvement = new Aleatoire((Ball)ball, paddle, difficulty);

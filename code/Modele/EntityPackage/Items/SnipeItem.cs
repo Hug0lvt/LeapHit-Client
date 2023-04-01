@@ -15,7 +15,7 @@ namespace Modele.EntityPackage.Items
     {
         private static Skin skinItem = new Skin("Icon/flashsmall", "speed");
         public SnipeItem(int screenWidth, ContentManager contentManager) : 
-            base(_random.Next(screenWidth / 3, screenWidth - screenWidth / 3), 0, skinItem, new Sprite(contentManager.Load<Texture2D>(skinItem.Asset)))
+            base(_random.Next(screenWidth / 6, screenWidth - screenWidth / 6), 0, skinItem, new Sprite(contentManager.Load<Texture2D>(skinItem.Asset)))
         {
         }
 

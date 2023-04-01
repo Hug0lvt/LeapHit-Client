@@ -33,13 +33,7 @@ namespace PongClient
 
         public string SelectedMovement { get; set; }
         public User User { get; }
-        public int BotLevel { get; set; }
-
-        private int ScreenResolutionWidth;
-        private int ScreenResolutionHeight;
-
-
-
+        public float BotLevel { get; set; }
 
         public Dictionary<string, MotionSensor> GameMode { get; }
 
@@ -73,7 +67,7 @@ namespace PongClient
             GameMode.Add("leap", new LeapMotion());
             GameMode.Add("camera", new Camera());
 
-            BotLevel = 2;
+            BotLevel = 1.6f;
 
             Font = Content.Load<SpriteFont>("Font/font-20");
         }
