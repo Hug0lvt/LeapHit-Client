@@ -61,7 +61,6 @@ namespace PongClient.Screens
 
             if(_loadedGame.LocalPlayer.Ready && _loadedGame.ExternalPlayer.Ready)
             {
-                Debug.WriteLine("test");
                 elapsedTime += gameTime.ElapsedGameTime;
             }
 

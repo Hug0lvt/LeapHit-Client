@@ -113,8 +113,6 @@ namespace PongClient.Screens.HeaderPackage
             var mode = button._texture.TextureRegion.Texture.Name.ToLower().Substring(5);
             botButton = button._position;
 
-            Debug.WriteLine(mode);
-
             switch(mode)
             {
                 case "easy":

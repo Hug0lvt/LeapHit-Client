@@ -16,7 +16,6 @@ namespace PongClient.Screens.MenuPackage
     {
         private List<Component> _components;
         private SpriteBatch _spriteBatch;
-        private readonly TimeSpan timerLength = TimeSpan.FromSeconds(10);
         private double timer = 0;
         private Sprite whitePlay;
 
@@ -105,7 +104,6 @@ namespace PongClient.Screens.MenuPackage
 
             base.Draw(gameTime);
 
-            Debug.WriteLine(timer);
             if (timer > 10)
             {
                 _spriteBatch.Draw(whitePlay, new Vector2(_widthCenter, _heightCenter - 200));

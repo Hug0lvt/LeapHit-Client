@@ -37,7 +37,6 @@ namespace Modele.GamePackage
             //while (!isFinish)
             while(true)
             {
-                Debug.WriteLine("thread");
                 // Send Data
                 var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
                                                                         new Tuple<float, float>(
@@ -87,7 +86,7 @@ namespace Modele.GamePackage
         {
             Debug.WriteLine("fin partie");
 
-            isFinish = true;
+            //isFinish = true;
         }
 
         public override void Play(int screenWidth, int screenHeight, float elapsedSecond)
