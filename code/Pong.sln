@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modele", "Modele\Modele.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAndDebug", "TestAndDebug\TestAndDebug.csproj", "{80944BCC-E6C5-48BE-A0B7-E645F17CA094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCommunication", "ServerCommunication\ServerCommunication.csproj", "{55286900-DBA6-405E-9EC6-08099563054A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCommunication", "ServerCommunication\ServerCommunication.csproj", "{55286900-DBA6-405E-9EC6-08099563054A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{6265CE55-40BE-4D03-970E-2E39496A6F8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{6265CE55-40BE-4D03-970E-2E39496A6F8A}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LeapHitClientSetup", "LeapHitClientSetup\LeapHitClientSetup.vdproj", "{2BC2A505-5DAF-4148-9556-0CF4AA253884}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,8 @@ Global
 		{6265CE55-40BE-4D03-970E-2E39496A6F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6265CE55-40BE-4D03-970E-2E39496A6F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6265CE55-40BE-4D03-970E-2E39496A6F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC2A505-5DAF-4148-9556-0CF4AA253884}.Debug|Any CPU.ActiveCfg = Debug
+		{2BC2A505-5DAF-4148-9556-0CF4AA253884}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

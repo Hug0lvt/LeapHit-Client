@@ -3,6 +3,7 @@ using ServerCommunication.Api.WriteReadFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,8 @@ namespace ServerCommunication.Api
 
     public class IdManager
     {
-        private string _fileName = "..\\..\\..\\..\\Communication\\id.bin";
+
+        private string _fileName = "id.bin";
 
         public string Write()
         {
