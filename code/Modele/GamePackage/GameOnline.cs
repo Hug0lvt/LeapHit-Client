@@ -37,6 +37,7 @@ namespace Modele.GamePackage
         {
             while (!isFinish)
             {
+                Debug.WriteLine("thread");
                 // Send Data
                 var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
                                                                         new Tuple<float, float>(
