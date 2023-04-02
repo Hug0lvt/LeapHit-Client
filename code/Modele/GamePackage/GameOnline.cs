@@ -57,17 +57,7 @@ namespace Modele.GamePackage
                 // Receive Data
                 ObjectTransfert<Tuple<GameEntities, Tuple<int, int>>> tmp = NetworkGameEntities.Receive(clientSocket);
                 Tuple<GameEntities, Tuple<int, int>> datas = tmp.Data;
-
-
-
-                if (tmp.Informations.Action == Shared.DTO.Action.End || datas.Item2.Item2 == 6 || datas.Item2.Item1 == 6)
-                {
-                    isFinish = true;
-                    if(!clientSocket._isHost) GameStat.Score.SetScore(datas.Item2);
-                    return;
-                }
-
-
+                
                 float playerReceive = datas.Item1.Paddle;
 
                 if (!clientSocket._isHost)
@@ -84,6 +74,12 @@ namespace Modele.GamePackage
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
                 frame++;
+
+                if (tmp.Informations.Action == Shared.DTO.Action.End || GameStat.Score.IsWin(6))
+                {
+                    isFinish = true;
+                    return;
+                }
             }
         }
 

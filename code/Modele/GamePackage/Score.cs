@@ -34,6 +34,12 @@ namespace Modele.GamePackage
             return new Tuple<int, int>(player1.Item2, player2.Item2);
         }
 
+        public bool IsWin(int max)
+        {
+            if (GetScore().Item1 >= max || GetScore().Item2 >= max) return true;
+            return false;
+        }
+
         public void SetScore(Tuple<int, int> score)
         {
             player1 = new Tuple<Player, int>(player1.Item1, score.Item1);

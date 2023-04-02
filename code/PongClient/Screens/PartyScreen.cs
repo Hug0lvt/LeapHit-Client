@@ -39,7 +39,7 @@ namespace PongClient.Screens
         private readonly Game _pongGame;
         private SoundEffectInstance _musicInstance; // Instance de la musique
         private readonly TimeSpan timerLength = TimeSpan.FromMinutes(2);
-        private readonly int maxScore = 6;
+        private static readonly int maxScore = 6;
 
         public PartyScreen(GamePong game, Game pongGame)
           : base(game)
@@ -120,8 +120,7 @@ namespace PongClient.Screens
         {
             if ((Keyboard.GetState().IsKeyDown(Keys.Escape) && _pongGame.GetType() != typeof(GameOnline))
                 || _pongGame.GameStat.Time >= timerLength 
-                || _pongGame.GameStat.Score.GetScore().Item1 >= maxScore 
-                || _pongGame.GameStat.Score.GetScore().Item2 >= maxScore
+                || _pongGame.GameStat.Score.IsWin(maxScore)
                 || _pongGame.IsFinish)
             {
                 _game.IsMouseVisible = true;
