@@ -63,6 +63,7 @@ namespace Modele.GamePackage
                 if (tmp.Informations.Action == Shared.DTO.Action.End || datas.Item2.Item2 == 6 || datas.Item2.Item1 == 6)
                 {
                     isFinish = true;
+                    if(!clientSocket._isHost) GameStat.Score.SetScore(datas.Item2);
                     return;
                 }
 
@@ -76,9 +77,7 @@ namespace Modele.GamePackage
                     ball.X = screenWidth - ballReceive.Item1;
                     ball.Y = ballReceive.Item2;
 
-                    Tuple<int, int> score = new Tuple<int, int>(datas.Item2.Item2, datas.Item2.Item1);
-
-                    GameStat.Score.SetScore(score);
+                    GameStat.Score.SetScore(datas.Item2);
                 }
 
                 // Move
