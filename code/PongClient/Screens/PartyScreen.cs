@@ -121,7 +121,8 @@ namespace PongClient.Screens
             if ((Keyboard.GetState().IsKeyDown(Keys.Escape) && _pongGame.GetType() != typeof(GameOnline))
                 || _pongGame.GameStat.Time >= timerLength 
                 || _pongGame.GameStat.Score.GetScore().Item1 >= maxScore 
-                || _pongGame.GameStat.Score.GetScore().Item2 >= maxScore)
+                || _pongGame.GameStat.Score.GetScore().Item2 >= maxScore
+                || _pongGame.IsFinish)
             {
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();

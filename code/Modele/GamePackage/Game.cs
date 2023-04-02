@@ -18,11 +18,11 @@ namespace Modele.GamePackage
 {
     public class Game
     {
-        private bool pause;
         private Player localPlayer;
         private Player externalPlayer;
         protected Ball ball;
         private GameStat gameStat;
+        protected bool isFinish = false;
         //Item
         public Item _item;
         private int _screenWidth;
@@ -37,6 +37,7 @@ namespace Modele.GamePackage
         public Player ExternalPlayer { get { return externalPlayer; } }
         public GameStat GameStat { get { return gameStat; } }
         public Ball Ball { get { return ball; } }
+        public bool IsFinish { get { return isFinish; } }
 
         public Game(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight,ContentManager contentManager)
         {

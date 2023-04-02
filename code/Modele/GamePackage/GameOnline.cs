@@ -19,7 +19,6 @@ namespace Modele.GamePackage
         private long frame = 0;
 
         private Thread thread;
-        private bool isFinish = false;
 
         public GameOnline(Player localPlayer, Player externalPlayer, GameStat gameStat, Ball ball, int screenWidth, int screenHeight, ContentManager contentManager, ClientSocket socket) 
             : base(localPlayer, externalPlayer, gameStat, ball, screenWidth, screenHeight, contentManager)
@@ -61,7 +60,11 @@ namespace Modele.GamePackage
 
 
 
-                if (tmp.Informations.Action == Shared.DTO.Action.End) return;
+                if (tmp.Informations.Action == Shared.DTO.Action.End)
+                {
+                    isFinish = true;
+                    return;
+                }
 
 
                 float playerReceive = datas.Item1.Paddle;
