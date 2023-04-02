@@ -60,7 +60,7 @@ namespace Modele.GamePackage
 
 
 
-                if (tmp.Informations.Action == Shared.DTO.Action.End || GameStat.Score.GetScore().Item2==6 || GameStat.Score.GetScore().Item1 == 6)
+                if (tmp.Informations.Action == Shared.DTO.Action.End || datas.Item2.Item2 == 6 || datas.Item2.Item1 == 6)
                 {
                     isFinish = true;
                     return;
