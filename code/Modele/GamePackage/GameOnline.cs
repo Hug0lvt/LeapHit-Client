@@ -35,7 +35,8 @@ namespace Modele.GamePackage
 
         public void ExchangeData(int screenWidth, int screenHeight)
         {
-            while (!isFinish)
+            //while (!isFinish)
+            while(true)
             {
                 Debug.WriteLine("thread");
                 // Send Data
