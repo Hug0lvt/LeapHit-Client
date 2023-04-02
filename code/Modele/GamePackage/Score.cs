@@ -22,11 +22,14 @@ namespace Modele.GamePackage
         public Player GetWinner()
         {
             if(player1.Item2 > player2.Item2)
-            {
                 return player1.Item1;
+            else
+            {
+                if (player1.Item2 < player2.Item2)
+                    return player2.Item1;
+                else
+                    return null;
             }
-
-            return player2.Item1;
         }
 
         public Tuple<int, int> GetScore()

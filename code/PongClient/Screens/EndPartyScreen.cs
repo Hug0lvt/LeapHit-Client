@@ -103,6 +103,7 @@ namespace PongClient.Screens
             rectangle2.Draw(gameTime, _spriteBatch);
             rectangle3.Draw(gameTime, _spriteBatch);
             var text = game.GameStat.Score.GetWinner() == game.LocalPlayer ? "Winner" : "Loser";
+            if (game.GameStat.Score.GetWinner() == null) text = "Draw";
             var you = game.GameStat.Score.GetScore().Item1.ToString();
             var opponent = game.GameStat.Score.GetScore().Item2.ToString();
             _spriteBatch.DrawString(_game.Font, text, new Vector2(rectangle1.Position.X - _game.Font.MeasureString(text).Length() / 2, rectangle1.Position.Y - 30), Color.Black);

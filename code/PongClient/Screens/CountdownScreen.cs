@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Modele.MovementPackage.MotionSensorPackage;
@@ -66,6 +67,12 @@ namespace PongClient.Screens
 
             if (elapsedTime >= timerLength)
             {
+
+
+                if (_menuSoundEffectInstance != null && _menuSoundEffectInstance.State == SoundState.Playing)
+                {
+                    _menuSoundEffectInstance.Stop();
+                }
                 ScreenManager.LoadScreen(new PartyScreen(_game, _loadedGame));
             }
         }
