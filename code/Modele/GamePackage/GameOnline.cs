@@ -56,7 +56,14 @@ namespace Modele.GamePackage
                                     );
 
                 // Receive Data
-                Tuple<GameEntities, Tuple<int, int>> datas = NetworkGameEntities.Receive(clientSocket);
+                ObjectTransfert<Tuple<GameEntities, Tuple<int, int>>> tmp = NetworkGameEntities.Receive(clientSocket);
+                Tuple<GameEntities, Tuple<int, int>> datas = tmp.Data;
+
+
+
+                if (tmp.Informations.Action == Shared.DTO.Action.End) return;
+
+
                 float playerReceive = datas.Item1.Paddle;
 
                 if (!clientSocket._isHost)
@@ -81,6 +88,7 @@ namespace Modele.GamePackage
         public void Finish()
         {
             Debug.WriteLine("fin partie");
+
             isFinish = true;
         }
 

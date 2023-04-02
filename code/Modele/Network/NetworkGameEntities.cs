@@ -21,7 +21,7 @@ namespace Modele.Network
             clientSocket.Send<Tuple<GameEntities, Tuple<int, int>>>(obj);
         }
 
-        public static Tuple<GameEntities, Tuple<int, int>> Receive(ClientSocket clientSocket)
+        public static ObjectTransfert<Tuple<GameEntities, Tuple<int, int>>> Receive(ClientSocket clientSocket)
         {
             var entities = clientSocket.Receive<Tuple<GameEntities, Tuple<int, int>>>();
             while (entities == null)
@@ -29,7 +29,7 @@ namespace Modele.Network
                 entities = clientSocket.Receive<Tuple<GameEntities, Tuple<int, int>>>();
             }
 
-            return entities.Data;
+            return entities;
         }
 
 

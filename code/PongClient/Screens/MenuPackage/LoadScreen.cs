@@ -90,7 +90,7 @@ namespace PongClient.Screens.MenuPackage
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) (_loadedGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) (_localPlayer.StrategieMovement as MotionSensor).StopMovement();
             base.Update(gameTime);
 
             foreach (var loadedBall in loadedBalls)
