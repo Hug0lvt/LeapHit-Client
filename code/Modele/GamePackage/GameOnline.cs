@@ -73,12 +73,29 @@ namespace Modele.GamePackage
                 externalPlayer.Paddle.Move(playerReceive, screenHeight, screenWidth);
 
                 frame++;
-
                 if (tmp.Informations.Action == Shared.DTO.Action.End || GameStat.Score.IsWin(6))
                 {
                     isFinish = true;
                     //return;
                 }
+            }
+            if(clientSocket._isHost)
+            {
+                // Send Data
+                var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
+                                                                        new Tuple<float, float>(
+                                                                            ball.X,
+                                                                            ball.Y
+                                                                        ),
+                                                                        localPlayer.Paddle.Y
+                                                                    ),
+                                                                    GameStat.Score.GetScore()
+                                                                );
+
+                NetworkGameEntities.Send(clientSocket,
+                                        data,
+                                        frame
+                                    );
             }
         }
 
