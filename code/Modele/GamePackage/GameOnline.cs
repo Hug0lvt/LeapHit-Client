@@ -34,8 +34,8 @@ namespace Modele.GamePackage
 
         public void ExchangeData(int screenWidth, int screenHeight)
         {
-            //while (!isFinish)
-            while(true)
+            while (!isFinish)
+            //while(true)
             {
                 // Send Data
                 var data = new Tuple<GameEntities, Tuple<int, int>>(new GameEntities(
@@ -77,7 +77,7 @@ namespace Modele.GamePackage
                 if (tmp.Informations.Action == Shared.DTO.Action.End || GameStat.Score.IsWin(6))
                 {
                     isFinish = true;
-                    return;
+                    //return;
                 }
             }
         }
