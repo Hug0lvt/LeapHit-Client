@@ -34,6 +34,7 @@ namespace PongClient.Screens.MenuPackage
         private Game _loadedGame;
         private UserPlayer _localPlayer;
         private string _type;
+        private int cpt = 1;
 
         public LoadScreen(GamePong game, UserPlayer localPlayer, string type)
             : base(game)
@@ -103,7 +104,6 @@ namespace PongClient.Screens.MenuPackage
         {
             if (e.PropertyName == "Ready")
             {
-                Debug.WriteLine("Debug de switch case type");
                 MotionSensor sensor = sender as MotionSensor;
                 bool ready = sensor.Ready;
                 if (ready)
@@ -122,8 +122,16 @@ namespace PongClient.Screens.MenuPackage
                     }
                     _type = "";
                     ScreenManager.LoadScreen(new CountdownScreen(_game, _loadedGame));
+
+                    Desabonner();
                 }
             }
+        }
+
+        public void Desabonner()
+        {
+            Debug.WriteLine("desabonement");
+            (_localPlayer.StrategieMovement as MotionSensor).PropertyChanged -= OnReadyChanged;
         }
 
         private void StartOnlineGame(string type)

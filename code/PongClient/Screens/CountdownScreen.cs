@@ -67,8 +67,6 @@ namespace PongClient.Screens
 
             if (elapsedTime >= timerLength)
             {
-
-
                 if (_menuSoundEffectInstance != null && _menuSoundEffectInstance.State == SoundState.Playing)
                 {
                     _menuSoundEffectInstance.Stop();

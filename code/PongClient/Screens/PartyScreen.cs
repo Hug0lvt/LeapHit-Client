@@ -46,7 +46,7 @@ namespace PongClient.Screens
         {
             game.IsMouseVisible = false;
             _pongGame = pongGame;
-          
+
         }
 
         public override void LoadContent()
@@ -126,11 +126,16 @@ namespace PongClient.Screens
                 _game.IsMouseVisible = true;
                 _musicInstance.Stop();
                 (_pongGame.LocalPlayer.StrategieMovement as MotionSensor).StopMovement();
+                //new LoadScreen(_game, _pongGame.LocalPlayer as UserPlayer, "").Desabonner();
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape)) ScreenManager.LoadScreen(new MenuHome(_game));
                 else
                 {
-                    if(_pongGame.GetType() == typeof(GameOnline)) (_pongGame as GameOnline).Finish();
+                    if (_pongGame.GetType() == typeof(GameOnline))
+                    {
+                        (_pongGame as GameOnline).Finish();
+                    }
+
                     ScreenManager.LoadScreen(new EndPartyScreen(_game, _pongGame));
                 }
             }

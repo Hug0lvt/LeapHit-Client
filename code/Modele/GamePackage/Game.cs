@@ -62,8 +62,6 @@ namespace Modele.GamePackage
             {
                 Random rand = new Random();
 
-                Debug.WriteLine(gameStat.Time.TotalSeconds + "  ----- " + timeItemGnerate);
-
                 if (gameStat.Time.TotalSeconds >= timeItemGnerate)
                 {
                     _item = new SnipeItem(_screenWidth, _contentManager);
