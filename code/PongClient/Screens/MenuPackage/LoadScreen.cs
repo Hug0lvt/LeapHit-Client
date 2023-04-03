@@ -103,6 +103,7 @@ namespace PongClient.Screens.MenuPackage
         {
             if (e.PropertyName == "Ready")
             {
+                Debug.WriteLine("Debug de switch case type");
                 MotionSensor sensor = sender as MotionSensor;
                 bool ready = sensor.Ready;
                 if (ready)
@@ -113,10 +114,13 @@ namespace PongClient.Screens.MenuPackage
                         case "local":
                             StartLocalGame();
                             break;
-                        default:
+                        case "online":
                             StartOnlineGame(_type);
                             break;
+                        default:
+                            break;
                     }
+                    _type = "";
                     ScreenManager.LoadScreen(new CountdownScreen(_game, _loadedGame));
                 }
             }
