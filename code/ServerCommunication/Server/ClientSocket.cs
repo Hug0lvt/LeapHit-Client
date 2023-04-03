@@ -23,7 +23,7 @@ namespace ServerCommunication.Server
         {
             //_serverEndPoint = new IPEndPoint(Dns.GetHostAddresses("hulivet.fr").FirstOrDefault(), 3131);
 
-            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.45.105"), 3131);
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse("192.168.135.58"), 3131);
             _client = new UdpClient();
         }
 
@@ -102,8 +102,8 @@ namespace ServerCommunication.Server
 
         public void Disconnect()
         {
-            string connectionMessage = Shared.DTO.Action.End.ToString();
-            _client.Send(Encoding.ASCII.GetBytes(connectionMessage), _serverEndPoint);
+            //string connectionMessage = Shared.DTO.Action.End.ToString();
+            //_client.Send(Encoding.ASCII.GetBytes(connectionMessage), _serverEndPoint);
             _client.Close();
             _stateConnexion = false;
         }

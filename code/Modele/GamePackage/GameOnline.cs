@@ -97,6 +97,8 @@ namespace Modele.GamePackage
                                         frame
                                     );
             }
+
+            clientSocket.Disconnect();
         }
 
         public void Finish()
