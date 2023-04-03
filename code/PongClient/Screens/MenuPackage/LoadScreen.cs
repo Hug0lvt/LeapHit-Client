@@ -114,7 +114,7 @@ namespace PongClient.Screens.MenuPackage
                         case "local":
                             StartLocalGame();
                             break;
-                        case "online":
+                        case "online": case "host": case "join":
                             StartOnlineGame(_type);
                             break;
                         default:
