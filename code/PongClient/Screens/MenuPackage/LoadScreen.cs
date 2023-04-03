@@ -34,14 +34,15 @@ namespace PongClient.Screens.MenuPackage
         private Game _loadedGame;
         private UserPlayer _localPlayer;
         private string _type;
-        private int cpt = 1;
+        private string _idRoomToJoin;
 
-        public LoadScreen(GamePong game, UserPlayer localPlayer, string type)
+        public LoadScreen(GamePong game, UserPlayer localPlayer, string type, string idRoomToJoin = "")
             : base(game)
         {
             //_loadedGame = loadedGame;
             _localPlayer = localPlayer;
             _type = type;
+            _idRoomToJoin = idRoomToJoin;
         }
 
         public override void LoadContent()
@@ -161,7 +162,7 @@ namespace PongClient.Screens.MenuPackage
                     socket.Host(playerDto);
                     break;
                 case "join":
-                    socket.Join(playerDto, _localPlayer.Profile.Pseudo);
+                    socket.Join(playerDto, _idRoomToJoin);
                     break;
             }
 

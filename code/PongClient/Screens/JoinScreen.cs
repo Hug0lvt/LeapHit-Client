@@ -91,7 +91,7 @@ namespace PongClient.Screens
 
         private void StartGame()
         {
-            ScreenManager.LoadScreen(new LoadScreen(_game, _localPlayer, "join"));
+            ScreenManager.LoadScreen(new LoadScreen(_game, _localPlayer, "join", _textInput.Text));
             (_localPlayer.StrategieMovement as MotionSensor).StartMovement();
         }
     }
