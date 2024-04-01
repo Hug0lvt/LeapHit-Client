@@ -1,6 +1,5 @@
 # LeapHit
 
-Télécharger le client : https://hulivet.fr/projects/LeapHit/LeapHitClientSetup.msi
 
 ---
 
